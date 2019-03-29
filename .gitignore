@@ -1,0 +1,10 @@
+*.egg-info
+*.so
+.DS_Store
+.mypy_cache
+.pytest_cache
+.vscode
+MANIFEST
+__pycache__
+build
+dist
