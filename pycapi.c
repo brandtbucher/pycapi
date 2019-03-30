@@ -1,18 +1,18 @@
 # include "Python.h"
 
 
-# define CAPI_METHOD_VOID(F) {#F, pycapi_##F, METH_NOARGS, NULL}
-# define CAPI_DEFINE_VOID(F)                                                          \
-static PyObject* pycapi_##F(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(unused)) { \
-    F();                                                                              \
-    Py_RETURN_NONE;                                                                   \
+# define CAPI_METHOD_VOID(F) {#F, capi_##F, METH_NOARGS, NULL}
+# define CAPI_DEFINE_VOID(F)                                                        \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(unused)) { \
+    F();                                                                            \
+    Py_RETURN_NONE;                                                                 \
 }
 
-# define CAPI_METHOD_VOID_1PYOBJECT(F) {#F, pycapi_##F, METH_O, NULL}
-# define CAPI_DEFINE_VOID_1PYOBJECT(F)                                  \
-static PyObject* pycapi_##F(PyObject* Py_UNUSED(self), PyObject* arg) { \
-    F(arg);                                                             \
-    Py_RETURN_NONE;                                                     \
+# define CAPI_METHOD_VOID_1PYOBJECT(F) {#F, capi_##F, METH_O, NULL}
+# define CAPI_DEFINE_VOID_1PYOBJECT(F)                                \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* arg) { \
+    F(arg);                                                           \
+    Py_RETURN_NONE;                                                   \
 }
 
 
