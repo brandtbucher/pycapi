@@ -65,6 +65,38 @@ Traceback (most recent call last):
 AttributeError: dlsym(RTLD_DEFAULT, PyDict_Check): symbol not found
 ```
 
-`pycapi` also fully loaded on import, so you can use tab-completion and other introspection techniques to discover APIs. `pythonapi` requires you to access the attribute _before_ it is loaded, and there is no way to get a complete listing of what it supports.
+`pycapi` is also fully loaded on import, so you can use tab-completion and other introspection techniques to discover APIs. `pythonapi` requires you to access the attribute _before_ it is loaded, and there is no way to get a complete listing of what it supports.
+
+### It's faster.
+
+The numbers speak for themselves:
+
+```py
+In [1]: d = {}
+
+In [2]: from pycapi import PyDict_Clear
+
+In [3]: %timeit PyDict_Clear(d)
+45.7 ns ± 0.189 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+```
+
+```py
+In [1]: d = {}
+
+In [2]: %timeit d.clear()
+50.3 ns ± 0.462 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+```
+
+```py
+In [1]: d = {}
+
+In [2]: import ctypes
+   ...: PyDict_Clear = ctypes.pythonapi.PyDict_Clear
+   ...: PyDict_Clear.argtypes = (ctypes.py_object,)
+   ...: PyDict_Clear.restype = None
+
+In [3]: %timeit PyDict_Clear(d)
+293 ns ± 4.41 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+```
 
 </div>
