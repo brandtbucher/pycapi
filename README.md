@@ -4,9 +4,9 @@
 
 - - -
 
-PyCAPI is still in an early development stage. It is incomplete, and may contain some bugs in the interface between the Python and C layers. If so, please report them here!
+PyCAPI is still in an early development stage.<br>It is incomplete, and may contain bugs in the interface between the Python and C layers.<br>If so, please report them here!
 
-**When you use `pycapi` functions, you are using the _actual_ underlying API endpoints. Just as when calling them in C or `ctypes`, there is enormous potential to break things if you don't know what you're doing!**
+**PyCAPI is nothing more than a thin wrapper around the _actual_ underlying CPython C API.<br>As when using C or `ctypes`, there is the potential to break things if you don't know what you're doing!**
 
 - - -
 
