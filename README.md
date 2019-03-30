@@ -10,8 +10,8 @@ PyCAPI is still in an early development stage. It is incomplete, and may contain
 
 - - -
 
-PyCAPI `0.1.0`
-============
+PyCAPI `0.1.1`
+==============
 
 </div>
 
@@ -30,7 +30,7 @@ Documentation of the full CPython C API can be found [here](https://docs.python.
 Any type conversions (such as Python `int` with C `int`, Python `bytes` with C `char*`, or Python `None` with C `NULL`) should be obvious, and all other semantics (such as refcounts, etc.) are identical to the documented API behavior. For simplicity, PyCAPI doesn't provide any additional functionality or utilities beyond CPython's documented stable public API.
 
 How is PyCAPI better than `ctypes.pythonapi`?
--------------------------------------------
+---------------------------------------------
 
 ### It's easier to use.
 
