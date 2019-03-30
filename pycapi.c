@@ -1,10 +1,13 @@
 # include "Python.h"
+
+
 # define CAPI_METHOD_VOID(F) {#F, pycapi_##F, METH_NOARGS, NULL}
 # define CAPI_DEFINE_VOID(F)                                                          \
 static PyObject* pycapi_##F(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(unused)) { \
     F();                                                                              \
     Py_RETURN_NONE;                                                                   \
 }
+
 
 CAPI_DEFINE_VOID(PyErr_BadInternalCall)
 CAPI_DEFINE_VOID(PyErr_Clear)
@@ -31,6 +34,7 @@ CAPI_DEFINE_VOID(Py_Initialize)
 
 
 static PyMethodDef CAPIMethods[] =  {
+
     CAPI_METHOD_VOID(PyErr_BadInternalCall),
     CAPI_METHOD_VOID(PyErr_Clear),
     CAPI_METHOD_VOID(PyErr_Print),
@@ -56,6 +60,7 @@ static PyMethodDef CAPIMethods[] =  {
 
     {NULL, NULL, 0, NULL},
 };
+
 
 static struct PyModuleDef CAPIModule = {
     PyModuleDef_HEAD_INIT, "pycapi", NULL, -1, CAPIMethods,
