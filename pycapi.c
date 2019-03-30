@@ -8,6 +8,13 @@ static PyObject* pycapi_##F(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(unuse
     Py_RETURN_NONE;                                                                   \
 }
 
+# define CAPI_METHOD_VOID_1PYOBJECT(F) {#F, pycapi_##F, METH_O, NULL}
+# define CAPI_DEFINE_VOID_1PYOBJECT(F)                                  \
+static PyObject* pycapi_##F(PyObject* Py_UNUSED(self), PyObject* arg) { \
+    F(arg);                                                             \
+    Py_RETURN_NONE;                                                     \
+}
+
 
 CAPI_DEFINE_VOID(PyErr_BadInternalCall)
 CAPI_DEFINE_VOID(PyErr_Clear)
@@ -19,6 +26,18 @@ CAPI_DEFINE_VOID(PyImport_Cleanup)
 CAPI_DEFINE_VOID(PySys_ResetWarnOptions)
 CAPI_DEFINE_VOID(Py_Finalize)
 CAPI_DEFINE_VOID(Py_Initialize)
+
+CAPI_DEFINE_VOID_1PYOBJECT(PyDict_Clear)
+CAPI_DEFINE_VOID_1PYOBJECT(PyErr_SetNone)
+CAPI_DEFINE_VOID_1PYOBJECT(PyErr_WriteUnraisable)
+CAPI_DEFINE_VOID_1PYOBJECT(PyObject_GC_Track)
+CAPI_DEFINE_VOID_1PYOBJECT(PySys_AddWarnOptionUnicode)
+CAPI_DEFINE_VOID_1PYOBJECT(Py_CLEAR)
+CAPI_DEFINE_VOID_1PYOBJECT(Py_DECREF)
+CAPI_DEFINE_VOID_1PYOBJECT(Py_INCREF)
+CAPI_DEFINE_VOID_1PYOBJECT(Py_ReprLeave)
+CAPI_DEFINE_VOID_1PYOBJECT(Py_XDECREF)
+CAPI_DEFINE_VOID_1PYOBJECT(Py_XINCREF)
 
 # if PY_VERSION_HEX < 0x030200A0
     CAPI_DEFINE_VOID(PyEval_AcquireLock)
@@ -45,6 +64,18 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_VOID(PySys_ResetWarnOptions),
     CAPI_METHOD_VOID(Py_Finalize),
     CAPI_METHOD_VOID(Py_Initialize),
+
+    CAPI_METHOD_VOID_1PYOBJECT(PyDict_Clear),
+    CAPI_METHOD_VOID_1PYOBJECT(PyErr_SetNone),
+    CAPI_METHOD_VOID_1PYOBJECT(PyErr_WriteUnraisable),
+    CAPI_METHOD_VOID_1PYOBJECT(PyObject_GC_Track),
+    CAPI_METHOD_VOID_1PYOBJECT(PySys_AddWarnOptionUnicode),
+    CAPI_METHOD_VOID_1PYOBJECT(Py_CLEAR),
+    CAPI_METHOD_VOID_1PYOBJECT(Py_DECREF),
+    CAPI_METHOD_VOID_1PYOBJECT(Py_INCREF),
+    CAPI_METHOD_VOID_1PYOBJECT(Py_ReprLeave),
+    CAPI_METHOD_VOID_1PYOBJECT(Py_XDECREF),
+    CAPI_METHOD_VOID_1PYOBJECT(Py_XINCREF),
 
     # if PY_VERSION_HEX < 0x030700A0
         CAPI_METHOD_VOID(PyOS_AfterFork),
