@@ -45,16 +45,17 @@ CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, Py_ReprLeave)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, Py_XDECREF)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, Py_XINCREF)
 
-# if PY_VERSION_HEX < 0x030200A0
-    CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyEval_AcquireLock)
-# endif
-
-# if PY_VERSION_HEX < 0x030700A0
-    CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork)
-# else
+# if 0x030700A0 <= PY_VERSION_HEX
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork_Child)
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork_Parent)
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_BeforeFork)
+# else
+    CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork)
+# endif
+
+# if 0x030200A0 <= PY_VERSION_HEX
+# else
+    CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyEval_AcquireLock)
 # endif
 
 
@@ -83,15 +84,16 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_1PYOBJECT(Py_XDECREF),
     CAPI_METHOD_1PYOBJECT(Py_XINCREF),
 
-    # if PY_VERSION_HEX < 0x030700A0
-        CAPI_METHOD_VOID(PyOS_AfterFork),
-    # else
+    # if 0x030700A0 <= PY_VERSION_HEX
         CAPI_METHOD_VOID(PyOS_AfterFork_Child),
         CAPI_METHOD_VOID(PyOS_AfterFork_Parent),
         CAPI_METHOD_VOID(PyOS_BeforeFork),
+    # else
+        CAPI_METHOD_VOID(PyOS_AfterFork),
     # endif
 
-    # if PY_VERSION_HEX < 0x030200A0
+    # if 0x030200A0 <= PY_VERSION_HEX
+    # else
         CAPI_METHOD_VOID(PyEval_AcquireLock),
     # endif
 
