@@ -83,8 +83,10 @@ In [3]: %timeit PyDict_Clear(d)
 ```py
 In [1]: d = {}
 
-In [2]: %timeit d.clear()
-50.3 ns ± 0.462 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+In [2]: PyDict_Clear = dict.clear
+
+In [3]: %timeit PyDict_Clear(d)
+50 ns ± 1.75 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
 ```
 
 ```py
