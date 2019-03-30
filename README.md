@@ -57,10 +57,10 @@ Because `pythonapi` is based on a DLL, it doesn't offer any APIs that are implem
 ```py
 >>> ctypes.pythonapi.PyDict_Check(ctypes.py_object(d))
 Traceback (most recent call last):
-File "<stdin>", line 1, in <module>
-File "/usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/ctypes/__init__.py", line 369, in __getattr__
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/ctypes/__init__.py", line 369, in __getattr__
     func = self.__getitem__(name)
-File "/usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/ctypes/__init__.py", line 374, in __getitem__
+  File "/usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/ctypes/__init__.py", line 374, in __getitem__
     func = self._FuncPtr((name_or_ordinal, self))
 AttributeError: dlsym(RTLD_DEFAULT, PyDict_Check): symbol not found
 ```
