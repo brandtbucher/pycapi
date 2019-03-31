@@ -4,6 +4,10 @@ install: pip install --upgrade setuptools
 language: python
 python: 3.7
 
+env:
+
+  - CFLAGS="-Werror"
+
 git:
 
   depth: False
@@ -14,6 +18,7 @@ matrix:
 
   allow_failures:
 
+  - python: 3.3
   - python: 3.4
   - python: 3.5-dev
   - python: 3.6-dev
@@ -31,6 +36,9 @@ matrix:
   - name: Type Consistency
     script: mypy --strict *.py
     install: pip install --upgrade mypy
+
+  - name: CPython 3.3
+    python: 3.3
 
   - name: CPython 3.4
     python: 3.4
