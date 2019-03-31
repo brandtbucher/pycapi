@@ -10,7 +10,7 @@ PyCAPI is still in an early development stage.<br>It is incomplete, and may cont
 
 - - -
 
-PyCAPI `0.2.1`
+PyCAPI `0.3.0`
 ==============
 
 </div>
