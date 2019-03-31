@@ -21,6 +21,16 @@ static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* arg) { \
     RETURN(F(arg));                                                   \
 }
 
+# define CAPI_METHOD_2PYOBJECT(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_2PYOBJECT(RETURN, F)                              \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) { \
+    PyObject* parsed[2];                                               \
+    if(!PyArg_UnpackTuple(args, #F, 2, 2, &parsed[0], &parsed[1])) {   \
+        return NULL;                                                   \
+    }                                                                  \
+    RETURN(F(parsed[0], parsed[1]));                                   \
+}
+
 
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_BadInternalCall)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_Clear)
@@ -44,6 +54,11 @@ CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, Py_INCREF)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, Py_ReprLeave)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, Py_XDECREF)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, Py_XINCREF)
+
+CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_VOID, PyCell_SET)
+CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_VOID, PyErr_SetObject)
+CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_VOID, PyException_SetCause)
+CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_VOID, PyException_SetContext)
 
 # if 0x030700A0 <= PY_VERSION_HEX
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork_Child)
@@ -83,6 +98,11 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_1PYOBJECT(Py_ReprLeave),
     CAPI_METHOD_1PYOBJECT(Py_XDECREF),
     CAPI_METHOD_1PYOBJECT(Py_XINCREF),
+
+    CAPI_METHOD_2PYOBJECT(PyCell_SET),
+    CAPI_METHOD_2PYOBJECT(PyErr_SetObject),
+    CAPI_METHOD_2PYOBJECT(PyException_SetCause),
+    CAPI_METHOD_2PYOBJECT(PyException_SetContext),
 
     # if 0x030700A0 <= PY_VERSION_HEX
         CAPI_METHOD_VOID(PyOS_AfterFork_Child),
