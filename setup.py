@@ -1,5 +1,5 @@
 from pathlib import Path
-from setuptools import setup, Extension
+from setuptools import Extension, setup  # type: ignore
 
 
 if __name__ == "__main__":
