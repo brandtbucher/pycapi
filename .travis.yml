@@ -1,0 +1,63 @@
+dist: xenial
+script: python setup.py build sdist check
+install: pip install --upgrade setuptools
+language: python
+python: 3.7
+
+git:
+
+  depth: False
+
+matrix:
+
+  fast_finish: True
+
+  allow_failures:
+
+  - python: 3.4
+  - python: 3.5-dev
+  - python: 3.6-dev
+  - python: 3.7-dev
+  - python: 3.8-dev
+  - python: nightly
+  - python: pypy3.5
+
+  include:
+
+  - name: Code Style
+    script: black --check *.py
+    install: pip install --upgrade black
+
+  - name: Type Consistency
+    script: mypy --strict *.py
+    install: pip install --upgrade mypy
+
+  - name: CPython 3.4
+    python: 3.4
+
+  - name: CPython 3.5
+    python: 3.5
+
+  - name: CPython 3.5+
+    python: 3.5-dev
+
+  - name: CPython 3.6
+    python: 3.6
+
+  - name: CPython 3.6+
+    python: 3.6-dev
+
+  - name: CPython 3.7
+    python: 3.7
+
+  - name: CPython 3.7+
+    python: 3.7-dev
+
+  - name: CPython 3.8+
+    python: 3.8-dev
+
+  - name: CPython Master
+    python: nightly
+
+  - name: PyPy 3.5
+    python: pypy3.5
