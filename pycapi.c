@@ -36,6 +36,16 @@ static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) { \
     RETURN(F(parsed[0], parsed[1]));                                   \
 }
 
+# define CAPI_METHOD_3PYOBJECT(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_3PYOBJECT(RETURN, F)                                        \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {           \
+    PyObject* parsed[3];                                                         \
+    if(!PyArg_UnpackTuple(args, #F, 3, 3, &parsed[0], &parsed[1], &parsed[2])) { \
+        return NULL;                                                             \
+    }                                                                            \
+    RETURN(F(parsed[0], parsed[1], parsed[2]));                                  \
+}
+
 
 static void _PyVersion_Increment(void) {
     PyErr_Format(
@@ -86,6 +96,9 @@ CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_VOID, PyErr_SetObject)
 CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_VOID, PyException_SetCause)
 CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_VOID, PyException_SetContext)
 
+CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_Restore)
+CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_SetExcInfo)
+
 # if 0x030700A0 <= PY_VERSION_HEX
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork_Child)
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork_Parent)
@@ -131,6 +144,9 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_2PYOBJECT(PyErr_SetObject),
     CAPI_METHOD_2PYOBJECT(PyException_SetCause),
     CAPI_METHOD_2PYOBJECT(PyException_SetContext),
+
+    CAPI_METHOD_3PYOBJECT(PyErr_Restore),
+    CAPI_METHOD_3PYOBJECT(PyErr_SetExcInfo),
 
     # if 0x030700A0 <= PY_VERSION_HEX
         CAPI_METHOD_VOID(PyOS_AfterFork_Child),
