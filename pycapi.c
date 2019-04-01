@@ -42,20 +42,20 @@ static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {          
 }
 
 
-static void _PyVersion_Increment(void) {
-    PyErr_Format(
-        PyExc_NotImplementedError,
-        "_PyVersion_Increment support is added in Python %d.%d.%d (you are using %d.%d.%d). You must upgrade your Python version to use it.",
-        PY_MAJOR_VERSION, PY_MINOR_VERSION, PY_MICRO_VERSION + 1,
-        PY_MAJOR_VERSION, PY_MINOR_VERSION, PY_MICRO_VERSION
-    );
-}
-
 static void _PyVersion_Decrement(void) {
     PyErr_Format(
         PyExc_NotImplementedError,
         "_PyVersion_Decrement support is removed after Python %d.%d.%d (you are using %d.%d.%d). You must downgrade your Python version to use it.",
         PY_MAJOR_VERSION, PY_MINOR_VERSION, PY_MICRO_VERSION - 1,
+        PY_MAJOR_VERSION, PY_MINOR_VERSION, PY_MICRO_VERSION
+    );
+}
+
+static void _PyVersion_Increment(void) {
+    PyErr_Format(
+        PyExc_NotImplementedError,
+        "_PyVersion_Increment support is added in Python %d.%d.%d (you are using %d.%d.%d). You must upgrade your Python version to use it.",
+        PY_MAJOR_VERSION, PY_MINOR_VERSION, PY_MICRO_VERSION + 1,
         PY_MAJOR_VERSION, PY_MINOR_VERSION, PY_MICRO_VERSION
     );
 }
