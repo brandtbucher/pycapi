@@ -37,6 +37,25 @@ static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) { \
 }
 
 
+static void _PyVersion_Increment(void) {
+    PyErr_Format(
+        PyExc_NotImplementedError,
+        "_PyVersion_Increment support is added in Python %d.%d.%d (you are using %d.%d.%d). You must upgrade your Python version to use it.",
+        PY_MAJOR_VERSION, PY_MINOR_VERSION, PY_MICRO_VERSION + 1,
+        PY_MAJOR_VERSION, PY_MINOR_VERSION, PY_MICRO_VERSION
+    );
+}
+
+static void _PyVersion_Decrement(void) {
+    PyErr_Format(
+        PyExc_NotImplementedError,
+        "_PyVersion_Decrement support is removed after Python %d.%d.%d (you are using %d.%d.%d). You must downgrade your Python version to use it.",
+        PY_MAJOR_VERSION, PY_MINOR_VERSION, PY_MICRO_VERSION - 1,
+        PY_MAJOR_VERSION, PY_MINOR_VERSION, PY_MICRO_VERSION
+    );
+}
+
+
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_BadInternalCall)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_Clear)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_Print)
@@ -47,6 +66,8 @@ CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyImport_Cleanup)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PySys_ResetWarnOptions)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, Py_Finalize)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, Py_Initialize)
+CAPI_DEFINE_VOID(CAPI_RETURN_VOID, _PyVersion_Decrement)
+CAPI_DEFINE_VOID(CAPI_RETURN_VOID, _PyVersion_Increment)
 
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, PyDict_Clear)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, PyErr_SetNone)
@@ -91,6 +112,8 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_VOID(PySys_ResetWarnOptions),
     CAPI_METHOD_VOID(Py_Finalize),
     CAPI_METHOD_VOID(Py_Initialize),
+    CAPI_METHOD_VOID(_PyVersion_Decrement),
+    CAPI_METHOD_VOID(_PyVersion_Increment),
 
     CAPI_METHOD_1PYOBJECT(PyDict_Clear),
     CAPI_METHOD_1PYOBJECT(PyErr_SetNone),
