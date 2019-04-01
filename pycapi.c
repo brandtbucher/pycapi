@@ -1,11 +1,6 @@
 # include "Python.h"
 
 
-# ifndef Py_UNUSED
-    # define Py_UNUSED(X) X
-# endif
-
-
 # define CAPI_RETURN_VOID(CALL) \
     CALL;                       \
     if (PyErr_Occurred()) {     \
