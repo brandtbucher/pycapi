@@ -1,8 +1,8 @@
 dist: xenial
-script: python setup.py build sdist check
 install: pip install --upgrade setuptools
 language: python
 python: 3.7
+script: python setup.py build sdist check
 
 env:
 
@@ -14,11 +14,8 @@ git:
 
 matrix:
 
-  fast_finish: True
-
   allow_failures:
 
-  - python: 3.3
   - python: 3.4
   - python: 3.5-dev
   - python: 3.6-dev
@@ -26,6 +23,9 @@ matrix:
   - python: 3.8-dev
   - python: nightly
   - python: pypy3.5
+  - python: pypy3.5-6.0
+
+  fast_finish: True
 
   include:
 
@@ -36,9 +36,6 @@ matrix:
   - name: Type Consistency
     script: mypy --strict *.py
     install: pip install --upgrade mypy
-
-  - name: CPython 3.3
-    python: 3.3
 
   - name: CPython 3.4
     python: 3.4
@@ -67,5 +64,8 @@ matrix:
   - name: CPython Master
     python: nightly
 
-  - name: PyPy 3.5
+  - name: PyPy 3.5 v5
     python: pypy3.5
+  
+  - name: PyPy 3.5 v6
+    python: pypy3.5-6.0
