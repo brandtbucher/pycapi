@@ -24,5 +24,5 @@ if __name__ == "__main__":
         long_description_content_type="text/markdown",
         name="pycapi",
         url="https://github.com/brandtbucher/pycapi",
-        version="0.4.1",
+        version="0.5.0",
     )
