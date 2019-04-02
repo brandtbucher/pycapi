@@ -11,7 +11,13 @@ if __name__ == "__main__":
         author="Brandt Bucher",
         author_email="brandtbucher@gmail.com",
         description="Python bindings to the CPython C API.",
-        ext_modules=[Extension(name="pycapi", sources=["pycapi.c"])],
+        ext_modules=[
+            Extension(
+                extra_compile_args=["-Wno-deprecated-declarations"],
+                name="pycapi",
+                sources=["pycapi.c"],
+            )
+        ],
         keywords="API C CPython Python",
         license="MIT",
         long_description=long_description,

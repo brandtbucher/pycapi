@@ -65,9 +65,11 @@ CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_BadInternalCall)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_Clear)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_Print)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_SetInterrupt)
+CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyEval_AcquireLock)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyEval_InitThreads)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyEval_ReleaseLock)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyImport_Cleanup)
+CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PySys_ResetWarnOptions)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, Py_Finalize)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, Py_Initialize)
@@ -98,13 +100,6 @@ CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_SetExcInfo)
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork_Child)
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork_Parent)
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_BeforeFork)
-# else
-    CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork)
-# endif
-
-# if 0x030200A0 <= PY_VERSION_HEX
-# else
-    CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyEval_AcquireLock)
 # endif
 
 
@@ -114,9 +109,11 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_VOID(PyErr_Clear),
     CAPI_METHOD_VOID(PyErr_Print),
     CAPI_METHOD_VOID(PyErr_SetInterrupt),
+    CAPI_METHOD_VOID(PyEval_AcquireLock),
     CAPI_METHOD_VOID(PyEval_InitThreads),
     CAPI_METHOD_VOID(PyEval_ReleaseLock),
     CAPI_METHOD_VOID(PyImport_Cleanup),
+    CAPI_METHOD_VOID(PyOS_AfterFork),
     CAPI_METHOD_VOID(PySys_ResetWarnOptions),
     CAPI_METHOD_VOID(Py_Finalize),
     CAPI_METHOD_VOID(Py_Initialize),
@@ -147,13 +144,6 @@ static PyMethodDef CAPIMethods[] =  {
         CAPI_METHOD_VOID(PyOS_AfterFork_Child),
         CAPI_METHOD_VOID(PyOS_AfterFork_Parent),
         CAPI_METHOD_VOID(PyOS_BeforeFork),
-    # else
-        CAPI_METHOD_VOID(PyOS_AfterFork),
-    # endif
-
-    # if 0x030200A0 <= PY_VERSION_HEX
-    # else
-        CAPI_METHOD_VOID(PyEval_AcquireLock),
     # endif
 
     {NULL, NULL, 0, NULL},
