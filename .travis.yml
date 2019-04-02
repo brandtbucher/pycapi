@@ -31,7 +31,7 @@ matrix:
     script: black --check *.py
     install: pip install --upgrade black
 
-  - name: Type Consistency
+  - name: Static Typing
     script: mypy --strict *.py
     install: pip install --upgrade mypy
 
