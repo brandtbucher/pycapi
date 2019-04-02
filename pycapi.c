@@ -1,6 +1,16 @@
 # include "Python.h"
 
 
+# define CAPI_RETURN_PYOBJECT(CALL) \
+    PyObject* _result = CALL;       \
+    if (!_result) {                 \
+        if (PyErr_Occurred()) {     \
+            return NULL;            \
+        }                           \
+        Py_RETURN_NONE;             \
+    }                               \
+    return _result;
+
 # define CAPI_RETURN_VOID(CALL) \
     CALL;                       \
     if (PyErr_Occurred()) {     \
@@ -61,6 +71,19 @@ static void _PyVersion_Increment(void) {
 }
 
 
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyContext_CopyCurrent)
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyContext_New)
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyDict_New)
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyErr_NoMemory)
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyErr_Occurred)
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyEval_GetBuiltins)
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyEval_GetLocals)
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyEval_GetGlobals)
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyFloat_GetInfo)
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyImport_GetModuleDict)
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PySys_GetXOptions)
+CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyThreadState_GetDict)
+
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_BadInternalCall)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_Clear)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyErr_Print)
@@ -104,6 +127,19 @@ CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_SetExcInfo)
 
 
 static PyMethodDef CAPIMethods[] =  {
+
+    CAPI_METHOD_VOID(PyContext_CopyCurrent),
+    CAPI_METHOD_VOID(PyContext_New),
+    CAPI_METHOD_VOID(PyDict_New),
+    CAPI_METHOD_VOID(PyErr_NoMemory),
+    CAPI_METHOD_VOID(PyErr_Occurred),
+    CAPI_METHOD_VOID(PyEval_GetBuiltins),
+    CAPI_METHOD_VOID(PyEval_GetLocals),
+    CAPI_METHOD_VOID(PyEval_GetGlobals),
+    CAPI_METHOD_VOID(PyFloat_GetInfo),
+    CAPI_METHOD_VOID(PyImport_GetModuleDict),
+    CAPI_METHOD_VOID(PySys_GetXOptions),
+    CAPI_METHOD_VOID(PyThreadState_GetDict),
 
     CAPI_METHOD_VOID(PyErr_BadInternalCall),
     CAPI_METHOD_VOID(PyErr_Clear),
