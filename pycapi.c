@@ -71,8 +71,6 @@ static void _PyVersion_Increment(void) {
 }
 
 
-CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyContext_CopyCurrent)
-CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyContext_New)
 CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyDict_New)
 CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyErr_NoMemory)
 CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyErr_Occurred)
@@ -119,6 +117,11 @@ CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_VOID, PyException_SetContext)
 CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_Restore)
 CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_SetExcInfo)
 
+# if 0x030701A0 <= PY_VERSION_HEX
+    CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyContext_CopyCurrent)
+    CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyContext_New)
+# endif
+
 # if 0x030700A0 <= PY_VERSION_HEX
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork_Child)
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork_Parent)
@@ -128,8 +131,6 @@ CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_SetExcInfo)
 
 static PyMethodDef CAPIMethods[] =  {
 
-    CAPI_METHOD_VOID(PyContext_CopyCurrent),
-    CAPI_METHOD_VOID(PyContext_New),
     CAPI_METHOD_VOID(PyDict_New),
     CAPI_METHOD_VOID(PyErr_NoMemory),
     CAPI_METHOD_VOID(PyErr_Occurred),
@@ -175,6 +176,11 @@ static PyMethodDef CAPIMethods[] =  {
 
     CAPI_METHOD_3PYOBJECT(PyErr_Restore),
     CAPI_METHOD_3PYOBJECT(PyErr_SetExcInfo),
+
+    # if 0x030701A0 <= PY_VERSION_HEX
+        CAPI_METHOD_VOID(PyContext_CopyCurrent),
+        CAPI_METHOD_VOID(PyContext_New),
+    # endif
 
     # if 0x030700A0 <= PY_VERSION_HEX
         CAPI_METHOD_VOID(PyOS_AfterFork_Child),
