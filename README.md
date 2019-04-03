@@ -70,36 +70,61 @@ AttributeError: dlsym(RTLD_DEFAULT, PyDict_Check): symbol not found
 
 ### It's faster.
 
-The numbers speak for themselves:
+In many cases, it's even _faster than the built-in equivalent_ in the Python layer. The numbers speak for themselves:
 
 ```py
-In [1]: d = {}
+In [1]: from pycapi import PyDict_New, PyDict_Clear, PyDict_Copy
 
-In [2]: from pycapi import PyDict_Clear
+In [2]: %timeit PyDict_New()
+44.7 ns ± 1.38 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
 
-In [3]: %timeit PyDict_Clear(d)
-45.7 ns ± 0.189 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+In [3]: %timeit PyDict_Clear({})
+54 ns ± 0.448 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+
+In [4]: %timeit PyDict_Copy({})
+68.9 ns ± 0.362 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
 ```
 
 ```py
-In [1]: d = {}
+In [1]: PyDict_New = dict
+   ...: PyDict_Clear = dict.clear
+   ...: PyDict_Copy = dict.copy
 
-In [2]: PyDict_Clear = dict.clear
+In [2]: %timeit PyDict_New()
+71.7 ns ± 0.569 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
 
-In [3]: %timeit PyDict_Clear(d)
-50 ns ± 1.75 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+In [3]: %timeit PyDict_Clear({})
+55.8 ns ± 0.506 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+
+In [4]: %timeit PyDict_Copy({})
+73.1 ns ± 1.06 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
 ```
 
 ```py
-In [1]: d = {}
-
-In [2]: import ctypes
+In [1]: import ctypes
+   ...: 
+   ...: PyDict_New = ctypes.pythonapi.PyDict_New
+   ...: PyDict_New.argtypes = ()
+   ...: PyDict_New.restype = ctypes.py_object
+   ...: 
    ...: PyDict_Clear = ctypes.pythonapi.PyDict_Clear
    ...: PyDict_Clear.argtypes = (ctypes.py_object,)
    ...: PyDict_Clear.restype = None
+   ...: 
+   ...: PyDict_Copy = ctypes.pythonapi.PyDict_Copy
+   ...: PyDict_Copy.argtypes = (ctypes.py_object,)
+   ...: PyDict_Copy.restype = None
 
-In [3]: %timeit PyDict_Clear(d)
-293 ns ± 4.41 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+In [2]: %timeit PyDict_New()
+113 ns ± 0.424 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+
+In [3]: %timeit PyDict_Clear({})
+273 ns ± 3.34 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+
+In [4]: %timeit PyDict_Copy({})
+378 ns ± 9.77 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
 ```
+
+Note that Python 3.7.3 was used in these examples; the performance gains are typically even _larger_ for older Python versions!
 
 </div>
