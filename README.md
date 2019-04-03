@@ -2,20 +2,18 @@
 
 <div align=center>
 
-- - -
-
-PyCAPI is still in an early development stage.<br>It is incomplete, and may contain bugs in the interface between the Python and C layers.<br>If so, please report them here!
-
 **PyCAPI is nothing more than a thin wrapper around the _actual_ underlying CPython C API.<br>As when using C or `ctypes`, there is the potential to break things if you don't know what you're doing!**
 
 - - -
+
+<br>
 
 PyCAPI `0.6.0`
 ==============
 
 </div>
 
-PyCAPI is a Python package containing bindings to the CPython C API. Its goal is to support as much of the Python 3.5 - 3.8 stable public APIs as possible.
+PyCAPI is a Python package containing over 100 bindings to the CPython C API. Its goal is to support as much of the Python 3.5 - 3.8 stable public APIs as possible.
 
 To install, just run:
 ```sh
