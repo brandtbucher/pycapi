@@ -10,6 +10,7 @@
 
 PyCAPI
 ======
+
 [![latest version](https://img.shields.io/github/release-pre/brandtbucher/pycapi.svg?style=for-the-badge&label=latest)](https://pypi.org/project/pycapi/)[![latest release date](https://img.shields.io/github/release-date-pre/brandtbucher/pycapi.svg?style=for-the-badge&label=released)](https://github.com/brandtbucher/pycapi/releases)[![build status](https://img.shields.io/travis/com/brandtbucher/pycapi/master.svg?style=for-the-badge)](https://travis-ci.com/brandtbucher/pycapi)[![issues](https://img.shields.io/github/issues-raw/brandtbucher/pycapi.svg?label=issues&style=for-the-badge)](https://github.com/brandtbucher/pycapi/issues)
 
 <br>
@@ -34,6 +35,14 @@ How is PyCAPI better than `ctypes.pythonapi`?
 ---------------------------------------------
 
 ### It's easier to use.
+
+`pycapi` works as expected, right out of the box:
+
+```py
+>>> import pycapi
+>>> pycapi.PyNumber_Add(1, 2)
+3
+```
 
 `pythonapi` implicity requires users to specify the argument and return types as `ctypes` types:
 
