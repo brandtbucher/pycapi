@@ -4,8 +4,7 @@ from setuptools import Extension, setup  # type: ignore
 
 if __name__ == "__main__":
 
-    with (Path(__file__).parent / "README.md").open() as file:
-        long_description = file.read()
+    long_description = (Path(__file__).parent / "README.md").read_text()
 
     setup(
         author="Brandt Bucher",
