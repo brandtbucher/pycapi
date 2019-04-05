@@ -2,14 +2,14 @@
 # include "datetime.h"
 
 
-# define CAPI_RETURN_PYOBJECT(CALL) \
-    PyObject* _result = CALL;       \
-    if (!_result) {                 \
-        if (PyErr_Occurred()) {     \
-            return NULL;            \
-        }                           \
-        Py_RETURN_NONE;             \
-    }                               \
+# define CAPI_RETURN_PYOBJECT(CALL)       \
+    PyObject* _result = (PyObject*) CALL; \
+    if (!_result) {                       \
+        if (PyErr_Occurred()) {           \
+            return NULL;                  \
+        }                                 \
+        Py_RETURN_NONE;                   \
+    }                                     \
     return _result;
 
 # define CAPI_RETURN_VOID(CALL) \
@@ -246,26 +246,20 @@ CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_VOID, PyException_SetContext)
 CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_Restore)
 CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_SetExcInfo)
 
-# if 0x030701F0 <= PY_VERSION_HEX
+# if 0x030700F0 <= PY_VERSION_HEX
 
     CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyContext_CopyCurrent)
     CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyContext_New)
-
-    CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_PYOBJECT, PyContext_Copy)
-
-    CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_PYOBJECT, PyContextVar_Set)
-
-# endif
-
-# if 0x030700F0 <= PY_VERSION_HEX
 
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork_Child)
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_AfterFork_Parent)
     CAPI_DEFINE_VOID(CAPI_RETURN_VOID, PyOS_BeforeFork)
 
+    CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_PYOBJECT, PyContext_Copy)
     CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_PYOBJECT, PyTimeZone_FromOffset)
     CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_PYOBJECT, PyImport_GetModule)
 
+    CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_PYOBJECT, PyContextVar_Set)
     CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_PYOBJECT, PyTimeZone_FromOffsetAndName)
 
 # endif
@@ -468,26 +462,20 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_3PYOBJECT(PyErr_Restore),
     CAPI_METHOD_3PYOBJECT(PyErr_SetExcInfo),
 
-    # if 0x030701F0 <= PY_VERSION_HEX
+    # if 0x030700F0 <= PY_VERSION_HEX
 
         CAPI_METHOD_VOID(PyContext_CopyCurrent),
         CAPI_METHOD_VOID(PyContext_New),
-
-        CAPI_METHOD_1PYOBJECT(PyContext_Copy),
-
-        CAPI_METHOD_2PYOBJECT(PyContextVar_Set),
-
-    # endif
-
-    # if 0x030700F0 <= PY_VERSION_HEX
 
         CAPI_METHOD_VOID(PyOS_AfterFork_Child),
         CAPI_METHOD_VOID(PyOS_AfterFork_Parent),
         CAPI_METHOD_VOID(PyOS_BeforeFork),
 
+        CAPI_METHOD_1PYOBJECT(PyContext_Copy),
         CAPI_METHOD_1PYOBJECT(PyTimeZone_FromOffset),
         CAPI_METHOD_1PYOBJECT(PyImport_GetModule),
 
+        CAPI_METHOD_2PYOBJECT(PyContextVar_Set),
         CAPI_METHOD_2PYOBJECT(PyTimeZone_FromOffsetAndName),
 
     # endif
