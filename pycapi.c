@@ -2,6 +2,13 @@
 # include "datetime.h"
 
 
+# define CAPI_RETURN_LONG(CALL)      \
+    long _result = CALL;      \
+    if (PyErr_Occurred()) {          \
+        return NULL;                 \
+    }                                \
+    return PyLong_FromLong(_result);
+
 # define CAPI_RETURN_PYOBJECT(CALL)       \
     PyObject* _result = (PyObject*) CALL; \
     if (!_result) {                       \
@@ -71,6 +78,12 @@ static void _PyVersion_Increment(void) {
     );
 }
 
+
+CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyContext_ClearFreeList)
+CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyErr_BadArgument)
+CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyErr_CheckSignals)
+CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyImport_GetMagicNumber)
+CAPI_DEFINE_VOID(CAPI_RETURN_LONG, Py_IsInitialized)
 
 CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyDict_New)
 CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyErr_NoMemory)
@@ -297,6 +310,12 @@ CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_SetExcInfo)
 
 
 static PyMethodDef CAPIMethods[] =  {
+
+    CAPI_METHOD_VOID(PyContext_ClearFreeList),
+    CAPI_METHOD_VOID(PyErr_BadArgument),
+    CAPI_METHOD_VOID(PyErr_CheckSignals),
+    CAPI_METHOD_VOID(PyImport_GetMagicNumber),
+    CAPI_METHOD_VOID(Py_IsInitialized),
 
     CAPI_METHOD_VOID(PyDict_New),
     CAPI_METHOD_VOID(PyErr_NoMemory),
