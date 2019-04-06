@@ -1,3 +1,6 @@
+"""A script to build and install PyCAPI."""
+
+
 from pathlib import Path
 from setuptools import Extension, setup  # type: ignore
 
@@ -5,7 +8,7 @@ from setuptools import Extension, setup  # type: ignore
 if __name__ == "__main__":
 
     with (Path(__file__).parent / "README.md").open() as file:
-        long_description = file.read()
+        LONG_DESCRIPTION = file.read()
 
     setup(
         author="Brandt Bucher",
@@ -20,7 +23,7 @@ if __name__ == "__main__":
         ],
         keywords="API C CPython Python",
         license="MIT",
-        long_description=long_description,
+        long_description=LONG_DESCRIPTION,
         long_description_content_type="text/markdown",
         name="pycapi",
         url="https://github.com/brandtbucher/pycapi",
