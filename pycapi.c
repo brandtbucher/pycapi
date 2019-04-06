@@ -79,7 +79,6 @@ static void _PyVersion_Increment(void) {
 }
 
 
-CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyContext_ClearFreeList)
 CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyErr_BadArgument)
 CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyErr_CheckSignals)
 CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyImport_GetMagicNumber)
@@ -271,6 +270,8 @@ CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_SetExcInfo)
 
 # if 0x030700F0 <= PY_VERSION_HEX
 
+    CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyContext_ClearFreeList)
+
     CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyContext_CopyCurrent)
     CAPI_DEFINE_VOID(CAPI_RETURN_PYOBJECT, PyContext_New)
 
@@ -311,7 +312,6 @@ CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_SetExcInfo)
 
 static PyMethodDef CAPIMethods[] =  {
 
-    CAPI_METHOD_VOID(PyContext_ClearFreeList),
     CAPI_METHOD_VOID(PyErr_BadArgument),
     CAPI_METHOD_VOID(PyErr_CheckSignals),
     CAPI_METHOD_VOID(PyImport_GetMagicNumber),
@@ -502,6 +502,8 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_3PYOBJECT(PyErr_SetExcInfo),
 
     # if 0x030700F0 <= PY_VERSION_HEX
+
+        CAPI_METHOD_VOID(PyContext_ClearFreeList),
 
         CAPI_METHOD_VOID(PyContext_CopyCurrent),
         CAPI_METHOD_VOID(PyContext_New),
