@@ -3,20 +3,20 @@
 
 
 # define CAPI_RETURN_LONG(CALL)      \
-    long _result = CALL;      \
+    long _result = CALL;             \
     if (PyErr_Occurred()) {          \
         return NULL;                 \
     }                                \
     return PyLong_FromLong(_result);
 
-# define CAPI_RETURN_PYOBJECT(CALL)       \
-    PyObject* _result = (PyObject*) CALL; \
-    if (!_result) {                       \
-        if (PyErr_Occurred()) {           \
-            return NULL;                  \
-        }                                 \
-        Py_RETURN_NONE;                   \
-    }                                     \
+# define CAPI_RETURN_PYOBJECT(CALL) \
+    PyObject* _result =       CALL; \
+    if (!_result) {                 \
+        if (PyErr_Occurred()) {     \
+            return NULL;            \
+        }                           \
+        Py_RETURN_NONE;             \
+    }                               \
     return _result;
 
 # define CAPI_RETURN_VOID(CALL) \
