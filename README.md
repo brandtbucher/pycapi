@@ -66,13 +66,13 @@ Because `pythonapi` is based on a DLL, it doesn't offer any APIs that are implem
 
 ```py
 >>> import pycapi
->>> pycapi.PyDict_Check(d)
+>>> pycapi.PyDict_Check({})
 1
 ```
 
 ```py
 >>> import ctypes
->>> ctypes.pythonapi.PyDict_Check(ctypes.py_object(d))
+>>> ctypes.pythonapi.PyDict_Check(ctypes.py_object({}))
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
   File "/usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/ctypes/__init__.py", line 369, in __getattr__
