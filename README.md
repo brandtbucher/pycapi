@@ -65,6 +65,11 @@ Segmentation fault: 11
 Because `pythonapi` is based on a DLL, it doesn't offer any APIs that are implemented as macros:
 
 ```py
+>>> pycapi.PyDict_Check(d)
+1
+```
+
+```py
 >>> ctypes.pythonapi.PyDict_Check(ctypes.py_object(d))
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
