@@ -17,7 +17,7 @@ PyCAPI
 
 </div>
 
-PyCAPI is a Python package containing over 100 bindings to the CPython C API. Its goal is to support as much of the Python 3.5 - 3.8 stable public APIs as possible.
+PyCAPI is a Python package containing over 300 bindings to the CPython C API. Its goal is to support as much of the Python 3.5 - 3.8 stable public APIs as possible.
 
 To install, just run:
 ```sh
