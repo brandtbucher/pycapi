@@ -10,7 +10,7 @@
     return PyLong_FromLong(_result);
 
 # define CAPI_RETURN_PYOBJECT(CALL) \
-    PyObject* _result =       CALL; \
+    PyObject* _result = CALL;       \
     if (!_result) {                 \
         if (PyErr_Occurred()) {     \
             return NULL;            \
