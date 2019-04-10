@@ -2,6 +2,27 @@
 # include "datetime.h"
 
 
+// # define CAPI_RETURN_CHARS(CALL)        \
+//     char* _result = CALL;               \
+//     if (PyErr_Occurred()) {             \
+//         return NULL;                    \
+//     }                                   \
+//     return PyBytes_FromString(_result);
+
+// # define CAPI_RETURN_COMPLEX(CALL)          \
+//     Py_complex _result = CALL;              \
+//     if (PyErr_Occurred()) {                 \
+//         return NULL;                        \
+//     }                                       \
+//     return PyComplex_FromCComplex(_result);
+
+# define CAPI_RETURN_DOUBLE(CALL)       \
+    double _result = CALL;              \
+    if (PyErr_Occurred()) {             \
+        return NULL;                    \
+    }                                   \
+    return PyFloat_FromDouble(_result);
+
 # define CAPI_RETURN_LONG(CALL)      \
     long _result = CALL;             \
     if (PyErr_Occurred()) {          \
@@ -109,6 +130,12 @@ CAPI_DEFINE_VOID(CAPI_RETURN_VOID, Py_Finalize)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, Py_Initialize)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, _PyVersion_Decrement)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, _PyVersion_Increment)
+
+CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_DOUBLE, PyComplex_ImagAsDouble)
+CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_DOUBLE, PyComplex_RealAsDouble)
+CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_DOUBLE, PyFloat_AS_DOUBLE)
+CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_DOUBLE, PyFloat_AsDouble)
+CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_DOUBLE, PyLong_AsDouble)
 
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_LONG, PyAnySet_Check)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_LONG, PyAnySet_CheckExact)
@@ -487,6 +514,12 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_VOID(Py_Initialize),
     CAPI_METHOD_VOID(_PyVersion_Decrement),
     CAPI_METHOD_VOID(_PyVersion_Increment),
+
+    CAPI_METHOD_1PYOBJECT(PyComplex_ImagAsDouble),
+    CAPI_METHOD_1PYOBJECT(PyComplex_RealAsDouble),
+    CAPI_METHOD_1PYOBJECT(PyFloat_AS_DOUBLE),
+    CAPI_METHOD_1PYOBJECT(PyFloat_AsDouble),
+    CAPI_METHOD_1PYOBJECT(PyLong_AsDouble),
 
     CAPI_METHOD_1PYOBJECT(PyAnySet_Check),
     CAPI_METHOD_1PYOBJECT(PyAnySet_CheckExact),
