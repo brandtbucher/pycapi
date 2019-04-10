@@ -2,20 +2,21 @@
 # include "datetime.h"
 
 
-// # define CAPI_RETURN_CHARS(CALL)        \
-//     char* _result = CALL;               \
-//     if (PyErr_Occurred()) {             \
-//         return NULL;                    \
-//     }                                   \
-//     return PyBytes_FromString(_result);
-
-// # define CAPI_RETURN_COMPLEX(CALL)          \
-//     Py_complex _result = CALL;              \
-//     if (PyErr_Occurred()) {                 \
-//         return NULL;                        \
-//     }                                       \
-//     return PyComplex_FromCComplex(_result);
-
+/*
+# define CAPI_RETURN_CHARS(CALL)        \
+    char* _result = CALL;               \
+    if (PyErr_Occurred()) {             \
+        return NULL;                    \
+    }                                   \
+    return PyBytes_FromString(_result);
+*//*
+# define CAPI_RETURN_COMPLEX(CALL)          \
+    Py_complex _result = CALL;              \
+    if (PyErr_Occurred()) {                 \
+        return NULL;                        \
+    }                                       \
+    return PyComplex_FromCComplex(_result);
+*/
 # define CAPI_RETURN_DOUBLE(CALL)       \
     double _result = CALL;              \
     if (PyErr_Occurred()) {             \
