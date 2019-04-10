@@ -19,15 +19,18 @@ build: clean
 
 test: build
 
-	# pip3 install --upgrade hypothesis
-	# pip3 install --upgrade pytest
-	# pip3 install --upgrade pytest-forked
+	pip3 install --upgrade hypothesis
+	pip3 install --upgrade pytest
+	pip3 install --upgrade pytest-forked
+	pip3 install --upgrade pytest-xdist
 
-	# pytest --forked --verbose --verbose
+	# pytest --forked --numprocesses auto --verbose --verbose
 
 release: test
 
-	pip install --upgrade twine
+	pip3 install --upgrade twine
 
 	twine check dist/*
 	twine upload dist/*
+
+	python3 -c 'import pycapi; print("APIs:", len([api for api in dir(pycapi) if not api.startswith("_")]))'
