@@ -2,14 +2,14 @@
 # include "datetime.h"
 
 
-/*
+
 # define CAPI_RETURN_CHARS(CALL)        \
-    char* _result = CALL;               \
+    const char* _result = CALL;         \
     if (PyErr_Occurred()) {             \
         return NULL;                    \
     }                                   \
     return PyBytes_FromString(_result);
-*//*
+/*
 # define CAPI_RETURN_COMPLEX(CALL)          \
     Py_complex _result = CALL;              \
     if (PyErr_Occurred()) {                 \
@@ -100,6 +100,12 @@ static void _PyVersion_Increment(void) {
     );
 }
 
+
+CAPI_DEFINE_VOID(CAPI_RETURN_CHARS, Py_GetBuildInfo)
+CAPI_DEFINE_VOID(CAPI_RETURN_CHARS, Py_GetCompiler)
+CAPI_DEFINE_VOID(CAPI_RETURN_CHARS, Py_GetCopyright)
+CAPI_DEFINE_VOID(CAPI_RETURN_CHARS, Py_GetPlatform)
+CAPI_DEFINE_VOID(CAPI_RETURN_CHARS, Py_GetVersion)
 
 CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyErr_BadArgument)
 CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyErr_CheckSignals)
@@ -484,6 +490,12 @@ CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_SetExcInfo)
 
 
 static PyMethodDef CAPIMethods[] =  {
+
+    CAPI_METHOD_VOID(Py_GetBuildInfo),
+    CAPI_METHOD_VOID(Py_GetCompiler),
+    CAPI_METHOD_VOID(Py_GetCopyright),
+    CAPI_METHOD_VOID(Py_GetPlatform),
+    CAPI_METHOD_VOID(Py_GetVersion),
 
     CAPI_METHOD_VOID(PyErr_BadArgument),
     CAPI_METHOD_VOID(PyErr_CheckSignals),
