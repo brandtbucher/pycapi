@@ -4,7 +4,7 @@ from setuptools import Extension, setup  # type: ignore
 
 if __name__ == "__main__":
 
-    with (Path(__file__).parent / "README.md").open() as file:
+    with (Path(__file__).parent / "README.md").open(encoding="UTF-8") as file:
         long_description = file.read()
 
     setup(
