@@ -48,6 +48,13 @@
     }                           \
     Py_RETURN_NONE;
 
+# define CAPI_RETURN_WCHARS(CALL)               \
+    const wchar_t* _result = CALL;              \
+    if (PyErr_Occurred()) {                     \
+        return NULL;                            \
+    }                                           \
+    return PyUnicode_FromWideChar(_result, -1);
+
 
 # define CAPI_METHOD_VOID(F) {#F, capi_##F, METH_NOARGS, NULL}
 # define CAPI_DEFINE_VOID(RETURN, F)                                                \
@@ -138,6 +145,12 @@ CAPI_DEFINE_VOID(CAPI_RETURN_VOID, Py_Initialize)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, _PyVersion_Decrement)
 CAPI_DEFINE_VOID(CAPI_RETURN_VOID, _PyVersion_Increment)
 
+CAPI_DEFINE_VOID(CAPI_RETURN_WCHARS, Py_GetExecPrefix)
+CAPI_DEFINE_VOID(CAPI_RETURN_WCHARS, Py_GetPath)
+CAPI_DEFINE_VOID(CAPI_RETURN_WCHARS, Py_GetPrefix)
+CAPI_DEFINE_VOID(CAPI_RETURN_WCHARS, Py_GetProgramFullPath)
+CAPI_DEFINE_VOID(CAPI_RETURN_WCHARS, Py_GetProgramName)
+
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_CHARS, PyByteArray_AS_STRING)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_CHARS, PyByteArray_AsString)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_CHARS, PyBytes_AS_STRING)
@@ -149,6 +162,8 @@ CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_CHARS, PyModule_GetFilename)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_CHARS, PyModule_GetName)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_CHARS, PyUnicode_AS_DATA)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_CHARS, PyUnicode_AsUTF8)
+
+// CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_COMPLEX, PyComplex_AsCComplex)
 
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_DOUBLE, PyComplex_ImagAsDouble)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_DOUBLE, PyComplex_RealAsDouble)
@@ -356,6 +371,10 @@ CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, Py_ReprLeave)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, Py_XDECREF)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_VOID, Py_XINCREF)
 
+// CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_WCHARS, PyUnicode_AS_UNICODE)
+// CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_WCHARS, PyUnicode_AsUnicode)
+// CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_WCHARS, PyUnicode_AsUnicodeCopy)
+
 CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_LONG, PyCell_Set)
 CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_LONG, PyDict_Contains)
 CAPI_DEFINE_2PYOBJECT(CAPI_RETURN_LONG, PyDict_DelItem)
@@ -540,6 +559,12 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_VOID(_PyVersion_Decrement),
     CAPI_METHOD_VOID(_PyVersion_Increment),
 
+    CAPI_METHOD_VOID(Py_GetExecPrefix),
+    CAPI_METHOD_VOID(Py_GetPath),
+    CAPI_METHOD_VOID(Py_GetPrefix),
+    CAPI_METHOD_VOID(Py_GetProgramFullPath),
+    CAPI_METHOD_VOID(Py_GetProgramName),
+
     CAPI_METHOD_1PYOBJECT(PyByteArray_AS_STRING),
     CAPI_METHOD_1PYOBJECT(PyByteArray_AsString),
     CAPI_METHOD_1PYOBJECT(PyBytes_AS_STRING),
@@ -551,6 +576,8 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_1PYOBJECT(PyModule_GetName),
     CAPI_METHOD_1PYOBJECT(PyUnicode_AS_DATA),
     CAPI_METHOD_1PYOBJECT(PyUnicode_AsUTF8),
+
+    // CAPI_METHOD_1PYOBJECT(PyComplex_AsCComplex),
 
     CAPI_METHOD_1PYOBJECT(PyComplex_ImagAsDouble),
     CAPI_METHOD_1PYOBJECT(PyComplex_RealAsDouble),
@@ -757,6 +784,10 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_1PYOBJECT(Py_ReprLeave),
     CAPI_METHOD_1PYOBJECT(Py_XDECREF),
     CAPI_METHOD_1PYOBJECT(Py_XINCREF),
+
+    // CAPI_METHOD_1PYOBJECT(PyUnicode_AS_UNICODE),
+    // CAPI_METHOD_1PYOBJECT(PyUnicode_AsUnicode),
+    // CAPI_METHOD_1PYOBJECT(PyUnicode_AsUnicodeCopy),
 
     CAPI_METHOD_2PYOBJECT(PyCell_Set),
     CAPI_METHOD_2PYOBJECT(PyDict_Contains),
