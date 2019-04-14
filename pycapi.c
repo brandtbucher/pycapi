@@ -9,14 +9,14 @@
         return NULL;                    \
     }                                   \
     return PyBytes_FromString(_result);
-/*
+
 # define CAPI_RETURN_COMPLEX(CALL)          \
     Py_complex _result = CALL;              \
     if (PyErr_Occurred()) {                 \
         return NULL;                        \
     }                                       \
     return PyComplex_FromCComplex(_result);
-*/
+
 # define CAPI_RETURN_DOUBLE(CALL)       \
     double _result = CALL;              \
     if (PyErr_Occurred()) {             \
@@ -62,6 +62,106 @@ static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(unused)
     RETURN(F());                                                                    \
 }
 
+# define CAPI_METHOD_1ARG(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_1ARG(RETURN, TYPE, F)                             \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) { \
+    PyObject* arg;                                                     \
+    if(!PyArg_ParseTuple(args, TYPE ":" #F, &arg)) {                   \
+        return NULL;                                                   \
+    }                                                                  \
+    RETURN(F(arg));                                                    \
+}
+
+# define CAPI_METHOD_2ARG(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_2ARG(RETURN, TYPES, F)                             \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {  \
+    PyObject* parsed[2];                                                \
+    if(!PyArg_ParseTuple(args, TYPES ":" #F, &parsed[0], &parsed[1])) { \
+        return NULL;                                                    \
+    }                                                                   \
+    RETURN(F(parsed[0], parsed[1]));                                    \
+}
+
+# define CAPI_METHOD_3ARG(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_3ARG(RETURN, TYPES, F)                                         \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {              \
+    PyObject* parsed[3];                                                            \
+    if(!PyArg_ParseTuple(args, TYPES ":" #F, &parsed[0], &parsed[1], &parsed[2])) { \
+        return NULL;                                                                \
+    }                                                                               \
+    RETURN(F(parsed[0], parsed[1], parsed[2]));                                     \
+}
+
+# define CAPI_METHOD_4ARG(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_4ARG(RETURN, TYPES, F)                                                     \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {                          \
+    PyObject* parsed[4];                                                                        \
+    if(!PyArg_ParseTuple(args, TYPES ":" #F, &parsed[0], &parsed[1], &parsed[2], &parsed[3])) { \
+        return NULL;                                                                            \
+    }                                                                                           \
+    RETURN(F(parsed[0], parsed[1], parsed[2], parsed[3]));                                      \
+}
+
+# define CAPI_METHOD_5ARG(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_5ARG(RETURN, TYPES, F)                                                                 \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {                                      \
+    PyObject* parsed[5];                                                                                    \
+    if(!PyArg_ParseTuple(args, TYPES ":" #F, &parsed[0], &parsed[1], &parsed[2], &parsed[3], &parsed[4])) { \
+        return NULL;                                                                                        \
+    }                                                                                                       \
+    RETURN(F(parsed[0], parsed[1], parsed[2], parsed[3], parsed[4]));                                       \
+}
+
+# define CAPI_METHOD_6ARG(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_6ARG(RETURN, TYPES, F)                                                                             \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {                                                  \
+    PyObject* parsed[6];                                                                                                \
+    if(!PyArg_ParseTuple(args, TYPES ":" #F, &parsed[0], &parsed[1], &parsed[2], &parsed[3], &parsed[4], &parsed[5])) { \
+        return NULL;                                                                                                    \
+    }                                                                                                                   \
+    RETURN(F(parsed[0], parsed[1], parsed[2], parsed[3], parsed[4], parsed[5]));                                        \
+}
+
+# define CAPI_METHOD_7ARG(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_7ARG(RETURN, TYPES, F)                                                                                         \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {                                                              \
+    PyObject* parsed[7];                                                                                                            \
+    if(!PyArg_ParseTuple(args, TYPES ":" #F, &parsed[0], &parsed[1], &parsed[2], &parsed[3], &parsed[4], &parsed[5], &parsed[6])) { \
+        return NULL;                                                                                                                \
+    }                                                                                                                               \
+    RETURN(F(parsed[0], parsed[1], parsed[2], parsed[3], parsed[4], parsed[5], parsed[6]));                                         \
+}
+
+# define CAPI_METHOD_8ARG(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_8ARG(RETURN, TYPES, F)                                                                                                     \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {                                                                          \
+    PyObject* parsed[8];                                                                                                                        \
+    if(!PyArg_ParseTuple(args, TYPES ":" #F, &parsed[0], &parsed[1], &parsed[2], &parsed[3], &parsed[4], &parsed[5], &parsed[6], &parsed[7])) { \
+        return NULL;                                                                                                                            \
+    }                                                                                                                                           \
+    RETURN(F(parsed[0], parsed[1], parsed[2], parsed[3], parsed[4], parsed[5], parsed[6], parsed[7]));                                          \
+}
+
+# define CAPI_METHOD_11ARG(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_11ARG(RETURN, TYPES, F)                                                                                                                                         \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {                                                                                                               \
+    PyObject* parsed[11];                                                                                                                                                            \
+    if(!PyArg_ParseTuple(args, TYPES ":" #F, &parsed[0], &parsed[1], &parsed[2], &parsed[3], &parsed[4], &parsed[5], &parsed[6], &parsed[7], &parsed[8], &parsed[9], &parsed[10])) { \
+        return NULL;                                                                                                                                                                 \
+    }                                                                                                                                                                                \
+    RETURN(F(parsed[0], parsed[1], parsed[2], parsed[3], parsed[4], parsed[5], parsed[6], parsed[7], parsed[8], parsed[9], parsed[10]));                                             \
+}
+
+# define CAPI_METHOD_15ARG(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_15ARG(RETURN, TYPES, F)                                                                                                                                                                                             \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {                                                                                                                                                                   \
+    PyObject* parsed[15];                                                                                                                                                                                                                \
+    if(!PyArg_ParseTuple(args, TYPES ":" #F, &parsed[0], &parsed[1], &parsed[2], &parsed[3], &parsed[4], &parsed[5], &parsed[6], &parsed[7], &parsed[8], &parsed[9], &parsed[10], &parsed[11], &parsed[12], &parsed[13], &parsed[14])) { \
+        return NULL;                                                                                                                                                                                                                     \
+    }                                                                                                                                                                                                                                    \
+    RETURN(F(parsed[0], parsed[1], parsed[2], parsed[3], parsed[4], parsed[5], parsed[6], parsed[7], parsed[8], parsed[9], parsed[10], parsed[11], parsed[12], parsed[13], parsed[14]));                                                 \
+}
+
 # define CAPI_METHOD_1PYOBJECT(F) {#F, capi_##F, METH_O, NULL}
 # define CAPI_DEFINE_1PYOBJECT(RETURN, F)                             \
 static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* arg) { \
@@ -86,6 +186,16 @@ static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {          
         return NULL;                                                             \
     }                                                                            \
     RETURN(F(parsed[0], parsed[1], parsed[2]));                                  \
+}
+
+# define CAPI_METHOD_4PYOBJECT(F) {#F, capi_##F, METH_VARARGS, NULL}
+# define CAPI_DEFINE_4PYOBJECT(RETURN, F)                                                    \
+static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) {                       \
+    PyObject* parsed[4];                                                                     \
+    if(!PyArg_UnpackTuple(args, #F, 4, 4, &parsed[0], &parsed[1], &parsed[2], &parsed[3])) { \
+        return NULL;                                                                         \
+    }                                                                                        \
+    RETURN(F(parsed[0], parsed[1], parsed[2], parsed[3]));                                   \
 }
 
 
