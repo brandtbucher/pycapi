@@ -10,7 +10,7 @@ if __name__ == "__main__":
     setup(
         author="Brandt Bucher",
         author_email="brandtbucher@gmail.com",
-        description="Python bindings to the CPython C API.",
+        description="Fast Python bindings to the CPython C API.",
         ext_modules=[Extension(name="pycapi", sources=["pycapi.c"])],
         keywords="API C CPython Python",
         license="MIT",
