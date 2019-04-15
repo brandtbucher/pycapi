@@ -2,7 +2,6 @@
 # include "datetime.h"
 
 
-
 # define CAPI_RETURN_CHARS(CALL)        \
     const char* _result = CALL;         \
     if (PyErr_Occurred()) {             \
