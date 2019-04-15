@@ -12,7 +12,7 @@ clean:
 
 build: clean
 
-	pip3 install --upgrade black && black *.py; true
+	pip3 install --upgrade black && black .; true
 	pip3 install --upgrade setuptools
 
 	CFLAGS="-Werror -Wno-deprecated-declarations" python3 setup.py sdist develop
