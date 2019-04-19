@@ -579,8 +579,6 @@ CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_PYOBJECT, PySlice_New)
 CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_Restore)
 CAPI_DEFINE_3PYOBJECT(CAPI_RETURN_VOID, PyErr_SetExcInfo)
 
-CAPI_DEFINE_4PYOBJECT(CAPI_RETURN_PYOBJECT, PyErr_SetImportErrorSubclass)
-
 # if 0x030700F0 <= PY_VERSION_HEX
 
     CAPI_DEFINE_VOID(CAPI_RETURN_LONG, PyContext_ClearFreeList)
@@ -611,7 +609,9 @@ CAPI_DEFINE_4PYOBJECT(CAPI_RETURN_PYOBJECT, PyErr_SetImportErrorSubclass)
 
 # if 0x030600F0 <= PY_VERSION_HEX
 
-    CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_PYOBJECT, PyOS_FSPath)        
+    CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_PYOBJECT, PyOS_FSPath)
+
+    CAPI_DEFINE_4PYOBJECT(CAPI_RETURN_PYOBJECT, PyErr_SetImportErrorSubclass)
 
 # endif
 
@@ -995,8 +995,6 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_3PYOBJECT(PyErr_Restore),
     CAPI_METHOD_3PYOBJECT(PyErr_SetExcInfo),
 
-    CAPI_METHOD_4PYOBJECT(PyErr_SetImportErrorSubclass),
-
     # if 0x030700F0 <= PY_VERSION_HEX
 
         CAPI_METHOD_VOID(PyContext_ClearFreeList),
@@ -1029,6 +1027,8 @@ static PyMethodDef CAPIMethods[] =  {
 
         CAPI_METHOD_1PYOBJECT(PyOS_FSPath),
 
+        CAPI_METHOD_4PYOBJECT(PyErr_SetImportErrorSubclass),
+
     # endif
 
     # if 0x030500F0 <= PY_VERSION_HEX
@@ -1055,7 +1055,7 @@ static struct PyModuleDef CAPIModule = {
 };
 
 PyObject* PyInit_pycapi(void) {
-    
+
     PyDateTime_IMPORT;
 
     return PyModule_Create(&CAPIModule);
