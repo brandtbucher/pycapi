@@ -64,7 +64,7 @@ static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(unused)
 # define CAPI_METHOD_1ARG(F) {#F, capi_##F, METH_VARARGS, NULL}
 # define CAPI_DEFINE_1ARG(RETURN, TYPE, F)                             \
 static PyObject* capi_##F(PyObject* Py_UNUSED(self), PyObject* args) { \
-    PyObject* arg;                                                     \
+    long arg;                                                          \
     if(!PyArg_ParseTuple(args, TYPE ":" #F, &arg)) {                   \
         return NULL;                                                   \
     }                                                                  \
@@ -259,6 +259,9 @@ CAPI_DEFINE_VOID(CAPI_RETURN_WCHAR_TS, Py_GetPath)
 CAPI_DEFINE_VOID(CAPI_RETURN_WCHAR_TS, Py_GetPrefix)
 CAPI_DEFINE_VOID(CAPI_RETURN_WCHAR_TS, Py_GetProgramFullPath)
 CAPI_DEFINE_VOID(CAPI_RETURN_WCHAR_TS, Py_GetProgramName)
+
+CAPI_DEFINE_1ARG(CAPI_RETURN_PYOBJECT, "l", PyBool_FromLong)
+CAPI_DEFINE_1ARG(CAPI_RETURN_PYOBJECT, "l", PyLong_FromLong)
 
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_CHARS, PyByteArray_AS_STRING)
 CAPI_DEFINE_1PYOBJECT(CAPI_RETURN_CHARS, PyByteArray_AsString)
@@ -675,6 +678,9 @@ static PyMethodDef CAPIMethods[] =  {
     CAPI_METHOD_VOID(Py_GetPrefix),
     CAPI_METHOD_VOID(Py_GetProgramFullPath),
     CAPI_METHOD_VOID(Py_GetProgramName),
+
+    CAPI_METHOD_1ARG(PyBool_FromLong),
+    CAPI_METHOD_1ARG(PyLong_FromLong),
 
     CAPI_METHOD_1PYOBJECT(PyByteArray_AS_STRING),
     CAPI_METHOD_1PYOBJECT(PyByteArray_AsString),
