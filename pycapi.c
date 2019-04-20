@@ -1662,32 +1662,36 @@ static PyObject* capi_PyErr_SetImportError(PyObject* Py_UNUSED(self), PyObject* 
     return result;
 }
 
-static PyObject* capi_PyErr_SetImportErrorSubclass(PyObject* Py_UNUSED(self), PyObject* args) {
+# if 0x030600F0 <= PY_VERSION_HEX
 
-    PyObject* arg0;
-    PyObject* arg1;
-    PyObject* arg2;
-    PyObject* arg3;
+    static PyObject* capi_PyErr_SetImportErrorSubclass(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    PyObject* result;
+        PyObject* arg0;
+        PyObject* arg1;
+        PyObject* arg2;
+        PyObject* arg3;
 
-    if (!PyArg_UnpackTuple(args, "PyErr_SetImportErrorSubclass", 4, 4, &arg0, &arg1, &arg2, &arg3)) {
-        return NULL;
-    }
+        PyObject* result;
 
-    result = PyErr_SetImportErrorSubclass(arg0, arg1, arg2, arg3);
-
-    if (!result) {
-
-        if (PyErr_Occurred()) {
+        if (!PyArg_UnpackTuple(args, "PyErr_SetImportErrorSubclass", 4, 4, &arg0, &arg1, &arg2, &arg3)) {
             return NULL;
         }
 
-        Py_RETURN_NONE;
+        result = PyErr_SetImportErrorSubclass(arg0, arg1, arg2, arg3);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
     }
 
-    return result;
-}
+# endif
 
 static PyObject* capi_PyErr_SetInterrupt(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
@@ -6584,7 +6588,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyErr_SetFromErrnoWithFilenameObject", capi_PyErr_SetFromErrnoWithFilenameObject, METH_VARARGS, NULL},
     {"PyErr_SetFromErrnoWithFilenameObjects", capi_PyErr_SetFromErrnoWithFilenameObjects, METH_VARARGS, NULL},
     {"PyErr_SetImportError", capi_PyErr_SetImportError, METH_VARARGS, NULL},
-    {"PyErr_SetImportErrorSubclass", capi_PyErr_SetImportErrorSubclass, METH_VARARGS, NULL},
+
+    # if 0x030600F0 <= PY_VERSION_HEX
+
+        {"PyErr_SetImportErrorSubclass", capi_PyErr_SetImportErrorSubclass, METH_VARARGS, NULL},
+
+    # endif
+
     {"PyErr_SetInterrupt", capi_PyErr_SetInterrupt, METH_NOARGS, NULL},
     {"PyErr_SetNone", capi_PyErr_SetNone, METH_O, NULL},
     {"PyErr_SetObject", capi_PyErr_SetObject, METH_VARARGS, NULL},
