@@ -4,7 +4,9 @@ all: build
 
 clean:
 
+	rm -rf *.c
 	rm -rf *.egg-info
+	rm -rf *.pyi
 	rm -rf *.so
 	rm -rf MANIFEST
 	rm -rf build
@@ -13,6 +15,9 @@ clean:
 build: clean
 
 	pip3 install --upgrade black && black .; true
+
+	python3 generate.py
+
 	pip3 install --upgrade setuptools
 
 	CFLAGS="-Werror -Wno-deprecated-declarations" python3 setup.py sdist develop
