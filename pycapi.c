@@ -569,11 +569,204 @@ static PyObject* capi_PyCodec_BackslashReplaceErrors(PyObject* Py_UNUSED(self), 
     return result;
 }
 
+static PyObject* capi_PyCodec_Decode(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    const char* arg1;
+    const char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oyy:PyCodec_Decode", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyCodec_Decode(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyCodec_Decoder(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PyCodec_Decoder", &arg0)) {
+        return NULL;
+    }
+
+    result = PyCodec_Decoder(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyCodec_Encode(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    const char* arg1;
+    const char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oyy:PyCodec_Encode", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyCodec_Encode(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyCodec_Encoder(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PyCodec_Encoder", &arg0)) {
+        return NULL;
+    }
+
+    result = PyCodec_Encoder(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyCodec_IgnoreErrors(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
 
     result = PyCodec_IgnoreErrors(arg);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyCodec_IncrementalDecoder(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    const char* arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yy:PyCodec_IncrementalDecoder", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyCodec_IncrementalDecoder(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyCodec_IncrementalEncoder(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    const char* arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yy:PyCodec_IncrementalEncoder", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyCodec_IncrementalEncoder(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyCodec_KnownEncoding(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "y:PyCodec_KnownEncoding", &arg0)) {
+        return NULL;
+    }
+
+    result = PyCodec_KnownEncoding(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyCodec_LookupError(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PyCodec_LookupError", &arg0)) {
+        return NULL;
+    }
+
+    result = PyCodec_LookupError(arg0);
 
     if (!result) {
 
@@ -622,11 +815,83 @@ static PyObject* capi_PyCodec_Register(PyObject* Py_UNUSED(self), PyObject* arg)
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyCodec_RegisterError(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    PyObject* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "yO:PyCodec_RegisterError", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyCodec_RegisterError(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyCodec_ReplaceErrors(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
 
     result = PyCodec_ReplaceErrors(arg);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyCodec_StreamReader(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    PyObject* arg1;
+    const char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yOy:PyCodec_StreamReader", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyCodec_StreamReader(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyCodec_StreamWriter(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    PyObject* arg1;
+    const char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yOy:PyCodec_StreamWriter", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyCodec_StreamWriter(arg0, arg1, arg2);
 
     if (!result) {
 
@@ -6478,7 +6743,15 @@ static PyMethodDef CAPIMethods[] =  {
     /* PyCodec */
 
     {"PyCodec_BackslashReplaceErrors", capi_PyCodec_BackslashReplaceErrors, METH_O, NULL},
+    {"PyCodec_Decode", capi_PyCodec_Decode, METH_VARARGS, NULL},
+    {"PyCodec_Decoder", capi_PyCodec_Decoder, METH_VARARGS, NULL},
+    {"PyCodec_Encode", capi_PyCodec_Encode, METH_VARARGS, NULL},
+    {"PyCodec_Encoder", capi_PyCodec_Encoder, METH_VARARGS, NULL},
     {"PyCodec_IgnoreErrors", capi_PyCodec_IgnoreErrors, METH_O, NULL},
+    {"PyCodec_IncrementalDecoder", capi_PyCodec_IncrementalDecoder, METH_VARARGS, NULL},
+    {"PyCodec_IncrementalEncoder", capi_PyCodec_IncrementalEncoder, METH_VARARGS, NULL},
+    {"PyCodec_KnownEncoding", capi_PyCodec_KnownEncoding, METH_VARARGS, NULL},
+    {"PyCodec_LookupError", capi_PyCodec_LookupError, METH_VARARGS, NULL},
 
     # if 0x030500F0 <= PY_VERSION_HEX
 
@@ -6487,7 +6760,10 @@ static PyMethodDef CAPIMethods[] =  {
     # endif
 
     {"PyCodec_Register", capi_PyCodec_Register, METH_O, NULL},
+    {"PyCodec_RegisterError", capi_PyCodec_RegisterError, METH_VARARGS, NULL},
     {"PyCodec_ReplaceErrors", capi_PyCodec_ReplaceErrors, METH_O, NULL},
+    {"PyCodec_StreamReader", capi_PyCodec_StreamReader, METH_VARARGS, NULL},
+    {"PyCodec_StreamWriter", capi_PyCodec_StreamWriter, METH_VARARGS, NULL},
     {"PyCodec_StrictErrors", capi_PyCodec_StrictErrors, METH_O, NULL},
     {"PyCodec_XMLCharRefReplaceErrors", capi_PyCodec_XMLCharRefReplaceErrors, METH_O, NULL},
 
