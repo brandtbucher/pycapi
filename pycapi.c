@@ -175,6 +175,31 @@ static PyObject* capi_PyByteArray_FromObject(PyObject* Py_UNUSED(self), PyObject
     return result;
 }
 
+static PyObject* capi_PyByteArray_FromStringAndSize(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yn:PyByteArray_FromStringAndSize", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyByteArray_FromStringAndSize(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyByteArray_GET_SIZE(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     Py_ssize_t result;
@@ -186,6 +211,26 @@ static PyObject* capi_PyByteArray_GET_SIZE(PyObject* Py_UNUSED(self), PyObject* 
     }
 
     return PyLong_FromSsize_t(result);
+}
+
+static PyObject* capi_PyByteArray_Resize(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "On:PyByteArray_Resize", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyByteArray_Resize(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
 }
 
 static PyObject* capi_PyByteArray_Size(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -6384,7 +6429,9 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyByteArray_CheckExact", capi_PyByteArray_CheckExact, METH_O, NULL},
     {"PyByteArray_Concat", capi_PyByteArray_Concat, METH_VARARGS, NULL},
     {"PyByteArray_FromObject", capi_PyByteArray_FromObject, METH_O, NULL},
+    {"PyByteArray_FromStringAndSize", capi_PyByteArray_FromStringAndSize, METH_VARARGS, NULL},
     {"PyByteArray_GET_SIZE", capi_PyByteArray_GET_SIZE, METH_O, NULL},
+    {"PyByteArray_Resize", capi_PyByteArray_Resize, METH_VARARGS, NULL},
     {"PyByteArray_Size", capi_PyByteArray_Size, METH_O, NULL},
 
     /* PyBytes */

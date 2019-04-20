@@ -40,7 +40,9 @@ API: typing.Tuple[
     ("PyByteArray_CheckExact", "O", "i"),
     ("PyByteArray_Concat", "OO", "N"),
     ("PyByteArray_FromObject", "O", "N"),
+    ("PyByteArray_FromStringAndSize", "yn", "N"),
     ("PyByteArray_GET_SIZE", "O", "n"),
+    ("PyByteArray_Resize", "On", "i"),
     ("PyByteArray_Size", "O", "n"),
     ("PyBytes_AS_STRING", "O", "y"),
     ("PyBytes_AsString", "O", "y"),
@@ -522,7 +524,7 @@ import typing
 
 STUB = "def {}({}) -> {}: ..."
 
-ARG_TYPES_PYI = {"l": "int", "O": "object"}
+ARG_TYPES_PYI = {"l": "int", "n": "int", "O": "object", "y": "bytes"}
 
 RETURN_TYPES_PYI = {
     "": "None",
@@ -539,7 +541,7 @@ RETURN_TYPES_PYI = {
     "y": "typing.Optional[bytes]",
 }
 
-ARG_TYPES_C = {"l": "long", "O": "PyObject*"}
+ARG_TYPES_C = {"l": "long", "n": "Py_ssize_t", "O": "PyObject*", "y": "const char*"}
 
 RETURN_TYPES_C = {
     "": "void",
