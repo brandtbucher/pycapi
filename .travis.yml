@@ -23,6 +23,7 @@ matrix:
 
   - name: CPython 3.5
     python: 3.5
+    script: make build-35
 
   - name: CPython 3.6
     python: 3.6
@@ -32,6 +33,7 @@ matrix:
 
   - name: CPython 3.5+
     python: 3.5-dev
+    script: make build-35
 
   - name: CPython 3.6+
     python: 3.6-dev

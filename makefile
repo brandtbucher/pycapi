@@ -39,3 +39,9 @@ release: test
 	twine upload dist/*
 
 	python3 -c 'import pycapi; print("APIs:", len([api for api in dir(pycapi) if not api.startswith("_")]))'
+
+build-35:
+
+	pip3 install --upgrade setuptools
+
+	CFLAGS="-Werror -Wno-deprecated-declarations" python3 setup.py sdist develop
