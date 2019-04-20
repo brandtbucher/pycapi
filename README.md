@@ -2,12 +2,6 @@
 
 <div align=center>
 
-**PyCAPI is nothing more than a thin wrapper around the _actual_ underlying CPython C API.<br>As when using C or `ctypes`, there is the potential to break things if you don't know what you're doing!**
-
-- - -
-
-<br>
-
 PyCAPI
 ======
 
@@ -29,7 +23,7 @@ Where is the documentation?
 
 Documentation of the full CPython C API can be found [here](https://docs.python.org/3/c-api/index.html). It's not a goal of this project to maintain a separate API reference.
 
-Any type conversions (such as Python `int` with C `int`, Python `bytes` with C `char*`, or Python `None` with C `NULL`) should be obvious, and all other semantics (such as refcounts, etc.) are identical to the documented API behavior. For simplicity, PyCAPI doesn't provide any additional functionality or utilities beyond CPython's documented stable public API.
+Any type conversions (such as Python `int` with C `long`, or Python `bytes` with C `char*`) should be obvious, and all other semantics (such as refcounts, etc.) are identical to the documented API behavior. For simplicity, PyCAPI doesn't provide any additional functionality or utilities beyond CPython's documented stable public API.
 
 How is PyCAPI better than `ctypes.pythonapi`?
 ---------------------------------------------
@@ -140,7 +134,5 @@ In [3]: %timeit PyDict_Clear({})
 In [4]: %timeit PyDict_Copy({})
 378 ns ± 9.77 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
 ```
-
-Note that Python 3.7.3 was used in these examples; the performance gains are typically even _larger_ for older Python versions!
 
 </div>
