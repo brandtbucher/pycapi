@@ -982,6 +982,55 @@ static PyObject* capi_PyComplex_CheckExact(PyObject* Py_UNUSED(self), PyObject* 
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyComplex_FromCComplex(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    Py_complex arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "D:PyComplex_FromCComplex", &arg0)) {
+        return NULL;
+    }
+
+    result = PyComplex_FromCComplex(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyComplex_FromDoubles(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    double arg0;
+    double arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "dd:PyComplex_FromDoubles", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyComplex_FromDoubles(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyComplex_ImagAsDouble(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     double result;
@@ -6772,6 +6821,8 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyComplex_AsCComplex", capi_PyComplex_AsCComplex, METH_O, NULL},
     {"PyComplex_Check", capi_PyComplex_Check, METH_O, NULL},
     {"PyComplex_CheckExact", capi_PyComplex_CheckExact, METH_O, NULL},
+    {"PyComplex_FromCComplex", capi_PyComplex_FromCComplex, METH_VARARGS, NULL},
+    {"PyComplex_FromDoubles", capi_PyComplex_FromDoubles, METH_VARARGS, NULL},
     {"PyComplex_ImagAsDouble", capi_PyComplex_ImagAsDouble, METH_O, NULL},
     {"PyComplex_RealAsDouble", capi_PyComplex_RealAsDouble, METH_O, NULL},
 

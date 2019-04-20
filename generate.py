@@ -90,6 +90,8 @@ API: typing.Tuple[
     ("PyComplex_AsCComplex", "O", "D"),
     ("PyComplex_Check", "O", "i"),
     ("PyComplex_CheckExact", "O", "i"),
+    ("PyComplex_FromCComplex", "D", "N"),
+    ("PyComplex_FromDoubles", "dd", "N"),
     ("PyComplex_ImagAsDouble", "O", "d"),
     ("PyComplex_RealAsDouble", "O", "d"),
     (
@@ -541,7 +543,14 @@ import typing
 
 STUB = "def {}({}) -> {}: ..."
 
-ARG_TYPES_PYI = {"l": "int", "n": "int", "O": "object", "y": "bytes"}
+ARG_TYPES_PYI = {
+    "D": "complex",
+    "d": "float",
+    "l": "int",
+    "n": "int",
+    "O": "object",
+    "y": "bytes",
+}
 
 RETURN_TYPES_PYI = {
     "": "None",
@@ -558,7 +567,14 @@ RETURN_TYPES_PYI = {
     "y": "typing.Optional[bytes]",
 }
 
-ARG_TYPES_C = {"l": "long", "n": "Py_ssize_t", "O": "PyObject*", "y": "const char*"}
+ARG_TYPES_C = {
+    "D": "Py_complex",
+    "d": "double",
+    "l": "long",
+    "n": "Py_ssize_t",
+    "O": "PyObject*",
+    "y": "const char*",
+}
 
 RETURN_TYPES_C = {
     "": "void",
