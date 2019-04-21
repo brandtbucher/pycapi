@@ -177,6 +177,7 @@ API: typing.Tuple[
     ("PyDateTime_FromTimestamp", "O", "N"),
     ("PyDate_Check", "O", "i"),
     ("PyDate_CheckExact", "O", "i"),
+    ("PyDate_FromDate", "iii", "N"),
     ("PyDate_FromTimestamp", "O", "N"),
     ("PyDelta_Check", "O", "i"),
     ("PyDelta_CheckExact", "O", "i"),
@@ -546,6 +547,7 @@ STUB = "def {}({}) -> {}: ..."
 ARG_TYPES_PYI = {
     "D": "complex",
     "d": "float",
+    "i": "int",
     "l": "int",
     "n": "int",
     "O": "object",
@@ -570,6 +572,7 @@ RETURN_TYPES_PYI = {
 ARG_TYPES_C = {
     "D": "Py_complex",
     "d": "double",
+    "i": "int",
     "l": "long",
     "n": "Py_ssize_t",
     "O": "PyObject*",

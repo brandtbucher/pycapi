@@ -1333,6 +1333,32 @@ static PyObject* capi_PyDate_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyDate_FromDate(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+    int arg1;
+    int arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "iii:PyDate_FromDate", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyDate_FromDate(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyDate_FromTimestamp(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
@@ -6864,6 +6890,7 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyDate_Check", capi_PyDate_Check, METH_O, NULL},
     {"PyDate_CheckExact", capi_PyDate_CheckExact, METH_O, NULL},
+    {"PyDate_FromDate", capi_PyDate_FromDate, METH_VARARGS, NULL},
     {"PyDate_FromTimestamp", capi_PyDate_FromTimestamp, METH_O, NULL},
 
     /* PyDelta */
