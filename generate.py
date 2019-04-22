@@ -174,6 +174,7 @@ API: typing.Tuple[
     ("PyCoro_CheckExact", "O", "i"),
     ("PyDateTime_Check", "O", "i"),
     ("PyDateTime_CheckExact", "O", "i"),
+    ("PyDateTime_FromDateAndTime", "iiiiiii", "N"),
     ("PyDateTime_FromTimestamp", "O", "N"),
     ("PyDate_Check", "O", "i"),
     ("PyDate_CheckExact", "O", "i"),
