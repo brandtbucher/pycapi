@@ -40,7 +40,7 @@ release: test
 	twine check dist/*
 	twine upload dist/*
 
-	python3 -c 'import pycapi; print("APIs:", len([api for api in dir(pycapi) if not api.startswith("_")]))'
+	python3 -c 'from generate import API; print("APIs:", len(API))'
 
 build-35:
 
