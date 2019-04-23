@@ -182,6 +182,7 @@ API: typing.Tuple[
     ("PyDate_FromTimestamp", "O", "N"),
     ("PyDelta_Check", "O", "i"),
     ("PyDelta_CheckExact", "O", "i"),
+    ("PyDelta_FromDSU", "iii", "N"),
     ("PyDescr_IsData", "O", "i"),
     ("PyDictProxy_New", "O", "N"),
     ("PyDict_Check", "O", "i"),

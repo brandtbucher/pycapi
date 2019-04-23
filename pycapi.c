@@ -1435,6 +1435,32 @@ static PyObject* capi_PyDelta_CheckExact(PyObject* Py_UNUSED(self), PyObject* ar
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyDelta_FromDSU(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+    int arg1;
+    int arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "iii:PyDelta_FromDSU", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyDelta_FromDSU(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 /* PyDescr */
 
 static PyObject* capi_PyDescr_IsData(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -6928,6 +6954,7 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyDelta_Check", capi_PyDelta_Check, METH_O, NULL},
     {"PyDelta_CheckExact", capi_PyDelta_CheckExact, METH_O, NULL},
+    {"PyDelta_FromDSU", capi_PyDelta_FromDSU, METH_VARARGS, NULL},
 
     /* PyDescr */
 
