@@ -2393,6 +2393,105 @@ static PyObject* capi_PyException_SetTraceback(PyObject* Py_UNUSED(self), PyObje
     return PyLong_FromLong(result);
 }
 
+/* PyFile */
+
+static PyObject* capi_PyFile_FromFd(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+    const char* arg1;
+    const char* arg2;
+    int arg3;
+    const char* arg4;
+    const char* arg5;
+    const char* arg6;
+    int arg7;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "iyyiyyyi:PyFile_FromFd", &arg0, &arg1, &arg2, &arg3, &arg4, &arg5, &arg6, &arg7)) {
+        return NULL;
+    }
+
+    result = PyFile_FromFd(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyFile_GetLine(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    int arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oi:PyFile_GetLine", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyFile_GetLine(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyFile_WriteObject(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    int arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OOi:PyFile_WriteObject", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyFile_WriteObject(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyFile_WriteString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    PyObject* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "yO:PyFile_WriteString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyFile_WriteString(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 /* PyFloat */
 
 static PyObject* capi_PyFloat_AS_DOUBLE(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -7032,6 +7131,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyException_SetCause", capi_PyException_SetCause, METH_VARARGS, NULL},
     {"PyException_SetContext", capi_PyException_SetContext, METH_VARARGS, NULL},
     {"PyException_SetTraceback", capi_PyException_SetTraceback, METH_VARARGS, NULL},
+
+    /* PyFile */
+
+    {"PyFile_FromFd", capi_PyFile_FromFd, METH_VARARGS, NULL},
+    {"PyFile_GetLine", capi_PyFile_GetLine, METH_VARARGS, NULL},
+    {"PyFile_WriteObject", capi_PyFile_WriteObject, METH_VARARGS, NULL},
+    {"PyFile_WriteString", capi_PyFile_WriteString, METH_VARARGS, NULL},
 
     /* PyFloat */
 
