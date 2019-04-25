@@ -2546,6 +2546,30 @@ static PyObject* capi_PyFloat_CheckExact(PyObject* Py_UNUSED(self), PyObject* ar
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyFloat_FromDouble(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    double arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "d:PyFloat_FromDouble", &arg0)) {
+        return NULL;
+    }
+
+    result = PyFloat_FromDouble(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyFloat_FromString(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
@@ -7145,6 +7169,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyFloat_AsDouble", capi_PyFloat_AsDouble, METH_O, NULL},
     {"PyFloat_Check", capi_PyFloat_Check, METH_O, NULL},
     {"PyFloat_CheckExact", capi_PyFloat_CheckExact, METH_O, NULL},
+    {"PyFloat_FromDouble", capi_PyFloat_FromDouble, METH_VARARGS, NULL},
     {"PyFloat_FromString", capi_PyFloat_FromString, METH_O, NULL},
     {"PyFloat_GetInfo", capi_PyFloat_GetInfo, METH_NOARGS, NULL},
 

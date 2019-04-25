@@ -250,6 +250,7 @@ API: typing.Tuple[
     ("PyFloat_AsDouble", "O", "d"),
     ("PyFloat_Check", "O", "i"),
     ("PyFloat_CheckExact", "O", "i"),
+    ("PyFloat_FromDouble", "d", "N"),
     ("PyFloat_FromString", "O", "N"),
     ("PyFloat_GetInfo", "", "N"),
     ("PyFrozenSet_Check", "O", "i"),
