@@ -3527,6 +3527,31 @@ static PyObject* capi_PyList_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyList_GET_ITEM(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "On:PyList_GET_ITEM", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyList_GET_ITEM(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyList_GET_SIZE(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     Py_ssize_t result;
@@ -3540,11 +3565,169 @@ static PyObject* capi_PyList_GET_SIZE(PyObject* Py_UNUSED(self), PyObject* arg) 
     return PyLong_FromSsize_t(result);
 }
 
+static PyObject* capi_PyList_GetItem(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "On:PyList_GetItem", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyList_GetItem(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyList_GetSlice(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    Py_ssize_t arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Onn:PyList_GetSlice", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyList_GetSlice(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyList_Insert(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    PyObject* arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OnO:PyList_Insert", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyList_Insert(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyList_New(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    Py_ssize_t arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "n:PyList_New", &arg0)) {
+        return NULL;
+    }
+
+    result = PyList_New(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyList_Reverse(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     int result;
 
     result = PyList_Reverse(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyList_SET_ITEM(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    PyObject* arg2;
+
+    if (!PyArg_ParseTuple(args, "OnO:PyList_SET_ITEM", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    PyList_SET_ITEM(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_PyList_SetItem(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    PyObject* arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OnO:PyList_SetItem", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyList_SetItem(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyList_SetSlice(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    Py_ssize_t arg2;
+    PyObject* arg3;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OnnO:PyList_SetSlice", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyList_SetSlice(arg0, arg1, arg2, arg3);
 
     if (PyErr_Occurred()) {
         return NULL;
@@ -7529,8 +7712,16 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyList_AsTuple", capi_PyList_AsTuple, METH_O, NULL},
     {"PyList_Check", capi_PyList_Check, METH_O, NULL},
     {"PyList_CheckExact", capi_PyList_CheckExact, METH_O, NULL},
+    {"PyList_GET_ITEM", capi_PyList_GET_ITEM, METH_VARARGS, NULL},
     {"PyList_GET_SIZE", capi_PyList_GET_SIZE, METH_O, NULL},
+    {"PyList_GetItem", capi_PyList_GetItem, METH_VARARGS, NULL},
+    {"PyList_GetSlice", capi_PyList_GetSlice, METH_VARARGS, NULL},
+    {"PyList_Insert", capi_PyList_Insert, METH_VARARGS, NULL},
+    {"PyList_New", capi_PyList_New, METH_VARARGS, NULL},
     {"PyList_Reverse", capi_PyList_Reverse, METH_O, NULL},
+    {"PyList_SET_ITEM", capi_PyList_SET_ITEM, METH_VARARGS, NULL},
+    {"PyList_SetItem", capi_PyList_SetItem, METH_VARARGS, NULL},
+    {"PyList_SetSlice", capi_PyList_SetSlice, METH_VARARGS, NULL},
     {"PyList_Size", capi_PyList_Size, METH_O, NULL},
     {"PyList_Sort", capi_PyList_Sort, METH_O, NULL},
 
