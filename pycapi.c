@@ -2916,6 +2916,30 @@ static PyObject* capi_PyGen_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg)
 
 /* PyImport */
 
+static PyObject* capi_PyImport_AddModule(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PyImport_AddModule", &arg0)) {
+        return NULL;
+    }
+
+    result = PyImport_AddModule(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyImport_AddModuleObject(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
@@ -2943,6 +2967,111 @@ static PyObject* capi_PyImport_Cleanup(PyObject* Py_UNUSED(self), PyObject* Py_U
     }
 
     Py_RETURN_NONE;
+}
+
+static PyObject* capi_PyImport_ExecCodeModule(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    PyObject* arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yO:PyImport_ExecCodeModule", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyImport_ExecCodeModule(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyImport_ExecCodeModuleEx(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    PyObject* arg1;
+    const char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yOy:PyImport_ExecCodeModuleEx", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyImport_ExecCodeModuleEx(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyImport_ExecCodeModuleObject(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    PyObject* arg2;
+    PyObject* arg3;
+
+    PyObject* result;
+
+    if (!PyArg_UnpackTuple(args, "PyImport_ExecCodeModuleObject", 4, 4, &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyImport_ExecCodeModuleObject(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyImport_ExecCodeModuleWithPathnames(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    PyObject* arg1;
+    const char* arg2;
+    const char* arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yOyy:PyImport_ExecCodeModuleWithPathnames", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyImport_ExecCodeModuleWithPathnames(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
 }
 
 static PyObject* capi_PyImport_GetImporter(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -3034,6 +3163,25 @@ static PyObject* capi_PyImport_Import(PyObject* Py_UNUSED(self), PyObject* arg) 
     return result;
 }
 
+static PyObject* capi_PyImport_ImportFrozenModule(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "y:PyImport_ImportFrozenModule", &arg0)) {
+        return NULL;
+    }
+
+    result = PyImport_ImportFrozenModule(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyImport_ImportFrozenModuleObject(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     int result;
@@ -3045,6 +3193,137 @@ static PyObject* capi_PyImport_ImportFrozenModuleObject(PyObject* Py_UNUSED(self
     }
 
     return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyImport_ImportModule(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PyImport_ImportModule", &arg0)) {
+        return NULL;
+    }
+
+    result = PyImport_ImportModule(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyImport_ImportModuleEx(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    PyObject* arg1;
+    PyObject* arg2;
+    PyObject* arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yOOO:PyImport_ImportModuleEx", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyImport_ImportModuleEx(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyImport_ImportModuleLevel(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    PyObject* arg1;
+    PyObject* arg2;
+    PyObject* arg3;
+    int arg4;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yOOOi:PyImport_ImportModuleLevel", &arg0, &arg1, &arg2, &arg3, &arg4)) {
+        return NULL;
+    }
+
+    result = PyImport_ImportModuleLevel(arg0, arg1, arg2, arg3, arg4);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyImport_ImportModuleLevelObject(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    PyObject* arg2;
+    PyObject* arg3;
+    int arg4;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "OOOOi:PyImport_ImportModuleLevelObject", &arg0, &arg1, &arg2, &arg3, &arg4)) {
+        return NULL;
+    }
+
+    result = PyImport_ImportModuleLevelObject(arg0, arg1, arg2, arg3, arg4);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyImport_ImportModuleNoBlock(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PyImport_ImportModuleNoBlock", &arg0)) {
+        return NULL;
+    }
+
+    result = PyImport_ImportModuleNoBlock(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
 }
 
 static PyObject* capi_PyImport_ReloadModule(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -7201,8 +7480,13 @@ static PyMethodDef CAPIMethods[] =  {
 
     /* PyImport */
 
+    {"PyImport_AddModule", capi_PyImport_AddModule, METH_VARARGS, NULL},
     {"PyImport_AddModuleObject", capi_PyImport_AddModuleObject, METH_O, NULL},
     {"PyImport_Cleanup", capi_PyImport_Cleanup, METH_NOARGS, NULL},
+    {"PyImport_ExecCodeModule", capi_PyImport_ExecCodeModule, METH_VARARGS, NULL},
+    {"PyImport_ExecCodeModuleEx", capi_PyImport_ExecCodeModuleEx, METH_VARARGS, NULL},
+    {"PyImport_ExecCodeModuleObject", capi_PyImport_ExecCodeModuleObject, METH_VARARGS, NULL},
+    {"PyImport_ExecCodeModuleWithPathnames", capi_PyImport_ExecCodeModuleWithPathnames, METH_VARARGS, NULL},
     {"PyImport_GetImporter", capi_PyImport_GetImporter, METH_O, NULL},
     {"PyImport_GetMagicNumber", capi_PyImport_GetMagicNumber, METH_NOARGS, NULL},
 
@@ -7214,7 +7498,13 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyImport_GetModuleDict", capi_PyImport_GetModuleDict, METH_NOARGS, NULL},
     {"PyImport_Import", capi_PyImport_Import, METH_O, NULL},
+    {"PyImport_ImportFrozenModule", capi_PyImport_ImportFrozenModule, METH_VARARGS, NULL},
     {"PyImport_ImportFrozenModuleObject", capi_PyImport_ImportFrozenModuleObject, METH_O, NULL},
+    {"PyImport_ImportModule", capi_PyImport_ImportModule, METH_VARARGS, NULL},
+    {"PyImport_ImportModuleEx", capi_PyImport_ImportModuleEx, METH_VARARGS, NULL},
+    {"PyImport_ImportModuleLevel", capi_PyImport_ImportModuleLevel, METH_VARARGS, NULL},
+    {"PyImport_ImportModuleLevelObject", capi_PyImport_ImportModuleLevelObject, METH_VARARGS, NULL},
+    {"PyImport_ImportModuleNoBlock", capi_PyImport_ImportModuleNoBlock, METH_VARARGS, NULL},
     {"PyImport_ReloadModule", capi_PyImport_ReloadModule, METH_O, NULL},
 
     /* PyIndex */
