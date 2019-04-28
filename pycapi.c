@@ -3953,6 +3953,51 @@ static PyObject* capi_PyMapping_DelItem(PyObject* Py_UNUSED(self), PyObject* arg
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyMapping_DelItemString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    const char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyMapping_DelItemString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyMapping_DelItemString(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyMapping_GetItemString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    const char* arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyMapping_GetItemString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyMapping_GetItemString(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyMapping_HasKey(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -3965,6 +4010,26 @@ static PyObject* capi_PyMapping_HasKey(PyObject* Py_UNUSED(self), PyObject* args
     }
 
     result = PyMapping_HasKey(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyMapping_HasKeyString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    const char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyMapping_HasKeyString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyMapping_HasKeyString(arg0, arg1);
 
     if (PyErr_Occurred()) {
         return NULL;
@@ -4020,6 +4085,27 @@ static PyObject* capi_PyMapping_Length(PyObject* Py_UNUSED(self), PyObject* arg)
     }
 
     return PyLong_FromSsize_t(result);
+}
+
+static PyObject* capi_PyMapping_SetItemString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    const char* arg1;
+    PyObject* arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OyO:PyMapping_SetItemString", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyMapping_SetItemString(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
 }
 
 static PyObject* capi_PyMapping_Size(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -7743,10 +7829,14 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyMapping_Check", capi_PyMapping_Check, METH_O, NULL},
     {"PyMapping_DelItem", capi_PyMapping_DelItem, METH_VARARGS, NULL},
+    {"PyMapping_DelItemString", capi_PyMapping_DelItemString, METH_VARARGS, NULL},
+    {"PyMapping_GetItemString", capi_PyMapping_GetItemString, METH_VARARGS, NULL},
     {"PyMapping_HasKey", capi_PyMapping_HasKey, METH_VARARGS, NULL},
+    {"PyMapping_HasKeyString", capi_PyMapping_HasKeyString, METH_VARARGS, NULL},
     {"PyMapping_Items", capi_PyMapping_Items, METH_O, NULL},
     {"PyMapping_Keys", capi_PyMapping_Keys, METH_O, NULL},
     {"PyMapping_Length", capi_PyMapping_Length, METH_O, NULL},
+    {"PyMapping_SetItemString", capi_PyMapping_SetItemString, METH_VARARGS, NULL},
     {"PyMapping_Size", capi_PyMapping_Size, METH_O, NULL},
     {"PyMapping_Values", capi_PyMapping_Values, METH_O, NULL},
 
