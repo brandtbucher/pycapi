@@ -38,7 +38,7 @@ How is PyCAPI better than `ctypes.pythonapi`?
 3
 ```
 
-`pythonapi` implicity requires users to specify the argument and return types as `ctypes` types:
+`ctypes.pythonapi` implicity requires users to specify the argument and return types as `ctypes` types:
 
 ```py
 >>> import ctypes
@@ -56,13 +56,15 @@ Segmentation fault: 11
 
 ### It's more complete.
 
-Because `pythonapi` is based on a DLL, it doesn't offer any APIs that are implemented as macros:
+`pycapi` is designed to provide properly typed bindings for *any* part of the C API that's reasonable to call from the Python layer:
 
 ```py
 >>> import pycapi
 >>> pycapi.PyDict_Check({})
 1
 ```
+
+In comparison, `ctypes.pythonapi` is loaded directly from the `Python.h` DLL. As a consequence, it isn't able to offer any APIs that happen to be implemented as macros:
 
 ```py
 >>> import ctypes
@@ -76,11 +78,11 @@ Traceback (most recent call last):
 AttributeError: dlsym(RTLD_DEFAULT, PyDict_Check): symbol not found
 ```
 
-`pycapi` is also fully loaded on import, so you can use tab-completion and other introspection techniques to discover APIs. `pythonapi` requires you to access the attribute _before_ it is loaded, and there is no way to get a complete listing of what it supports.
+`pycapi` is also fully loaded on import, so you can use tab-completion and other introspection techniques to discover APIs. `ctypes.pythonapi` requires you to access the attribute *before* it is loaded, and there is no way to get a complete listing of what it supports.
 
 ### It's faster.
 
-In many cases, it's even _faster than the built-in equivalent_ in the Python layer. The numbers speak for themselves:
+In many cases, it can be even *faster than the built-in equivalent* in the Python layer. The numbers speak for themselves:
 
 ```py
 In [1]: from pycapi import PyDict_New, PyDict_Clear, PyDict_Copy
