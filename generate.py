@@ -404,6 +404,7 @@ API: typing.Tuple[
     ("PyNumber_Remainder", "OO", "N"),
     ("PyNumber_Rshift", "OO", "N"),
     ("PyNumber_Subtract", "OO", "N"),
+    ("PyNumber_ToBase", "Oi", "N"),
     ("PyNumber_TrueDivide", "OO", "N"),
     ("PyNumber_Xor", "OO", "N"),
     ("PyOS_AfterFork", "", ""),

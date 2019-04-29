@@ -5206,6 +5206,31 @@ static PyObject* capi_PyNumber_Subtract(PyObject* Py_UNUSED(self), PyObject* arg
     return result;
 }
 
+static PyObject* capi_PyNumber_ToBase(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    int arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oi:PyNumber_ToBase", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyNumber_ToBase(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyNumber_TrueDivide(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -7913,6 +7938,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyNumber_Remainder", capi_PyNumber_Remainder, METH_VARARGS, NULL},
     {"PyNumber_Rshift", capi_PyNumber_Rshift, METH_VARARGS, NULL},
     {"PyNumber_Subtract", capi_PyNumber_Subtract, METH_VARARGS, NULL},
+    {"PyNumber_ToBase", capi_PyNumber_ToBase, METH_VARARGS, NULL},
     {"PyNumber_TrueDivide", capi_PyNumber_TrueDivide, METH_VARARGS, NULL},
     {"PyNumber_Xor", capi_PyNumber_Xor, METH_VARARGS, NULL},
 
