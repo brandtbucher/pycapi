@@ -6275,6 +6275,27 @@ static PyObject* capi_PySet_Size(PyObject* Py_UNUSED(self), PyObject* arg) {
     return PyLong_FromSsize_t(result);
 }
 
+/* PySignal */
+
+static PyObject* capi_PySignal_SetWakeupFd(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "i:PySignal_SetWakeupFd", &arg0)) {
+        return NULL;
+    }
+
+    result = PySignal_SetWakeupFd(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 /* PySlice */
 
 static PyObject* capi_PySlice_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -8022,6 +8043,10 @@ static PyMethodDef CAPIMethods[] =  {
     {"PySet_New", capi_PySet_New, METH_O, NULL},
     {"PySet_Pop", capi_PySet_Pop, METH_O, NULL},
     {"PySet_Size", capi_PySet_Size, METH_O, NULL},
+
+    /* PySignal */
+
+    {"PySignal_SetWakeupFd", capi_PySignal_SetWakeupFd, METH_VARARGS, NULL},
 
     /* PySlice */
 

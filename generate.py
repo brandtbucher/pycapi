@@ -487,6 +487,7 @@ API: typing.Tuple[
     ("PySet_New", "O", "N"),
     ("PySet_Pop", "O", "N"),
     ("PySet_Size", "O", "n"),
+    ("PySignal_SetWakeupFd", "i", "i"),
     ("PySlice_Check", "O", "i"),
     ("PySlice_New", "OOO", "N"),
     ("PySys_AddWarnOptionUnicode", "O", ""),
