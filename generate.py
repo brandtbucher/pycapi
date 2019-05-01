@@ -510,6 +510,7 @@ API: typing.Tuple[
     ),
     ("PyTime_Check", "O", "i"),
     ("PyTime_CheckExact", "O", "i"),
+    ("PyTime_FromTime", "iiii", "N"),
     ("PyTuple_Check", "O", "i"),
     ("PyTuple_CheckExact", "O", "i"),
     ("PyTuple_GET_SIZE", "O", "n"),

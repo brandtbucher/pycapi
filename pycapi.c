@@ -6476,6 +6476,33 @@ static PyObject* capi_PyTime_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyTime_FromTime(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+    int arg1;
+    int arg2;
+    int arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "iiii:PyTime_FromTime", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyTime_FromTime(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 /* PyTuple */
 
 static PyObject* capi_PyTuple_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -8076,6 +8103,7 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyTime_Check", capi_PyTime_Check, METH_O, NULL},
     {"PyTime_CheckExact", capi_PyTime_CheckExact, METH_O, NULL},
+    {"PyTime_FromTime", capi_PyTime_FromTime, METH_VARARGS, NULL},
 
     /* PyTuple */
 
