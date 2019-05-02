@@ -6531,6 +6531,31 @@ static PyObject* capi_PyTuple_CheckExact(PyObject* Py_UNUSED(self), PyObject* ar
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyTuple_GET_ITEM(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "On:PyTuple_GET_ITEM", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyTuple_GET_ITEM(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyTuple_GET_SIZE(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     Py_ssize_t result;
@@ -6542,6 +6567,121 @@ static PyObject* capi_PyTuple_GET_SIZE(PyObject* Py_UNUSED(self), PyObject* arg)
     }
 
     return PyLong_FromSsize_t(result);
+}
+
+static PyObject* capi_PyTuple_GetItem(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "On:PyTuple_GetItem", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyTuple_GetItem(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyTuple_GetSlice(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    Py_ssize_t arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Onn:PyTuple_GetSlice", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyTuple_GetSlice(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyTuple_New(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    Py_ssize_t arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "n:PyTuple_New", &arg0)) {
+        return NULL;
+    }
+
+    result = PyTuple_New(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyTuple_SET_ITEM(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    PyObject* arg2;
+
+    if (!PyArg_ParseTuple(args, "OnO:PyTuple_SET_ITEM", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    PyTuple_SET_ITEM(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_PyTuple_SetItem(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    PyObject* arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OnO:PyTuple_SetItem", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyTuple_SetItem(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
 }
 
 static PyObject* capi_PyTuple_Size(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -8109,7 +8249,13 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyTuple_Check", capi_PyTuple_Check, METH_O, NULL},
     {"PyTuple_CheckExact", capi_PyTuple_CheckExact, METH_O, NULL},
+    {"PyTuple_GET_ITEM", capi_PyTuple_GET_ITEM, METH_VARARGS, NULL},
     {"PyTuple_GET_SIZE", capi_PyTuple_GET_SIZE, METH_O, NULL},
+    {"PyTuple_GetItem", capi_PyTuple_GetItem, METH_VARARGS, NULL},
+    {"PyTuple_GetSlice", capi_PyTuple_GetSlice, METH_VARARGS, NULL},
+    {"PyTuple_New", capi_PyTuple_New, METH_VARARGS, NULL},
+    {"PyTuple_SET_ITEM", capi_PyTuple_SET_ITEM, METH_VARARGS, NULL},
+    {"PyTuple_SetItem", capi_PyTuple_SetItem, METH_VARARGS, NULL},
     {"PyTuple_Size", capi_PyTuple_Size, METH_O, NULL},
 
     /* PyType */
