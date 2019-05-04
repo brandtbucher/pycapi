@@ -58,6 +58,8 @@ API: typing.Tuple[
     ("PyCallable_Check", "O", "i"),
     ("PyCapsule_CheckExact", "O", "i"),
     ("PyCapsule_GetName", "O", "y"),
+    ("PyCapsule_IsValid", "Oy", "i"),
+    ("PyCapsule_SetName", "Oy", "i"),
     ("PyCell_Check", "O", "i"),
     ("PyCell_Get", "O", "N"),
     ("PyCell_GET", "O", "N"),

@@ -476,6 +476,46 @@ static PyObject* capi_PyCapsule_GetName(PyObject* Py_UNUSED(self), PyObject* arg
     return PyBytes_FromString(result);
 }
 
+static PyObject* capi_PyCapsule_IsValid(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    const char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyCapsule_IsValid", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyCapsule_IsValid(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyCapsule_SetName(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    const char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyCapsule_SetName", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyCapsule_SetName(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 /* PyCell */
 
 static PyObject* capi_PyCell_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -7792,6 +7832,8 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyCapsule_CheckExact", capi_PyCapsule_CheckExact, METH_O, NULL},
     {"PyCapsule_GetName", capi_PyCapsule_GetName, METH_O, NULL},
+    {"PyCapsule_IsValid", capi_PyCapsule_IsValid, METH_VARARGS, NULL},
+    {"PyCapsule_SetName", capi_PyCapsule_SetName, METH_VARARGS, NULL},
 
     /* PyCell */
 
