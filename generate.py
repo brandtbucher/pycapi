@@ -49,6 +49,8 @@ API: typing.Tuple[
     ("PyBytes_Check", "O", "i"),
     ("PyBytes_CheckExact", "O", "i"),
     ("PyBytes_FromObject", "O", "N"),
+    ("PyBytes_FromString", "y", "N"),
+    ("PyBytes_FromStringAndSize", "yn", "N"),
     ("PyBytes_GET_SIZE", "O", "n"),
     ("PyBytes_Size", "O", "n"),
     ("PyCallIter_Check", "O", "i"),

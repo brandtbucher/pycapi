@@ -318,6 +318,55 @@ static PyObject* capi_PyBytes_FromObject(PyObject* Py_UNUSED(self), PyObject* ar
     return result;
 }
 
+static PyObject* capi_PyBytes_FromString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PyBytes_FromString", &arg0)) {
+        return NULL;
+    }
+
+    result = PyBytes_FromString(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyBytes_FromStringAndSize(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yn:PyBytes_FromStringAndSize", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyBytes_FromStringAndSize(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyBytes_GET_SIZE(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     Py_ssize_t result;
@@ -7725,6 +7774,8 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyBytes_Check", capi_PyBytes_Check, METH_O, NULL},
     {"PyBytes_CheckExact", capi_PyBytes_CheckExact, METH_O, NULL},
     {"PyBytes_FromObject", capi_PyBytes_FromObject, METH_O, NULL},
+    {"PyBytes_FromString", capi_PyBytes_FromString, METH_VARARGS, NULL},
+    {"PyBytes_FromStringAndSize", capi_PyBytes_FromStringAndSize, METH_VARARGS, NULL},
     {"PyBytes_GET_SIZE", capi_PyBytes_GET_SIZE, METH_O, NULL},
     {"PyBytes_Size", capi_PyBytes_Size, METH_O, NULL},
 
