@@ -624,7 +624,7 @@ ARG_TYPES_C = {
     "l": "long",
     "n": "Py_ssize_t",
     "O": "PyObject*",
-    "u": "const wchar_t*",
+    "u": "wchar_t*",
     "y": "const char*",
 }
 

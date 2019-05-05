@@ -7818,7 +7818,7 @@ static PyObject* capi_Py_ReprLeave(PyObject* Py_UNUSED(self), PyObject* arg) {
 
 static PyObject* capi_Py_SetProgramName(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const wchar_t* arg0;
+    wchar_t* arg0;
 
     if (!PyArg_ParseTuple(args, "u:Py_SetProgramName", &arg0)) {
         return NULL;
