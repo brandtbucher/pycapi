@@ -11,7 +11,10 @@ API: typing.Tuple[
     # return_type is according to:
     # https://docs.python.org/3/c-api/arg.html#building-values
     ("Py_CLEAR", "O", ""),
+    ("Py_CompileString", "yyi", "N"),
     ("Py_DECREF", "O", ""),
+    ("Py_Exit", "i", ""),
+    ("Py_FatalError", "y", ""),
     ("Py_Finalize", "", ""),
     ("Py_GetBuildInfo", "", "y"),
     ("Py_GetCompiler", "", "y"),
@@ -28,6 +31,7 @@ API: typing.Tuple[
     ("Py_IsInitialized", "", "i"),
     ("Py_ReprEnter", "O", "i"),
     ("Py_ReprLeave", "O", ""),
+    ("Py_SetProgramName", "u", ""),
     ("Py_XDECREF", "O", ""),
     ("Py_XINCREF", "O", ""),
     ("PyAnySet_Check", "O", "i"),
@@ -594,6 +598,7 @@ ARG_TYPES_PYI = {
     "l": "int",
     "n": "int",
     "O": "object",
+    "u": "str",
     "y": "bytes",
 }
 
@@ -619,6 +624,7 @@ ARG_TYPES_C = {
     "l": "long",
     "n": "Py_ssize_t",
     "O": "PyObject*",
+    "u": "const wchar_t*",
     "y": "const char*",
 }
 

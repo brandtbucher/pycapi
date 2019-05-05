@@ -7545,9 +7545,69 @@ static PyObject* capi_Py_CLEAR(PyObject* Py_UNUSED(self), PyObject* arg) {
     Py_RETURN_NONE;
 }
 
+static PyObject* capi_Py_CompileString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+    const char* arg1;
+    int arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yyi:Py_CompileString", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = Py_CompileString(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_Py_DECREF(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     Py_DECREF(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_Exit(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    if (!PyArg_ParseTuple(args, "i:Py_Exit", &arg0)) {
+        return NULL;
+    }
+
+    Py_Exit(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_FatalError(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const char* arg0;
+
+    if (!PyArg_ParseTuple(args, "y:Py_FatalError", &arg0)) {
+        return NULL;
+    }
+
+    Py_FatalError(arg0);
 
     if (PyErr_Occurred()) {
         return NULL;
@@ -7748,6 +7808,23 @@ static PyObject* capi_Py_ReprEnter(PyObject* Py_UNUSED(self), PyObject* arg) {
 static PyObject* capi_Py_ReprLeave(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     Py_ReprLeave(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_SetProgramName(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    const wchar_t* arg0;
+
+    if (!PyArg_ParseTuple(args, "u:Py_SetProgramName", &arg0)) {
+        return NULL;
+    }
+
+    Py_SetProgramName(arg0);
 
     if (PyErr_Occurred()) {
         return NULL;
@@ -8418,7 +8495,10 @@ static PyMethodDef CAPIMethods[] =  {
     /* Py */
 
     {"Py_CLEAR", capi_Py_CLEAR, METH_O, NULL},
+    {"Py_CompileString", capi_Py_CompileString, METH_VARARGS, NULL},
     {"Py_DECREF", capi_Py_DECREF, METH_O, NULL},
+    {"Py_Exit", capi_Py_Exit, METH_VARARGS, NULL},
+    {"Py_FatalError", capi_Py_FatalError, METH_VARARGS, NULL},
     {"Py_Finalize", capi_Py_Finalize, METH_NOARGS, NULL},
     {"Py_GetBuildInfo", capi_Py_GetBuildInfo, METH_NOARGS, NULL},
     {"Py_GetCompiler", capi_Py_GetCompiler, METH_NOARGS, NULL},
@@ -8435,6 +8515,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"Py_IsInitialized", capi_Py_IsInitialized, METH_NOARGS, NULL},
     {"Py_ReprEnter", capi_Py_ReprEnter, METH_O, NULL},
     {"Py_ReprLeave", capi_Py_ReprLeave, METH_O, NULL},
+    {"Py_SetProgramName", capi_Py_SetProgramName, METH_VARARGS, NULL},
     {"Py_XDECREF", capi_Py_XDECREF, METH_O, NULL},
     {"Py_XINCREF", capi_Py_XINCREF, METH_O, NULL},
 
