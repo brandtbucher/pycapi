@@ -177,7 +177,7 @@ static PyObject* capi_PyByteArray_FromObject(PyObject* Py_UNUSED(self), PyObject
 
 static PyObject* capi_PyByteArray_FromStringAndSize(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
     Py_ssize_t arg1;
 
     PyObject* result;
@@ -320,7 +320,7 @@ static PyObject* capi_PyBytes_FromObject(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_PyBytes_FromString(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
 
     PyObject* result;
 
@@ -344,7 +344,7 @@ static PyObject* capi_PyBytes_FromString(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_PyBytes_FromStringAndSize(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
     Py_ssize_t arg1;
 
     PyObject* result;
@@ -479,7 +479,7 @@ static PyObject* capi_PyCapsule_GetName(PyObject* Py_UNUSED(self), PyObject* arg
 static PyObject* capi_PyCapsule_IsValid(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
-    const char* arg1;
+    char* arg1;
 
     int result;
 
@@ -499,7 +499,7 @@ static PyObject* capi_PyCapsule_IsValid(PyObject* Py_UNUSED(self), PyObject* arg
 static PyObject* capi_PyCapsule_SetName(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
-    const char* arg1;
+    char* arg1;
 
     int result;
 
@@ -661,8 +661,8 @@ static PyObject* capi_PyCodec_BackslashReplaceErrors(PyObject* Py_UNUSED(self), 
 static PyObject* capi_PyCodec_Decode(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
-    const char* arg1;
-    const char* arg2;
+    char* arg1;
+    char* arg2;
 
     PyObject* result;
 
@@ -686,7 +686,7 @@ static PyObject* capi_PyCodec_Decode(PyObject* Py_UNUSED(self), PyObject* args) 
 
 static PyObject* capi_PyCodec_Decoder(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
 
     PyObject* result;
 
@@ -711,8 +711,8 @@ static PyObject* capi_PyCodec_Decoder(PyObject* Py_UNUSED(self), PyObject* args)
 static PyObject* capi_PyCodec_Encode(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
-    const char* arg1;
-    const char* arg2;
+    char* arg1;
+    char* arg2;
 
     PyObject* result;
 
@@ -736,7 +736,7 @@ static PyObject* capi_PyCodec_Encode(PyObject* Py_UNUSED(self), PyObject* args) 
 
 static PyObject* capi_PyCodec_Encoder(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
 
     PyObject* result;
 
@@ -778,8 +778,8 @@ static PyObject* capi_PyCodec_IgnoreErrors(PyObject* Py_UNUSED(self), PyObject* 
 
 static PyObject* capi_PyCodec_IncrementalDecoder(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
-    const char* arg1;
+    char* arg0;
+    char* arg1;
 
     PyObject* result;
 
@@ -803,8 +803,8 @@ static PyObject* capi_PyCodec_IncrementalDecoder(PyObject* Py_UNUSED(self), PyOb
 
 static PyObject* capi_PyCodec_IncrementalEncoder(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
-    const char* arg1;
+    char* arg0;
+    char* arg1;
 
     PyObject* result;
 
@@ -828,7 +828,7 @@ static PyObject* capi_PyCodec_IncrementalEncoder(PyObject* Py_UNUSED(self), PyOb
 
 static PyObject* capi_PyCodec_KnownEncoding(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
 
     int result;
 
@@ -847,7 +847,7 @@ static PyObject* capi_PyCodec_KnownEncoding(PyObject* Py_UNUSED(self), PyObject*
 
 static PyObject* capi_PyCodec_LookupError(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
 
     PyObject* result;
 
@@ -906,7 +906,7 @@ static PyObject* capi_PyCodec_Register(PyObject* Py_UNUSED(self), PyObject* arg)
 
 static PyObject* capi_PyCodec_RegisterError(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
     PyObject* arg1;
 
     int result;
@@ -944,9 +944,9 @@ static PyObject* capi_PyCodec_ReplaceErrors(PyObject* Py_UNUSED(self), PyObject*
 
 static PyObject* capi_PyCodec_StreamReader(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
     PyObject* arg1;
-    const char* arg2;
+    char* arg2;
 
     PyObject* result;
 
@@ -970,9 +970,9 @@ static PyObject* capi_PyCodec_StreamReader(PyObject* Py_UNUSED(self), PyObject* 
 
 static PyObject* capi_PyCodec_StreamWriter(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
     PyObject* arg1;
-    const char* arg2;
+    char* arg2;
 
     PyObject* result;
 
@@ -2487,12 +2487,12 @@ static PyObject* capi_PyException_SetTraceback(PyObject* Py_UNUSED(self), PyObje
 static PyObject* capi_PyFile_FromFd(PyObject* Py_UNUSED(self), PyObject* args) {
 
     int arg0;
-    const char* arg1;
-    const char* arg2;
+    char* arg1;
+    char* arg2;
     int arg3;
-    const char* arg4;
-    const char* arg5;
-    const char* arg6;
+    char* arg4;
+    char* arg5;
+    char* arg6;
     int arg7;
 
     PyObject* result;
@@ -2563,7 +2563,7 @@ static PyObject* capi_PyFile_WriteObject(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_PyFile_WriteString(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
     PyObject* arg1;
 
     int result;
@@ -3007,7 +3007,7 @@ static PyObject* capi_PyGen_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg)
 
 static PyObject* capi_PyImport_AddModule(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
 
     PyObject* result;
 
@@ -3060,7 +3060,7 @@ static PyObject* capi_PyImport_Cleanup(PyObject* Py_UNUSED(self), PyObject* Py_U
 
 static PyObject* capi_PyImport_ExecCodeModule(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
     PyObject* arg1;
 
     PyObject* result;
@@ -3085,9 +3085,9 @@ static PyObject* capi_PyImport_ExecCodeModule(PyObject* Py_UNUSED(self), PyObjec
 
 static PyObject* capi_PyImport_ExecCodeModuleEx(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
     PyObject* arg1;
-    const char* arg2;
+    char* arg2;
 
     PyObject* result;
 
@@ -3138,10 +3138,10 @@ static PyObject* capi_PyImport_ExecCodeModuleObject(PyObject* Py_UNUSED(self), P
 
 static PyObject* capi_PyImport_ExecCodeModuleWithPathnames(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
     PyObject* arg1;
-    const char* arg2;
-    const char* arg3;
+    char* arg2;
+    char* arg3;
 
     PyObject* result;
 
@@ -3254,7 +3254,7 @@ static PyObject* capi_PyImport_Import(PyObject* Py_UNUSED(self), PyObject* arg) 
 
 static PyObject* capi_PyImport_ImportFrozenModule(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
 
     int result;
 
@@ -3286,7 +3286,7 @@ static PyObject* capi_PyImport_ImportFrozenModuleObject(PyObject* Py_UNUSED(self
 
 static PyObject* capi_PyImport_ImportModule(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
 
     PyObject* result;
 
@@ -3310,7 +3310,7 @@ static PyObject* capi_PyImport_ImportModule(PyObject* Py_UNUSED(self), PyObject*
 
 static PyObject* capi_PyImport_ImportModuleEx(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
     PyObject* arg1;
     PyObject* arg2;
     PyObject* arg3;
@@ -3337,7 +3337,7 @@ static PyObject* capi_PyImport_ImportModuleEx(PyObject* Py_UNUSED(self), PyObjec
 
 static PyObject* capi_PyImport_ImportModuleLevel(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
     PyObject* arg1;
     PyObject* arg2;
     PyObject* arg3;
@@ -3393,7 +3393,7 @@ static PyObject* capi_PyImport_ImportModuleLevelObject(PyObject* Py_UNUSED(self)
 
 static PyObject* capi_PyImport_ImportModuleNoBlock(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
 
     PyObject* result;
 
@@ -4045,7 +4045,7 @@ static PyObject* capi_PyMapping_DelItem(PyObject* Py_UNUSED(self), PyObject* arg
 static PyObject* capi_PyMapping_DelItemString(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
-    const char* arg1;
+    char* arg1;
 
     int result;
 
@@ -4065,7 +4065,7 @@ static PyObject* capi_PyMapping_DelItemString(PyObject* Py_UNUSED(self), PyObjec
 static PyObject* capi_PyMapping_GetItemString(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
-    const char* arg1;
+    char* arg1;
 
     PyObject* result;
 
@@ -4110,7 +4110,7 @@ static PyObject* capi_PyMapping_HasKey(PyObject* Py_UNUSED(self), PyObject* args
 static PyObject* capi_PyMapping_HasKeyString(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
-    const char* arg1;
+    char* arg1;
 
     int result;
 
@@ -4179,7 +4179,7 @@ static PyObject* capi_PyMapping_Length(PyObject* Py_UNUSED(self), PyObject* arg)
 static PyObject* capi_PyMapping_SetItemString(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
-    const char* arg1;
+    char* arg1;
     PyObject* arg2;
 
     int result;
@@ -7547,8 +7547,8 @@ static PyObject* capi_Py_CLEAR(PyObject* Py_UNUSED(self), PyObject* arg) {
 
 static PyObject* capi_Py_CompileString(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
-    const char* arg1;
+    char* arg0;
+    char* arg1;
     int arg2;
 
     PyObject* result;
@@ -7601,7 +7601,7 @@ static PyObject* capi_Py_Exit(PyObject* Py_UNUSED(self), PyObject* args) {
 
 static PyObject* capi_Py_FatalError(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    const char* arg0;
+    char* arg0;
 
     if (!PyArg_ParseTuple(args, "y:Py_FatalError", &arg0)) {
         return NULL;
