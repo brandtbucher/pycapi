@@ -117,6 +117,13 @@ API: typing.Tuple[
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
+        "PyContextVar_New",
+        "yO",
+        "N",
+        # "0x030700F0 <= PY_VERSION_HEX",
+        # '(3, 7, 0, "final", 0) <= sys.version_info',
+    ),
+    (
         "PyContextVar_Reset",
         "OO",
         "i",
