@@ -1178,34 +1178,30 @@ static PyObject* capi_PyComplex_RealAsDouble(PyObject* Py_UNUSED(self), PyObject
         return PyLong_FromLong(result);
     }
 
-# endif
+    static PyObject* capi_PyContextVar_New(PyObject* Py_UNUSED(self), PyObject* args) {
 
-static PyObject* capi_PyContextVar_New(PyObject* Py_UNUSED(self), PyObject* args) {
+        char* arg0;
+        PyObject* arg1;
 
-    char* arg0;
-    PyObject* arg1;
+        PyObject* result;
 
-    PyObject* result;
-
-    if (!PyArg_ParseTuple(args, "yO:PyContextVar_New", &arg0, &arg1)) {
-        return NULL;
-    }
-
-    result = PyContextVar_New(arg0, arg1);
-
-    if (!result) {
-
-        if (PyErr_Occurred()) {
+        if (!PyArg_ParseTuple(args, "yO:PyContextVar_New", &arg0, &arg1)) {
             return NULL;
         }
 
-        Py_RETURN_NONE;
+        result = PyContextVar_New(arg0, arg1);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
     }
-
-    return result;
-}
-
-# if 0x030700F0 <= PY_VERSION_HEX
 
     static PyObject* capi_PyContextVar_Reset(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -8000,13 +7996,7 @@ static PyMethodDef CAPIMethods[] =  {
         /* PyContextVar */
 
         {"PyContextVar_CheckExact", capi_PyContextVar_CheckExact, METH_O, NULL},
-
-    # endif
-
-    {"PyContextVar_New", capi_PyContextVar_New, METH_VARARGS, NULL},
-
-    # if 0x030700F0 <= PY_VERSION_HEX
-
+        {"PyContextVar_New", capi_PyContextVar_New, METH_VARARGS, NULL},
         {"PyContextVar_Reset", capi_PyContextVar_Reset, METH_VARARGS, NULL},
         {"PyContextVar_Set", capi_PyContextVar_Set, METH_VARARGS, NULL},
 
