@@ -1707,6 +1707,26 @@ static PyObject* capi_PyDict_DelItem(PyObject* Py_UNUSED(self), PyObject* args) 
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyDict_DelItemString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyDict_DelItemString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyDict_DelItemString(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyDict_GetItem(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -1719,6 +1739,31 @@ static PyObject* capi_PyDict_GetItem(PyObject* Py_UNUSED(self), PyObject* args) 
     }
 
     result = PyDict_GetItem(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyDict_GetItemString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyDict_GetItemString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyDict_GetItemString(arg0, arg1);
 
     if (!result) {
 
@@ -1793,6 +1838,48 @@ static PyObject* capi_PyDict_Keys(PyObject* Py_UNUSED(self), PyObject* arg) {
     return result;
 }
 
+static PyObject* capi_PyDict_Merge(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    int arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OOi:PyDict_Merge", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyDict_Merge(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyDict_MergeFromSeq2(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    int arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OOi:PyDict_MergeFromSeq2", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyDict_MergeFromSeq2(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyDict_New(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
     PyObject* result;
@@ -1850,6 +1937,27 @@ static PyObject* capi_PyDict_SetItem(PyObject* Py_UNUSED(self), PyObject* args) 
     }
 
     result = PyDict_SetItem(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyDict_SetItemString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+    PyObject* arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OyO:PyDict_SetItemString", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyDict_SetItemString(arg0, arg1, arg2);
 
     if (PyErr_Occurred()) {
         return NULL;
@@ -8052,13 +8160,18 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyDict_Contains", capi_PyDict_Contains, METH_VARARGS, NULL},
     {"PyDict_Copy", capi_PyDict_Copy, METH_O, NULL},
     {"PyDict_DelItem", capi_PyDict_DelItem, METH_VARARGS, NULL},
+    {"PyDict_DelItemString", capi_PyDict_DelItemString, METH_VARARGS, NULL},
     {"PyDict_GetItem", capi_PyDict_GetItem, METH_VARARGS, NULL},
+    {"PyDict_GetItemString", capi_PyDict_GetItemString, METH_VARARGS, NULL},
     {"PyDict_GetItemWithError", capi_PyDict_GetItemWithError, METH_VARARGS, NULL},
     {"PyDict_Items", capi_PyDict_Items, METH_O, NULL},
     {"PyDict_Keys", capi_PyDict_Keys, METH_O, NULL},
+    {"PyDict_Merge", capi_PyDict_Merge, METH_VARARGS, NULL},
+    {"PyDict_MergeFromSeq2", capi_PyDict_MergeFromSeq2, METH_VARARGS, NULL},
     {"PyDict_New", capi_PyDict_New, METH_NOARGS, NULL},
     {"PyDict_SetDefault", capi_PyDict_SetDefault, METH_VARARGS, NULL},
     {"PyDict_SetItem", capi_PyDict_SetItem, METH_VARARGS, NULL},
+    {"PyDict_SetItemString", capi_PyDict_SetItemString, METH_VARARGS, NULL},
     {"PyDict_Size", capi_PyDict_Size, METH_O, NULL},
     {"PyDict_Update", capi_PyDict_Update, METH_VARARGS, NULL},
     {"PyDict_Values", capi_PyDict_Values, METH_O, NULL},
