@@ -2100,6 +2100,59 @@ static PyObject* capi_PyErr_GivenExceptionMatches(PyObject* Py_UNUSED(self), PyO
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyErr_NewException(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    PyObject* arg1;
+    PyObject* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yOO:PyErr_NewException", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyErr_NewException(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyErr_NewExceptionWithDoc(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    char* arg1;
+    PyObject* arg2;
+    PyObject* arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yyOO:PyErr_NewExceptionWithDoc", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyErr_NewExceptionWithDoc(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyErr_NoMemory(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
     PyObject* result;
@@ -2147,6 +2200,23 @@ static PyObject* capi_PyErr_Print(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED
     Py_RETURN_NONE;
 }
 
+static PyObject* capi_PyErr_PrintEx(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    if (!PyArg_ParseTuple(args, "i:PyErr_PrintEx", &arg0)) {
+        return NULL;
+    }
+
+    PyErr_PrintEx(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
 static PyObject* capi_PyErr_Restore(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -2165,6 +2235,114 @@ static PyObject* capi_PyErr_Restore(PyObject* Py_UNUSED(self), PyObject* args) {
 
     Py_RETURN_NONE;
 }
+
+# if MS_WINDOWS
+
+    static PyObject* capi_PyErr_SetExcFromWindowsErr(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        PyObject* arg0;
+        int arg1;
+
+        PyObject* result;
+
+        if (!PyArg_ParseTuple(args, "Oi:PyErr_SetExcFromWindowsErr", &arg0, &arg1)) {
+            return NULL;
+        }
+
+        result = PyErr_SetExcFromWindowsErr(arg0, arg1);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+    static PyObject* capi_PyErr_SetExcFromWindowsErrWithFilename(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        PyObject* arg0;
+        int arg1;
+        char* arg2;
+
+        PyObject* result;
+
+        if (!PyArg_ParseTuple(args, "Oiy:PyErr_SetExcFromWindowsErrWithFilename", &arg0, &arg1, &arg2)) {
+            return NULL;
+        }
+
+        result = PyErr_SetExcFromWindowsErrWithFilename(arg0, arg1, arg2);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+    static PyObject* capi_PyErr_SetExcFromWindowsErrWithFilenameObject(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        PyObject* arg0;
+        int arg1;
+        PyObject* arg2;
+
+        PyObject* result;
+
+        if (!PyArg_ParseTuple(args, "OiO:PyErr_SetExcFromWindowsErrWithFilenameObject", &arg0, &arg1, &arg2)) {
+            return NULL;
+        }
+
+        result = PyErr_SetExcFromWindowsErrWithFilenameObject(arg0, arg1, arg2);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+    static PyObject* capi_PyErr_SetExcFromWindowsErrWithFilenameObjects(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        PyObject* arg0;
+        int arg1;
+        PyObject* arg2;
+        PyObject* arg3;
+
+        PyObject* result;
+
+        if (!PyArg_ParseTuple(args, "OiOO:PyErr_SetExcFromWindowsErrWithFilenameObjects", &arg0, &arg1, &arg2, &arg3)) {
+            return NULL;
+        }
+
+        result = PyErr_SetExcFromWindowsErrWithFilenameObjects(arg0, arg1, arg2, arg3);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+# endif
 
 static PyObject* capi_PyErr_SetExcInfo(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -2190,6 +2368,31 @@ static PyObject* capi_PyErr_SetFromErrno(PyObject* Py_UNUSED(self), PyObject* ar
     PyObject* result;
 
     result = PyErr_SetFromErrno(arg);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyErr_SetFromErrnoWithFilename(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyErr_SetFromErrnoWithFilename", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyErr_SetFromErrnoWithFilename(arg0, arg1);
 
     if (!result) {
 
@@ -2253,6 +2456,59 @@ static PyObject* capi_PyErr_SetFromErrnoWithFilenameObjects(PyObject* Py_UNUSED(
 
     return result;
 }
+
+# if MS_WINDOWS
+
+    static PyObject* capi_PyErr_SetFromWindowsErr(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        int arg0;
+
+        PyObject* result;
+
+        if (!PyArg_ParseTuple(args, "i:PyErr_SetFromWindowsErr", &arg0)) {
+            return NULL;
+        }
+
+        result = PyErr_SetFromWindowsErr(arg0);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+    static PyObject* capi_PyErr_SetFromWindowsErrWithFilename(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        int arg0;
+        char* arg1;
+
+        PyObject* result;
+
+        if (!PyArg_ParseTuple(args, "iy:PyErr_SetFromWindowsErrWithFilename", &arg0, &arg1)) {
+            return NULL;
+        }
+
+        result = PyErr_SetFromWindowsErrWithFilename(arg0, arg1);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+# endif
 
 static PyObject* capi_PyErr_SetImportError(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -2349,6 +2605,149 @@ static PyObject* capi_PyErr_SetObject(PyObject* Py_UNUSED(self), PyObject* args)
     }
 
     Py_RETURN_NONE;
+}
+
+static PyObject* capi_PyErr_SetString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyErr_SetString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    PyErr_SetString(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_PyErr_SyntaxLocation(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    int arg1;
+
+    if (!PyArg_ParseTuple(args, "yi:PyErr_SyntaxLocation", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    PyErr_SyntaxLocation(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_PyErr_SyntaxLocationEx(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    int arg1;
+    int arg2;
+
+    if (!PyArg_ParseTuple(args, "yii:PyErr_SyntaxLocationEx", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    PyErr_SyntaxLocationEx(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_PyErr_SyntaxLocationObject(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    int arg1;
+    int arg2;
+
+    if (!PyArg_ParseTuple(args, "Oii:PyErr_SyntaxLocationObject", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    PyErr_SyntaxLocationObject(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_PyErr_WarnEx(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+    Py_ssize_t arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oyn:PyErr_WarnEx", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyErr_WarnEx(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyErr_WarnExplicit(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+    char* arg2;
+    int arg3;
+    char* arg4;
+    PyObject* arg5;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OyyiyO:PyErr_WarnExplicit", &arg0, &arg1, &arg2, &arg3, &arg4, &arg5)) {
+        return NULL;
+    }
+
+    result = PyErr_WarnExplicit(arg0, arg1, arg2, arg3, arg4, arg5);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyErr_WarnExplicitObject(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    PyObject* arg2;
+    int arg3;
+    PyObject* arg4;
+    PyObject* arg5;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OOOiOO:PyErr_WarnExplicitObject", &arg0, &arg1, &arg2, &arg3, &arg4, &arg5)) {
+        return NULL;
+    }
+
+    result = PyErr_WarnExplicitObject(arg0, arg1, arg2, arg3, arg4, arg5);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
 }
 
 static PyObject* capi_PyErr_WriteUnraisable(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -8184,14 +8583,36 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyErr_Clear", capi_PyErr_Clear, METH_NOARGS, NULL},
     {"PyErr_ExceptionMatches", capi_PyErr_ExceptionMatches, METH_O, NULL},
     {"PyErr_GivenExceptionMatches", capi_PyErr_GivenExceptionMatches, METH_VARARGS, NULL},
+    {"PyErr_NewException", capi_PyErr_NewException, METH_VARARGS, NULL},
+    {"PyErr_NewExceptionWithDoc", capi_PyErr_NewExceptionWithDoc, METH_VARARGS, NULL},
     {"PyErr_NoMemory", capi_PyErr_NoMemory, METH_NOARGS, NULL},
     {"PyErr_Occurred", capi_PyErr_Occurred, METH_NOARGS, NULL},
     {"PyErr_Print", capi_PyErr_Print, METH_NOARGS, NULL},
+    {"PyErr_PrintEx", capi_PyErr_PrintEx, METH_VARARGS, NULL},
     {"PyErr_Restore", capi_PyErr_Restore, METH_VARARGS, NULL},
+
+    # if MS_WINDOWS
+
+        {"PyErr_SetExcFromWindowsErr", capi_PyErr_SetExcFromWindowsErr, METH_VARARGS, NULL},
+        {"PyErr_SetExcFromWindowsErrWithFilename", capi_PyErr_SetExcFromWindowsErrWithFilename, METH_VARARGS, NULL},
+        {"PyErr_SetExcFromWindowsErrWithFilenameObject", capi_PyErr_SetExcFromWindowsErrWithFilenameObject, METH_VARARGS, NULL},
+        {"PyErr_SetExcFromWindowsErrWithFilenameObjects", capi_PyErr_SetExcFromWindowsErrWithFilenameObjects, METH_VARARGS, NULL},
+
+    # endif
+
     {"PyErr_SetExcInfo", capi_PyErr_SetExcInfo, METH_VARARGS, NULL},
     {"PyErr_SetFromErrno", capi_PyErr_SetFromErrno, METH_O, NULL},
+    {"PyErr_SetFromErrnoWithFilename", capi_PyErr_SetFromErrnoWithFilename, METH_VARARGS, NULL},
     {"PyErr_SetFromErrnoWithFilenameObject", capi_PyErr_SetFromErrnoWithFilenameObject, METH_VARARGS, NULL},
     {"PyErr_SetFromErrnoWithFilenameObjects", capi_PyErr_SetFromErrnoWithFilenameObjects, METH_VARARGS, NULL},
+
+    # if MS_WINDOWS
+
+        {"PyErr_SetFromWindowsErr", capi_PyErr_SetFromWindowsErr, METH_VARARGS, NULL},
+        {"PyErr_SetFromWindowsErrWithFilename", capi_PyErr_SetFromWindowsErrWithFilename, METH_VARARGS, NULL},
+
+    # endif
+
     {"PyErr_SetImportError", capi_PyErr_SetImportError, METH_VARARGS, NULL},
 
     # if 0x030600F0 <= PY_VERSION_HEX
@@ -8203,6 +8624,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyErr_SetInterrupt", capi_PyErr_SetInterrupt, METH_NOARGS, NULL},
     {"PyErr_SetNone", capi_PyErr_SetNone, METH_O, NULL},
     {"PyErr_SetObject", capi_PyErr_SetObject, METH_VARARGS, NULL},
+    {"PyErr_SetString", capi_PyErr_SetString, METH_VARARGS, NULL},
+    {"PyErr_SyntaxLocation", capi_PyErr_SyntaxLocation, METH_VARARGS, NULL},
+    {"PyErr_SyntaxLocationEx", capi_PyErr_SyntaxLocationEx, METH_VARARGS, NULL},
+    {"PyErr_SyntaxLocationObject", capi_PyErr_SyntaxLocationObject, METH_VARARGS, NULL},
+    {"PyErr_WarnEx", capi_PyErr_WarnEx, METH_VARARGS, NULL},
+    {"PyErr_WarnExplicit", capi_PyErr_WarnExplicit, METH_VARARGS, NULL},
+    {"PyErr_WarnExplicitObject", capi_PyErr_WarnExplicitObject, METH_VARARGS, NULL},
     {"PyErr_WriteUnraisable", capi_PyErr_WriteUnraisable, METH_O, NULL},
 
     /* PyEval */
