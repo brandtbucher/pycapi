@@ -2237,7 +2237,7 @@ static PyObject* capi_PyErr_Restore(PyObject* Py_UNUSED(self), PyObject* args) {
     Py_RETURN_NONE;
 }
 
-# if MS_WINDOWS
+# ifdef MS_WINDOWS
 
     static PyObject* capi_PyErr_SetExcFromWindowsErr(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -2458,7 +2458,7 @@ static PyObject* capi_PyErr_SetFromErrnoWithFilenameObjects(PyObject* Py_UNUSED(
     return result;
 }
 
-# if MS_WINDOWS
+# ifdef MS_WINDOWS
 
     static PyObject* capi_PyErr_SetFromWindowsErr(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -7715,7 +7715,7 @@ static PyObject* capi_PyUnicode_AsLatin1String(PyObject* Py_UNUSED(self), PyObje
     return result;
 }
 
-# if MS_WINDOWS
+# ifdef MS_WINDOWS
 
     static PyObject* capi_PyUnicode_AsMBCSString(PyObject* Py_UNUSED(self), PyObject* arg) {
 
@@ -8815,7 +8815,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyErr_PrintEx", capi_PyErr_PrintEx, METH_VARARGS, NULL},
     {"PyErr_Restore", capi_PyErr_Restore, METH_VARARGS, NULL},
 
-    # if MS_WINDOWS
+    # ifdef MS_WINDOWS
 
         {"PyErr_SetExcFromWindowsErr", capi_PyErr_SetExcFromWindowsErr, METH_VARARGS, NULL},
         {"PyErr_SetExcFromWindowsErrWithFilename", capi_PyErr_SetExcFromWindowsErrWithFilename, METH_VARARGS, NULL},
@@ -8830,7 +8830,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyErr_SetFromErrnoWithFilenameObject", capi_PyErr_SetFromErrnoWithFilenameObject, METH_VARARGS, NULL},
     {"PyErr_SetFromErrnoWithFilenameObjects", capi_PyErr_SetFromErrnoWithFilenameObjects, METH_VARARGS, NULL},
 
-    # if MS_WINDOWS
+    # ifdef MS_WINDOWS
 
         {"PyErr_SetFromWindowsErr", capi_PyErr_SetFromWindowsErr, METH_VARARGS, NULL},
         {"PyErr_SetFromWindowsErrWithFilename", capi_PyErr_SetFromWindowsErrWithFilename, METH_VARARGS, NULL},
@@ -9250,7 +9250,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicode_AsCharmapString", capi_PyUnicode_AsCharmapString, METH_VARARGS, NULL},
     {"PyUnicode_AsLatin1String", capi_PyUnicode_AsLatin1String, METH_O, NULL},
 
-    # if MS_WINDOWS
+    # ifdef MS_WINDOWS
 
         {"PyUnicode_AsMBCSString", capi_PyUnicode_AsMBCSString, METH_O, NULL},
 

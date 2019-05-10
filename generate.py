@@ -1032,8 +1032,16 @@ if __name__ == "__main__":
 
             if new_condition:
 
-                pycapi_c_1.append(f"# if {new_condition[0]}")
-                pycapi_c_2.append(INDENT + f"# if {new_condition[0]}")
+                if new_condition[0] == "MS_WINDOWS":
+
+                    pycapi_c_1.append("# ifdef MS_WINDOWS")
+                    pycapi_c_2.append(INDENT + "# ifdef MS_WINDOWS")
+
+                else:
+
+                    pycapi_c_1.append(f"# if {new_condition[0]}")
+                    pycapi_c_2.append(INDENT + f"# if {new_condition[0]}")
+
                 pycapi_pyi.append(f"if {new_condition[1]}:")
 
                 pycapi_c_1.append("")

@@ -22,7 +22,7 @@ build: clean
 
 	pip install --upgrade setuptools
 
-	CFLAGS="-Werror -Wno-deprecated-declarations" python setup.py sdist bdist_wheel develop
+	CFLAGS="-Werror -Wno-deprecated-declarations" python setup.py develop sdist bdist_wheel
 
 test: build
 
@@ -46,4 +46,4 @@ build-35:
 
 	pip install --upgrade setuptools
 
-	CFLAGS="-Werror -Wno-deprecated-declarations" python setup.py sdist develop
+	CFLAGS="-Werror -Wno-deprecated-declarations" python develop setup.py sdist
