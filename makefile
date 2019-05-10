@@ -18,7 +18,7 @@ build: clean
 
 	black .
 
-	python3 generate.py
+	python generate.py
 
 	pip install --upgrade setuptools
 
