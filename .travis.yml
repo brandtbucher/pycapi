@@ -1,45 +1,59 @@
-dist: xenial
-install: pip install --upgrade setuptools
-language: python
-python: 3.7
-script: make test
+language: shell
 
 git:
 
-  depth: False
+    depth: False
 
 matrix:
 
-  allow_failures:
-
-  - python: 3.5-dev
-  - python: 3.6-dev
-  - python: 3.7-dev
-  - python: 3.8-dev
-
-  fast_finish: True
-
   include:
+  
+    - name: Python 3.5.2 on Linux
+      python: 3.5.2
+      dist: xenial
+      language: python
+      
+    - name: Python 3.6.8 on Linux
+      python: 3.6.8
+      dist: xenial
+      language: python
 
-  - name: CPython 3.5
-    python: 3.5
-    script: make build-35
+    - name: Python 3.7.3 on Linux
+      python: 3.7.3
+      dist: xenial
+      language: python
 
-  - name: CPython 3.6
-    python: 3.6
+    - name: Python 3.5.2 on Windows
+      os: windows
+      before_install: choco install python --version 3.5.2.20161029
+      env: PATH=/c/Python35:/c/Python35/Scripts:$PATH
 
-  - name: CPython 3.7
-    python: 3.7
+    - name: Python 3.6.8 on Windows
+      os: windows
+      before_install: choco install python --version 3.6.8
+      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
 
-  - name: CPython 3.5+
-    python: 3.5-dev
-    script: make build-35
+    - name: Python 3.7.3 on Windows
+      os: windows
+      before_install: choco install python --version 3.7.3
+      env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 
-  - name: CPython 3.6+
-    python: 3.6-dev
+    - name: Python 3.5.2 on macOS
+      os: osx
+      before_install: brew upgrade pyenv; pyenv install $PYENV_VERSION
+      env: PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.5.2
 
-  - name: CPython 3.7+
-    python: 3.7-dev
+    - name: Python 3.6.8 on macOS
+      os: osx
+      before_install: brew upgrade pyenv; pyenv install $PYENV_VERSION
+      env: PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.6.8
 
-  - name: CPython 3.8+
-    python: 3.8-dev
+    - name: Python 3.7.3 on macOS
+      os: osx
+      before_install: brew upgrade pyenv; pyenv install $PYENV_VERSION
+      env: PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.7.3
+
+install: pip install --upgrade setuptools
+
+script: make test
+
