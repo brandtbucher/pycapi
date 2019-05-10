@@ -410,6 +410,8 @@ API: typing.Tuple[
     ("PyMapping_SetItemString", "OyO", "i"),
     ("PyMapping_Size", "O", "n"),
     ("PyMapping_Values", "O", "N"),
+    ("PyMarshal_ReadObjectFromString", "yn", "N"),
+    ("PyMarshal_WriteObjectToString", "Oi", "N"),
     ("PyMemoryView_Check", "O", "i"),
     ("PyMemoryView_FromObject", "O", "N"),
     ("PyMethod_Check", "O", "i"),
@@ -757,6 +759,7 @@ PYCAPI_C = """\
 
 # include "Python.h"
 # include "datetime.h"
+# include "marshal.h"
 
 
 // static PyTypeObject NULLType;

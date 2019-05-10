@@ -3,6 +3,7 @@
 
 # include "Python.h"
 # include "datetime.h"
+# include "marshal.h"
 
 
 // static PyTypeObject NULLType;
@@ -4931,6 +4932,58 @@ static PyObject* capi_PyMapping_Values(PyObject* Py_UNUSED(self), PyObject* arg)
     return result;
 }
 
+/* PyMarshal */
+
+static PyObject* capi_PyMarshal_ReadObjectFromString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yn:PyMarshal_ReadObjectFromString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyMarshal_ReadObjectFromString(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyMarshal_WriteObjectToString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    int arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oi:PyMarshal_WriteObjectToString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyMarshal_WriteObjectToString(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 /* PyMemoryView */
 
 static PyObject* capi_PyMemoryView_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -8967,6 +9020,11 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyMapping_SetItemString", capi_PyMapping_SetItemString, METH_VARARGS, NULL},
     {"PyMapping_Size", capi_PyMapping_Size, METH_O, NULL},
     {"PyMapping_Values", capi_PyMapping_Values, METH_O, NULL},
+
+    /* PyMarshal */
+
+    {"PyMarshal_ReadObjectFromString", capi_PyMarshal_ReadObjectFromString, METH_VARARGS, NULL},
+    {"PyMarshal_WriteObjectToString", capi_PyMarshal_WriteObjectToString, METH_VARARGS, NULL},
 
     /* PyMemoryView */
 
