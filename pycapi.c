@@ -56,7 +56,7 @@ static PyObject* capi_PyBool_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
 
 static PyObject* capi_PyBool_FromLong(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    long arg0;
+    long int arg0;
 
     PyObject* result;
 
@@ -4515,9 +4515,33 @@ static PyObject* capi_PyLong_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyLong_FromDouble(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    double arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "d:PyLong_FromDouble", &arg0)) {
+        return NULL;
+    }
+
+    result = PyLong_FromDouble(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyLong_FromLong(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    long arg0;
+    long int arg0;
 
     PyObject* result;
 
@@ -4526,6 +4550,153 @@ static PyObject* capi_PyLong_FromLong(PyObject* Py_UNUSED(self), PyObject* args)
     }
 
     result = PyLong_FromLong(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyLong_FromLongLong(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    long long int arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "L:PyLong_FromLongLong", &arg0)) {
+        return NULL;
+    }
+
+    result = PyLong_FromLongLong(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyLong_FromSsize_t(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    Py_ssize_t arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "n:PyLong_FromSsize_t", &arg0)) {
+        return NULL;
+    }
+
+    result = PyLong_FromSsize_t(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyLong_FromUnicode(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+    int arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "uni:PyLong_FromUnicode", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyLong_FromUnicode(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyLong_FromUnicodeObject(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    int arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oi:PyLong_FromUnicodeObject", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyLong_FromUnicodeObject(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyLong_FromUnsignedLong(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    unsigned long int arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "k:PyLong_FromUnsignedLong", &arg0)) {
+        return NULL;
+    }
+
+    result = PyLong_FromUnsignedLong(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyLong_FromUnsignedLongLong(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    unsigned long long int arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "K:PyLong_FromUnsignedLongLong", &arg0)) {
+        return NULL;
+    }
+
+    result = PyLong_FromUnsignedLongLong(arg0);
 
     if (!result) {
 
@@ -8773,7 +8944,14 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyLong_AsUnsignedLongMask", capi_PyLong_AsUnsignedLongMask, METH_O, NULL},
     {"PyLong_Check", capi_PyLong_Check, METH_O, NULL},
     {"PyLong_CheckExact", capi_PyLong_CheckExact, METH_O, NULL},
+    {"PyLong_FromDouble", capi_PyLong_FromDouble, METH_VARARGS, NULL},
     {"PyLong_FromLong", capi_PyLong_FromLong, METH_VARARGS, NULL},
+    {"PyLong_FromLongLong", capi_PyLong_FromLongLong, METH_VARARGS, NULL},
+    {"PyLong_FromSsize_t", capi_PyLong_FromSsize_t, METH_VARARGS, NULL},
+    {"PyLong_FromUnicode", capi_PyLong_FromUnicode, METH_VARARGS, NULL},
+    {"PyLong_FromUnicodeObject", capi_PyLong_FromUnicodeObject, METH_VARARGS, NULL},
+    {"PyLong_FromUnsignedLong", capi_PyLong_FromUnsignedLong, METH_VARARGS, NULL},
+    {"PyLong_FromUnsignedLongLong", capi_PyLong_FromUnsignedLongLong, METH_VARARGS, NULL},
 
     /* PyMapping */
 
