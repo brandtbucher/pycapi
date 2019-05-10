@@ -14,36 +14,36 @@ clean:
 
 build: clean
 
-	pip3 install --upgrade black
+	pip install --upgrade black
 
 	black .
 
 	python3 generate.py
 
-	pip3 install --upgrade setuptools
+	pip install --upgrade setuptools
 
-	CFLAGS="-Werror -Wno-deprecated-declarations" python3 setup.py sdist develop
+	CFLAGS="-Werror -Wno-deprecated-declarations" python setup.py sdist bdist_wheel develop
 
 test: build
 
-	pip3 install --upgrade hypothesis
-	pip3 install --upgrade pytest
-	pip3 install --upgrade pytest-forked
-	pip3 install --upgrade pytest-xdist
+	pip install --upgrade hypothesis
+	pip install --upgrade pytest
+	pip install --upgrade pytest-forked
+	pip install --upgrade pytest-xdist
 
 	# pytest --forked --numprocesses auto --verbose --verbose
 
 release: test
 
-	pip3 install --upgrade twine
+	pip install --upgrade twine
 
 	twine check dist/*
 	twine upload dist/*
 
-	python3 -c 'from generate import API; print("APIs:", len(API))'
+	python -c 'from generate import API; print("APIs:", len(API))'
 
 build-35:
 
-	pip3 install --upgrade setuptools
+	pip install --upgrade setuptools
 
-	CFLAGS="-Werror -Wno-deprecated-declarations" python3 setup.py sdist develop
+	CFLAGS="-Werror -Wno-deprecated-declarations" python setup.py sdist develop
