@@ -4999,11 +4999,63 @@ static PyObject* capi_PyMemoryView_Check(PyObject* Py_UNUSED(self), PyObject* ar
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyMemoryView_FromMemory(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+    int arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yni:PyMemoryView_FromMemory", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyMemoryView_FromMemory(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyMemoryView_FromObject(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
 
     result = PyMemoryView_FromObject(arg);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyMemoryView_GetContiguous(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    int arg1;
+    char arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oic:PyMemoryView_GetContiguous", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyMemoryView_GetContiguous(arg0, arg1, arg2);
 
     if (!result) {
 
@@ -9029,7 +9081,9 @@ static PyMethodDef CAPIMethods[] =  {
     /* PyMemoryView */
 
     {"PyMemoryView_Check", capi_PyMemoryView_Check, METH_O, NULL},
+    {"PyMemoryView_FromMemory", capi_PyMemoryView_FromMemory, METH_VARARGS, NULL},
     {"PyMemoryView_FromObject", capi_PyMemoryView_FromObject, METH_O, NULL},
+    {"PyMemoryView_GetContiguous", capi_PyMemoryView_GetContiguous, METH_VARARGS, NULL},
 
     /* PyMethod */
 

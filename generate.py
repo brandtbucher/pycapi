@@ -413,7 +413,9 @@ API: typing.Tuple[
     ("PyMarshal_ReadObjectFromString", "yn", "N"),
     ("PyMarshal_WriteObjectToString", "Oi", "N"),
     ("PyMemoryView_Check", "O", "i"),
+    ("PyMemoryView_FromMemory", "yni", "N"),
     ("PyMemoryView_FromObject", "O", "N"),
+    ("PyMemoryView_GetContiguous", "Oic", "N"),
     ("PyMethod_Check", "O", "i"),
     ("PyMethod_Function", "O", "N"),
     ("PyMethod_GET_FUNCTION", "O", "N"),
@@ -654,6 +656,7 @@ import typing
 STUB = "def {}({}) -> {}: ..."
 
 ARG_TYPES_PYI = {
+    "c": "bytes",
     "D": "complex",
     "d": "float",
     "i": "int",
@@ -683,6 +686,7 @@ RETURN_TYPES_PYI = {
 }
 
 ARG_TYPES_C = {
+    "c": "char",
     "D": "Py_complex",
     "d": "double",
     "i": "int",
