@@ -1,5 +1,6 @@
-black; '3.5' <= python_version
+black; '3.5' < python_version
 # hypothesis
+invoke
 # pytest
 # pytest-forked
 # pytest-xdist
