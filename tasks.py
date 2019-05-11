@@ -2,11 +2,13 @@ import invoke
 import sys
 
 
-ARTIFACTS = {"*.c", "*.egg-info", "*.pyi", "*.so", "MANIFEST", "build", "dist"}
+ARTIFACTS = ["*.egg-info", "*.so", "MANIFEST", "build", "dist"]
 
 
 @invoke.task
 def clean(context):
+
+    print("\nCLEAN\n")
 
     context.run("{} setup.py develop --uninstall".format(sys.executable))
 
@@ -14,27 +16,42 @@ def clean(context):
         context.run("rm -rf {artifact}".format(artifact=artifact))
 
 
-@invoke.task(clean)
-def build(context):
+pre_build = clean
 
-    context.run(
-        "{} -m pip install --upgrade -r requirements.txt".format(sys.executable)
-    )
 
-    context.run("{} generate.py".format(sys.executable))
+if (3, 6) <= sys.version_info:
 
-    if (3, 5) < sys.version_info:
+    ARTIFACTS.extend(("*.c", "*.pyi"))
+
+    @invoke.task(clean)
+    def generate(context):
+
+        print("\nGENERATE\n")
+
+        context.run("{} generate.py".format(sys.executable))
         context.run("black .")
 
+    pre_build = generate
+
+
+@invoke.task(pre_build)
+def build(context):
+
+    print("\nBUILD\n")
+
     context.run(
-        'CFLAGS="-Werror -Wno-deprecated-declarations" {} setup.py develop sdist bdist_wheel'.format(
-            sys.executable
-        )
+        "{} setup.py develop sdist bdist_wheel".format(sys.executable),
+        env={"CFLAGS": "-Werror -Wno-deprecated-declarations"},
+        replace_env=False,
     )
+
+    context.run("twine check dist/*")
 
 
 @invoke.task(build)
 def test(context):
+
+    print("\nTEST\n")
 
     # context.run("mypy --strict .")
     # context.run("pytest")
@@ -44,5 +61,7 @@ def test(context):
 
 @invoke.task(test)
 def release(context):
-    context.run("twine check dist/*")
+
+    print("\nRELEASE\n")
+
     context.run("twine upload dist/*")

@@ -1,4 +1,4 @@
-black; '3.5' < python_version
+black; '3.6' <= python_version
 # hypothesis
 invoke
 # pytest
