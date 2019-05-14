@@ -6505,6 +6505,26 @@ static PyObject* capi_PyObject_DelAttr(PyObject* Py_UNUSED(self), PyObject* args
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyObject_DelAttrString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyObject_DelAttrString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyObject_DelAttrString(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyObject_DelItem(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -6625,6 +6645,31 @@ static PyObject* capi_PyObject_GetAttr(PyObject* Py_UNUSED(self), PyObject* args
     return result;
 }
 
+static PyObject* capi_PyObject_GetAttrString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyObject_GetAttrString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyObject_GetAttrString(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyObject_GetItem(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -6688,11 +6733,44 @@ static PyObject* capi_PyObject_HasAttr(PyObject* Py_UNUSED(self), PyObject* args
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyObject_HasAttrString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyObject_HasAttrString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyObject_HasAttrString(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyObject_Hash(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     Py_ssize_t result;
 
     result = PyObject_Hash(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromSsize_t(result);
+}
+
+static PyObject* capi_PyObject_HashNotImplemented(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    Py_ssize_t result;
+
+    result = PyObject_HashNotImplemented(arg);
 
     if (PyErr_Occurred()) {
         return NULL;
@@ -6767,6 +6845,26 @@ static PyObject* capi_PyObject_Length(PyObject* Py_UNUSED(self), PyObject* arg) 
     return PyLong_FromSsize_t(result);
 }
 
+static PyObject* capi_PyObject_LengthHint(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    Py_ssize_t result;
+
+    if (!PyArg_ParseTuple(args, "On:PyObject_LengthHint", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyObject_LengthHint(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromSsize_t(result);
+}
+
 static PyObject* capi_PyObject_Not(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     int result;
@@ -6798,6 +6896,53 @@ static PyObject* capi_PyObject_Repr(PyObject* Py_UNUSED(self), PyObject* arg) {
     return result;
 }
 
+static PyObject* capi_PyObject_RichCompare(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    int arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "OOi:PyObject_RichCompare", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyObject_RichCompare(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyObject_RichCompareBool(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    int arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OOi:PyObject_RichCompareBool", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyObject_RichCompareBool(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyObject_SetAttr(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -6811,6 +6956,27 @@ static PyObject* capi_PyObject_SetAttr(PyObject* Py_UNUSED(self), PyObject* args
     }
 
     result = PyObject_SetAttr(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyObject_SetAttrString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+    PyObject* arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OyO:PyObject_SetAttrString", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyObject_SetAttrString(arg0, arg1, arg2);
 
     if (PyErr_Occurred()) {
         return NULL;
@@ -9297,23 +9463,31 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyObject_CheckBuffer", capi_PyObject_CheckBuffer, METH_O, NULL},
     {"PyObject_CheckReadBuffer", capi_PyObject_CheckReadBuffer, METH_O, NULL},
     {"PyObject_DelAttr", capi_PyObject_DelAttr, METH_VARARGS, NULL},
+    {"PyObject_DelAttrString", capi_PyObject_DelAttrString, METH_VARARGS, NULL},
     {"PyObject_DelItem", capi_PyObject_DelItem, METH_VARARGS, NULL},
     {"PyObject_Dir", capi_PyObject_Dir, METH_O, NULL},
     {"PyObject_GC_Track", capi_PyObject_GC_Track, METH_O, NULL},
     {"PyObject_GenericGetAttr", capi_PyObject_GenericGetAttr, METH_VARARGS, NULL},
     {"PyObject_GenericSetAttr", capi_PyObject_GenericSetAttr, METH_VARARGS, NULL},
     {"PyObject_GetAttr", capi_PyObject_GetAttr, METH_VARARGS, NULL},
+    {"PyObject_GetAttrString", capi_PyObject_GetAttrString, METH_VARARGS, NULL},
     {"PyObject_GetItem", capi_PyObject_GetItem, METH_VARARGS, NULL},
     {"PyObject_GetIter", capi_PyObject_GetIter, METH_O, NULL},
     {"PyObject_HasAttr", capi_PyObject_HasAttr, METH_VARARGS, NULL},
+    {"PyObject_HasAttrString", capi_PyObject_HasAttrString, METH_VARARGS, NULL},
     {"PyObject_Hash", capi_PyObject_Hash, METH_O, NULL},
+    {"PyObject_HashNotImplemented", capi_PyObject_HashNotImplemented, METH_O, NULL},
     {"PyObject_IsInstance", capi_PyObject_IsInstance, METH_VARARGS, NULL},
     {"PyObject_IsSubclass", capi_PyObject_IsSubclass, METH_VARARGS, NULL},
     {"PyObject_IsTrue", capi_PyObject_IsTrue, METH_O, NULL},
     {"PyObject_Length", capi_PyObject_Length, METH_O, NULL},
+    {"PyObject_LengthHint", capi_PyObject_LengthHint, METH_VARARGS, NULL},
     {"PyObject_Not", capi_PyObject_Not, METH_O, NULL},
     {"PyObject_Repr", capi_PyObject_Repr, METH_O, NULL},
+    {"PyObject_RichCompare", capi_PyObject_RichCompare, METH_VARARGS, NULL},
+    {"PyObject_RichCompareBool", capi_PyObject_RichCompareBool, METH_VARARGS, NULL},
     {"PyObject_SetAttr", capi_PyObject_SetAttr, METH_VARARGS, NULL},
+    {"PyObject_SetAttrString", capi_PyObject_SetAttrString, METH_VARARGS, NULL},
     {"PyObject_SetItem", capi_PyObject_SetItem, METH_VARARGS, NULL},
     {"PyObject_Size", capi_PyObject_Size, METH_O, NULL},
     {"PyObject_Str", capi_PyObject_Str, METH_O, NULL},
