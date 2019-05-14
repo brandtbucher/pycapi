@@ -5183,6 +5183,69 @@ static PyObject* capi_PyMethod_Self(PyObject* Py_UNUSED(self), PyObject* arg) {
 
 /* PyModule */
 
+static PyObject* capi_PyModule_AddIntConstant(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+    long int arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oyl:PyModule_AddIntConstant", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyModule_AddIntConstant(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyModule_AddObject(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+    PyObject* arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OyO:PyModule_AddObject", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyModule_AddObject(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyModule_AddStringConstant(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+    char* arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oyy:PyModule_AddStringConstant", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyModule_AddStringConstant(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyModule_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     int result;
@@ -5289,6 +5352,30 @@ static PyObject* capi_PyModule_GetNameObject(PyObject* Py_UNUSED(self), PyObject
     return result;
 }
 
+static PyObject* capi_PyModule_New(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PyModule_New", &arg0)) {
+        return NULL;
+    }
+
+    result = PyModule_New(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyModule_NewObject(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
@@ -5305,6 +5392,26 @@ static PyObject* capi_PyModule_NewObject(PyObject* Py_UNUSED(self), PyObject* ar
     }
 
     return result;
+}
+
+static PyObject* capi_PyModule_SetDocString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyModule_SetDocString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyModule_SetDocString(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
 }
 
 /* PyNumber */
@@ -9096,6 +9203,9 @@ static PyMethodDef CAPIMethods[] =  {
 
     /* PyModule */
 
+    {"PyModule_AddIntConstant", capi_PyModule_AddIntConstant, METH_VARARGS, NULL},
+    {"PyModule_AddObject", capi_PyModule_AddObject, METH_VARARGS, NULL},
+    {"PyModule_AddStringConstant", capi_PyModule_AddStringConstant, METH_VARARGS, NULL},
     {"PyModule_Check", capi_PyModule_Check, METH_O, NULL},
     {"PyModule_CheckExact", capi_PyModule_CheckExact, METH_O, NULL},
     {"PyModule_GetDict", capi_PyModule_GetDict, METH_O, NULL},
@@ -9103,7 +9213,9 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyModule_GetFilenameObject", capi_PyModule_GetFilenameObject, METH_O, NULL},
     {"PyModule_GetName", capi_PyModule_GetName, METH_O, NULL},
     {"PyModule_GetNameObject", capi_PyModule_GetNameObject, METH_O, NULL},
+    {"PyModule_New", capi_PyModule_New, METH_VARARGS, NULL},
     {"PyModule_NewObject", capi_PyModule_NewObject, METH_O, NULL},
+    {"PyModule_SetDocString", capi_PyModule_SetDocString, METH_VARARGS, NULL},
 
     /* PyNumber */
 
