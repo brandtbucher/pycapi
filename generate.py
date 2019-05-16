@@ -550,6 +550,8 @@ API: typing.Tuple[
     ("PyObject_Size", "O", "n"),
     ("PyObject_Str", "O", "N"),
     ("PyObject_Type", "O", "N"),
+    ("PyRun_SimpleString", "y", "i"),
+    ("PyRun_String", "yiOO", "N"),
     ("PySeqIter_Check", "O", "i"),
     ("PySeqIter_New", "O", "N"),
     ("PySequence_Check", "O", "i"),

@@ -7055,6 +7055,54 @@ static PyObject* capi_PyObject_Type(PyObject* Py_UNUSED(self), PyObject* arg) {
     return result;
 }
 
+/* PyRun */
+
+static PyObject* capi_PyRun_SimpleString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "y:PyRun_SimpleString", &arg0)) {
+        return NULL;
+    }
+
+    result = PyRun_SimpleString(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyRun_String(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    int arg1;
+    PyObject* arg2;
+    PyObject* arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yiOO:PyRun_String", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyRun_String(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 /* PySeqIter */
 
 static PyObject* capi_PySeqIter_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -9492,6 +9540,11 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyObject_Size", capi_PyObject_Size, METH_O, NULL},
     {"PyObject_Str", capi_PyObject_Str, METH_O, NULL},
     {"PyObject_Type", capi_PyObject_Type, METH_O, NULL},
+
+    /* PyRun */
+
+    {"PyRun_SimpleString", capi_PyRun_SimpleString, METH_VARARGS, NULL},
+    {"PyRun_String", capi_PyRun_String, METH_VARARGS, NULL},
 
     /* PySeqIter */
 
