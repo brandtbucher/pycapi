@@ -7815,6 +7815,77 @@ static PyObject* capi_PySlice_New(PyObject* Py_UNUSED(self), PyObject* args) {
     return result;
 }
 
+/* PyStructSequence */
+
+static PyObject* capi_PyStructSequence_GET_ITEM(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "On:PyStructSequence_GET_ITEM", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyStructSequence_GET_ITEM(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyStructSequence_GetItem(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "On:PyStructSequence_GetItem", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyStructSequence_GetItem(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyStructSequence_SetItem(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    PyObject* arg2;
+
+    if (!PyArg_ParseTuple(args, "OnO:PyStructSequence_SetItem", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    PyStructSequence_SetItem(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
 /* PySys */
 
 static PyObject* capi_PySys_AddWarnOptionUnicode(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -9856,6 +9927,12 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PySlice_Check", capi_PySlice_Check, METH_O, NULL},
     {"PySlice_New", capi_PySlice_New, METH_VARARGS, NULL},
+
+    /* PyStructSequence */
+
+    {"PyStructSequence_GET_ITEM", capi_PyStructSequence_GET_ITEM, METH_VARARGS, NULL},
+    {"PyStructSequence_GetItem", capi_PyStructSequence_GetItem, METH_VARARGS, NULL},
+    {"PyStructSequence_SetItem", capi_PyStructSequence_SetItem, METH_VARARGS, NULL},
 
     /* PySys */
 
