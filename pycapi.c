@@ -7216,6 +7216,97 @@ static PyObject* capi_PySequence_Count(PyObject* Py_UNUSED(self), PyObject* args
     return PyLong_FromSsize_t(result);
 }
 
+static PyObject* capi_PySequence_DelItem(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "On:PySequence_DelItem", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PySequence_DelItem(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PySequence_DelSlice(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    Py_ssize_t arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Onn:PySequence_DelSlice", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PySequence_DelSlice(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PySequence_Fast(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PySequence_Fast", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PySequence_Fast(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PySequence_Fast_GET_ITEM(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "On:PySequence_Fast_GET_ITEM", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PySequence_Fast_GET_ITEM(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PySequence_Fast_GET_SIZE(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     Py_ssize_t result;
@@ -7227,6 +7318,82 @@ static PyObject* capi_PySequence_Fast_GET_SIZE(PyObject* Py_UNUSED(self), PyObje
     }
 
     return PyLong_FromSsize_t(result);
+}
+
+static PyObject* capi_PySequence_GetItem(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "On:PySequence_GetItem", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PySequence_GetItem(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PySequence_GetSlice(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    Py_ssize_t arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Onn:PySequence_GetSlice", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PySequence_GetSlice(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PySequence_ITEM(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "On:PySequence_ITEM", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PySequence_ITEM(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
 }
 
 static PyObject* capi_PySequence_In(PyObject* Py_UNUSED(self), PyObject* args) {
@@ -7261,6 +7428,31 @@ static PyObject* capi_PySequence_InPlaceConcat(PyObject* Py_UNUSED(self), PyObje
     }
 
     result = PySequence_InPlaceConcat(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PySequence_InPlaceRepeat(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "On:PySequence_InPlaceRepeat", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PySequence_InPlaceRepeat(arg0, arg1);
 
     if (!result) {
 
@@ -7310,6 +7502,74 @@ static PyObject* capi_PySequence_List(PyObject* Py_UNUSED(self), PyObject* arg) 
     }
 
     return result;
+}
+
+static PyObject* capi_PySequence_Repeat(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "On:PySequence_Repeat", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PySequence_Repeat(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PySequence_SetItem(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    PyObject* arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OnO:PySequence_SetItem", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PySequence_SetItem(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PySequence_SetSlice(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    Py_ssize_t arg2;
+    PyObject* arg3;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "OnnO:PySequence_SetSlice", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PySequence_SetSlice(arg0, arg1, arg2, arg3);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
 }
 
 static PyObject* capi_PySequence_Size(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -9557,11 +9817,22 @@ static PyMethodDef CAPIMethods[] =  {
     {"PySequence_Concat", capi_PySequence_Concat, METH_VARARGS, NULL},
     {"PySequence_Contains", capi_PySequence_Contains, METH_VARARGS, NULL},
     {"PySequence_Count", capi_PySequence_Count, METH_VARARGS, NULL},
+    {"PySequence_DelItem", capi_PySequence_DelItem, METH_VARARGS, NULL},
+    {"PySequence_DelSlice", capi_PySequence_DelSlice, METH_VARARGS, NULL},
+    {"PySequence_Fast", capi_PySequence_Fast, METH_VARARGS, NULL},
+    {"PySequence_Fast_GET_ITEM", capi_PySequence_Fast_GET_ITEM, METH_VARARGS, NULL},
     {"PySequence_Fast_GET_SIZE", capi_PySequence_Fast_GET_SIZE, METH_O, NULL},
+    {"PySequence_GetItem", capi_PySequence_GetItem, METH_VARARGS, NULL},
+    {"PySequence_GetSlice", capi_PySequence_GetSlice, METH_VARARGS, NULL},
+    {"PySequence_ITEM", capi_PySequence_ITEM, METH_VARARGS, NULL},
     {"PySequence_In", capi_PySequence_In, METH_VARARGS, NULL},
     {"PySequence_InPlaceConcat", capi_PySequence_InPlaceConcat, METH_VARARGS, NULL},
+    {"PySequence_InPlaceRepeat", capi_PySequence_InPlaceRepeat, METH_VARARGS, NULL},
     {"PySequence_Index", capi_PySequence_Index, METH_VARARGS, NULL},
     {"PySequence_List", capi_PySequence_List, METH_O, NULL},
+    {"PySequence_Repeat", capi_PySequence_Repeat, METH_VARARGS, NULL},
+    {"PySequence_SetItem", capi_PySequence_SetItem, METH_VARARGS, NULL},
+    {"PySequence_SetSlice", capi_PySequence_SetSlice, METH_VARARGS, NULL},
     {"PySequence_Size", capi_PySequence_Size, METH_O, NULL},
     {"PySequence_Tuple", capi_PySequence_Tuple, METH_O, NULL},
 
