@@ -7888,6 +7888,23 @@ static PyObject* capi_PyStructSequence_SetItem(PyObject* Py_UNUSED(self), PyObje
 
 /* PySys */
 
+static PyObject* capi_PySys_AddWarnOption(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+
+    if (!PyArg_ParseTuple(args, "u:PySys_AddWarnOption", &arg0)) {
+        return NULL;
+    }
+
+    PySys_AddWarnOption(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
 static PyObject* capi_PySys_AddWarnOptionUnicode(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PySys_AddWarnOptionUnicode(arg);
@@ -7897,6 +7914,47 @@ static PyObject* capi_PySys_AddWarnOptionUnicode(PyObject* Py_UNUSED(self), PyOb
     }
 
     Py_RETURN_NONE;
+}
+
+static PyObject* capi_PySys_AddXOption(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+
+    if (!PyArg_ParseTuple(args, "u:PySys_AddXOption", &arg0)) {
+        return NULL;
+    }
+
+    PySys_AddXOption(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_PySys_GetObject(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PySys_GetObject", &arg0)) {
+        return NULL;
+    }
+
+    result = PySys_GetObject(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
 }
 
 static PyObject* capi_PySys_GetXOptions(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
@@ -7926,6 +7984,26 @@ static PyObject* capi_PySys_ResetWarnOptions(PyObject* Py_UNUSED(self), PyObject
     }
 
     Py_RETURN_NONE;
+}
+
+static PyObject* capi_PySys_SetObject(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    PyObject* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "yO:PySys_SetObject", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PySys_SetObject(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
 }
 
 /* PyThreadState */
@@ -9936,9 +10014,13 @@ static PyMethodDef CAPIMethods[] =  {
 
     /* PySys */
 
+    {"PySys_AddWarnOption", capi_PySys_AddWarnOption, METH_VARARGS, NULL},
     {"PySys_AddWarnOptionUnicode", capi_PySys_AddWarnOptionUnicode, METH_O, NULL},
+    {"PySys_AddXOption", capi_PySys_AddXOption, METH_VARARGS, NULL},
+    {"PySys_GetObject", capi_PySys_GetObject, METH_VARARGS, NULL},
     {"PySys_GetXOptions", capi_PySys_GetXOptions, METH_NOARGS, NULL},
     {"PySys_ResetWarnOptions", capi_PySys_ResetWarnOptions, METH_NOARGS, NULL},
+    {"PySys_SetObject", capi_PySys_SetObject, METH_VARARGS, NULL},
 
     /* PyThreadState */
 

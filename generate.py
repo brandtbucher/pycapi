@@ -591,9 +591,13 @@ API: typing.Tuple[
     ("PyStructSequence_GET_ITEM", "On", "N"),
     ("PyStructSequence_GetItem", "On", "N"),
     ("PyStructSequence_SetItem", "OnO", ""),
+    ("PySys_AddWarnOption", "u", ""),
     ("PySys_AddWarnOptionUnicode", "O", ""),
+    ("PySys_AddXOption", "u", ""),
+    ("PySys_GetObject", "y", "N"),
     ("PySys_GetXOptions", "", "N"),
     ("PySys_ResetWarnOptions", "", ""),
+    ("PySys_SetObject", "yO", "i"),
     ("PyThreadState_GetDict", "", "N"),
     (
         "PyTimeZone_FromOffset",
