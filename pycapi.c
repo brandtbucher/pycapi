@@ -8499,6 +8499,32 @@ static PyObject* capi_PyUnicode_AsCharmapString(PyObject* Py_UNUSED(self), PyObj
     return result;
 }
 
+static PyObject* capi_PyUnicode_AsEncodedString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oyy:PyUnicode_AsEncodedString", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_AsEncodedString(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyUnicode_AsLatin1String(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
@@ -8668,6 +8694,27 @@ static PyObject* capi_PyUnicode_AsUnicodeEscapeString(PyObject* Py_UNUSED(self),
     return result;
 }
 
+static PyObject* capi_PyUnicode_AsWideChar(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    wchar_t* arg1;
+    Py_ssize_t arg2;
+
+    Py_ssize_t result;
+
+    if (!PyArg_ParseTuple(args, "Oun:PyUnicode_AsWideChar", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_AsWideChar(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromSsize_t(result);
+}
+
 static PyObject* capi_PyUnicode_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     int result;
@@ -8706,6 +8753,26 @@ static PyObject* capi_PyUnicode_Compare(PyObject* Py_UNUSED(self), PyObject* arg
     }
 
     result = PyUnicode_Compare(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyUnicode_CompareWithASCIIString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyUnicode_CompareWithASCIIString", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_CompareWithASCIIString(arg0, arg1);
 
     if (PyErr_Occurred()) {
         return NULL;
@@ -8759,6 +8826,501 @@ static PyObject* capi_PyUnicode_Contains(PyObject* Py_UNUSED(self), PyObject* ar
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyUnicode_CopyCharacters(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    PyObject* arg2;
+    Py_ssize_t arg3;
+    Py_ssize_t arg4;
+
+    Py_ssize_t result;
+
+    if (!PyArg_ParseTuple(args, "OnOnn:PyUnicode_CopyCharacters", &arg0, &arg1, &arg2, &arg3, &arg4)) {
+        return NULL;
+    }
+
+    result = PyUnicode_CopyCharacters(arg0, arg1, arg2, arg3, arg4);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromSsize_t(result);
+}
+
+static PyObject* capi_PyUnicode_Count(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    Py_ssize_t arg2;
+    Py_ssize_t arg3;
+
+    Py_ssize_t result;
+
+    if (!PyArg_ParseTuple(args, "OOnn:PyUnicode_Count", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyUnicode_Count(arg0, arg1, arg2, arg3);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromSsize_t(result);
+}
+
+static PyObject* capi_PyUnicode_Decode(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+    char* arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "ynyy:PyUnicode_Decode", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyUnicode_Decode(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_DecodeASCII(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yny:PyUnicode_DecodeASCII", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_DecodeASCII(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_DecodeCharmap(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+    PyObject* arg2;
+    char* arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "ynOy:PyUnicode_DecodeCharmap", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyUnicode_DecodeCharmap(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_DecodeFSDefault(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PyUnicode_DecodeFSDefault", &arg0)) {
+        return NULL;
+    }
+
+    result = PyUnicode_DecodeFSDefault(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_DecodeFSDefaultAndSize(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yn:PyUnicode_DecodeFSDefaultAndSize", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_DecodeFSDefaultAndSize(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_DecodeLatin1(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yny:PyUnicode_DecodeLatin1", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_DecodeLatin1(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_DecodeLocale(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    char* arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yy:PyUnicode_DecodeLocale", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_DecodeLocale(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_DecodeLocaleAndSize(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yny:PyUnicode_DecodeLocaleAndSize", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_DecodeLocaleAndSize(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+# ifdef MS_WINDOWS
+
+    static PyObject* capi_PyUnicode_DecodeMBCS(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        char* arg0;
+        Py_ssize_t arg1;
+        char* arg2;
+
+        PyObject* result;
+
+        if (!PyArg_ParseTuple(args, "yny:PyUnicode_DecodeMBCS", &arg0, &arg1, &arg2)) {
+            return NULL;
+        }
+
+        result = PyUnicode_DecodeMBCS(arg0, arg1, arg2);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+# endif
+
+static PyObject* capi_PyUnicode_DecodeRawUnicodeEscape(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yny:PyUnicode_DecodeRawUnicodeEscape", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_DecodeRawUnicodeEscape(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_DecodeUTF7(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yny:PyUnicode_DecodeUTF7", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_DecodeUTF7(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_DecodeUTF8(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yny:PyUnicode_DecodeUTF8", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_DecodeUTF8(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_DecodeUnicodeEscape(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yny:PyUnicode_DecodeUnicodeEscape", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_DecodeUnicodeEscape(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_Encode(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+    char* arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "unyy:PyUnicode_Encode", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyUnicode_Encode(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_EncodeASCII(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "uny:PyUnicode_EncodeASCII", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_EncodeASCII(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_EncodeCharmap(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+    PyObject* arg2;
+    char* arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "unOy:PyUnicode_EncodeCharmap", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyUnicode_EncodeCharmap(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+# ifdef MS_WINDOWS
+
+    static PyObject* capi_PyUnicode_EncodeCodePage(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        int arg0;
+        PyObject* arg1;
+        char* arg2;
+
+        PyObject* result;
+
+        if (!PyArg_ParseTuple(args, "iOy:PyUnicode_EncodeCodePage", &arg0, &arg1, &arg2)) {
+            return NULL;
+        }
+
+        result = PyUnicode_EncodeCodePage(arg0, arg1, arg2);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+# endif
+
 static PyObject* capi_PyUnicode_EncodeFSDefault(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
@@ -8775,6 +9337,268 @@ static PyObject* capi_PyUnicode_EncodeFSDefault(PyObject* Py_UNUSED(self), PyObj
     }
 
     return result;
+}
+
+static PyObject* capi_PyUnicode_EncodeLatin1(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "uny:PyUnicode_EncodeLatin1", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_EncodeLatin1(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_EncodeLocale(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyUnicode_EncodeLocale", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_EncodeLocale(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+# ifdef MS_WINDOWS
+
+    static PyObject* capi_PyUnicode_EncodeMBCS(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        wchar_t* arg0;
+        Py_ssize_t arg1;
+        char* arg2;
+
+        PyObject* result;
+
+        if (!PyArg_ParseTuple(args, "uny:PyUnicode_EncodeMBCS", &arg0, &arg1, &arg2)) {
+            return NULL;
+        }
+
+        result = PyUnicode_EncodeMBCS(arg0, arg1, arg2);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+# endif
+
+static PyObject* capi_PyUnicode_EncodeRawUnicodeEscape(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "un:PyUnicode_EncodeRawUnicodeEscape", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_EncodeRawUnicodeEscape(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_EncodeUTF16(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+    int arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "unyi:PyUnicode_EncodeUTF16", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyUnicode_EncodeUTF16(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_EncodeUTF32(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+    int arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "unyi:PyUnicode_EncodeUTF32", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyUnicode_EncodeUTF32(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_EncodeUTF7(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+    int arg2;
+    int arg3;
+    char* arg4;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "uniiy:PyUnicode_EncodeUTF7", &arg0, &arg1, &arg2, &arg3, &arg4)) {
+        return NULL;
+    }
+
+    result = PyUnicode_EncodeUTF7(arg0, arg1, arg2, arg3, arg4);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_EncodeUTF8(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "uny:PyUnicode_EncodeUTF8", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_EncodeUTF8(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_EncodeUnicodeEscape(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "un:PyUnicode_EncodeUnicodeEscape", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_EncodeUnicodeEscape(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_Find(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    Py_ssize_t arg2;
+    Py_ssize_t arg3;
+    int arg4;
+
+    Py_ssize_t result;
+
+    if (!PyArg_ParseTuple(args, "OOnni:PyUnicode_Find", &arg0, &arg1, &arg2, &arg3, &arg4)) {
+        return NULL;
+    }
+
+    result = PyUnicode_Find(arg0, arg1, arg2, arg3, arg4);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromSsize_t(result);
 }
 
 static PyObject* capi_PyUnicode_Format(PyObject* Py_UNUSED(self), PyObject* args) {
@@ -8802,11 +9626,136 @@ static PyObject* capi_PyUnicode_Format(PyObject* Py_UNUSED(self), PyObject* args
     return result;
 }
 
+static PyObject* capi_PyUnicode_FromEncodedObject(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oyy:PyUnicode_FromEncodedObject", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_FromEncodedObject(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyUnicode_FromObject(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
 
     result = PyUnicode_FromObject(arg);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_FromString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PyUnicode_FromString", &arg0)) {
+        return NULL;
+    }
+
+    result = PyUnicode_FromString(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_FromStringAndSize(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yn:PyUnicode_FromStringAndSize", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_FromStringAndSize(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_FromUnicode(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "un:PyUnicode_FromUnicode", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_FromUnicode(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_FromWideChar(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "un:PyUnicode_FromWideChar", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_FromWideChar(arg0, arg1);
 
     if (!result) {
 
@@ -8885,6 +9834,30 @@ static PyObject* capi_PyUnicode_GetSize(PyObject* Py_UNUSED(self), PyObject* arg
     return PyLong_FromSsize_t(result);
 }
 
+static PyObject* capi_PyUnicode_InternFromString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y:PyUnicode_InternFromString", &arg0)) {
+        return NULL;
+    }
+
+    result = PyUnicode_InternFromString(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyUnicode_Join(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -8934,6 +9907,237 @@ static PyObject* capi_PyUnicode_READY(PyObject* Py_UNUSED(self), PyObject* arg) 
     }
 
     return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyUnicode_Replace(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    PyObject* arg2;
+    Py_ssize_t arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "OOOn:PyUnicode_Replace", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyUnicode_Replace(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_RichCompare(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    int arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "OOi:PyUnicode_RichCompare", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_RichCompare(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_Split(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    Py_ssize_t arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "OOn:PyUnicode_Split", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_Split(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_Splitlines(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    int arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Oi:PyUnicode_Splitlines", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_Splitlines(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_Substring(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+    Py_ssize_t arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "Onn:PyUnicode_Substring", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_Substring(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_Tailmatch(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    Py_ssize_t arg2;
+    Py_ssize_t arg3;
+    int arg4;
+
+    Py_ssize_t result;
+
+    if (!PyArg_ParseTuple(args, "OOnni:PyUnicode_Tailmatch", &arg0, &arg1, &arg2, &arg3, &arg4)) {
+        return NULL;
+    }
+
+    result = PyUnicode_Tailmatch(arg0, arg1, arg2, arg3, arg4);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromSsize_t(result);
+}
+
+static PyObject* capi_PyUnicode_TransformDecimalToASCII(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "un:PyUnicode_TransformDecimalToASCII", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_TransformDecimalToASCII(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_Translate(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    PyObject* arg1;
+    char* arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "OOy:PyUnicode_Translate", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyUnicode_Translate(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicode_TranslateCharmap(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+    PyObject* arg2;
+    char* arg3;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "unOy:PyUnicode_TranslateCharmap", &arg0, &arg1, &arg2, &arg3)) {
+        return NULL;
+    }
+
+    result = PyUnicode_TranslateCharmap(arg0, arg1, arg2, arg3);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
 }
 
 /* PyWeakref */
@@ -10092,6 +11296,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicode_AS_UNICODE", capi_PyUnicode_AS_UNICODE, METH_O, NULL},
     {"PyUnicode_AsASCIIString", capi_PyUnicode_AsASCIIString, METH_O, NULL},
     {"PyUnicode_AsCharmapString", capi_PyUnicode_AsCharmapString, METH_VARARGS, NULL},
+    {"PyUnicode_AsEncodedString", capi_PyUnicode_AsEncodedString, METH_VARARGS, NULL},
     {"PyUnicode_AsLatin1String", capi_PyUnicode_AsLatin1String, METH_O, NULL},
 
     # ifdef MS_WINDOWS
@@ -10108,22 +11313,86 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicode_AsUnicode", capi_PyUnicode_AsUnicode, METH_O, NULL},
     {"PyUnicode_AsUnicodeCopy", capi_PyUnicode_AsUnicodeCopy, METH_O, NULL},
     {"PyUnicode_AsUnicodeEscapeString", capi_PyUnicode_AsUnicodeEscapeString, METH_O, NULL},
+    {"PyUnicode_AsWideChar", capi_PyUnicode_AsWideChar, METH_VARARGS, NULL},
     {"PyUnicode_Check", capi_PyUnicode_Check, METH_O, NULL},
     {"PyUnicode_CheckExact", capi_PyUnicode_CheckExact, METH_O, NULL},
     {"PyUnicode_Compare", capi_PyUnicode_Compare, METH_VARARGS, NULL},
+    {"PyUnicode_CompareWithASCIIString", capi_PyUnicode_CompareWithASCIIString, METH_VARARGS, NULL},
     {"PyUnicode_Concat", capi_PyUnicode_Concat, METH_VARARGS, NULL},
     {"PyUnicode_Contains", capi_PyUnicode_Contains, METH_VARARGS, NULL},
+    {"PyUnicode_CopyCharacters", capi_PyUnicode_CopyCharacters, METH_VARARGS, NULL},
+    {"PyUnicode_Count", capi_PyUnicode_Count, METH_VARARGS, NULL},
+    {"PyUnicode_Decode", capi_PyUnicode_Decode, METH_VARARGS, NULL},
+    {"PyUnicode_DecodeASCII", capi_PyUnicode_DecodeASCII, METH_VARARGS, NULL},
+    {"PyUnicode_DecodeCharmap", capi_PyUnicode_DecodeCharmap, METH_VARARGS, NULL},
+    {"PyUnicode_DecodeFSDefault", capi_PyUnicode_DecodeFSDefault, METH_VARARGS, NULL},
+    {"PyUnicode_DecodeFSDefaultAndSize", capi_PyUnicode_DecodeFSDefaultAndSize, METH_VARARGS, NULL},
+    {"PyUnicode_DecodeLatin1", capi_PyUnicode_DecodeLatin1, METH_VARARGS, NULL},
+    {"PyUnicode_DecodeLocale", capi_PyUnicode_DecodeLocale, METH_VARARGS, NULL},
+    {"PyUnicode_DecodeLocaleAndSize", capi_PyUnicode_DecodeLocaleAndSize, METH_VARARGS, NULL},
+
+    # ifdef MS_WINDOWS
+
+        {"PyUnicode_DecodeMBCS", capi_PyUnicode_DecodeMBCS, METH_VARARGS, NULL},
+
+    # endif
+
+    {"PyUnicode_DecodeRawUnicodeEscape", capi_PyUnicode_DecodeRawUnicodeEscape, METH_VARARGS, NULL},
+    {"PyUnicode_DecodeUTF7", capi_PyUnicode_DecodeUTF7, METH_VARARGS, NULL},
+    {"PyUnicode_DecodeUTF8", capi_PyUnicode_DecodeUTF8, METH_VARARGS, NULL},
+    {"PyUnicode_DecodeUnicodeEscape", capi_PyUnicode_DecodeUnicodeEscape, METH_VARARGS, NULL},
+    {"PyUnicode_Encode", capi_PyUnicode_Encode, METH_VARARGS, NULL},
+    {"PyUnicode_EncodeASCII", capi_PyUnicode_EncodeASCII, METH_VARARGS, NULL},
+    {"PyUnicode_EncodeCharmap", capi_PyUnicode_EncodeCharmap, METH_VARARGS, NULL},
+
+    # ifdef MS_WINDOWS
+
+        {"PyUnicode_EncodeCodePage", capi_PyUnicode_EncodeCodePage, METH_VARARGS, NULL},
+
+    # endif
+
     {"PyUnicode_EncodeFSDefault", capi_PyUnicode_EncodeFSDefault, METH_O, NULL},
+    {"PyUnicode_EncodeLatin1", capi_PyUnicode_EncodeLatin1, METH_VARARGS, NULL},
+    {"PyUnicode_EncodeLocale", capi_PyUnicode_EncodeLocale, METH_VARARGS, NULL},
+
+    # ifdef MS_WINDOWS
+
+        {"PyUnicode_EncodeMBCS", capi_PyUnicode_EncodeMBCS, METH_VARARGS, NULL},
+
+    # endif
+
+    {"PyUnicode_EncodeRawUnicodeEscape", capi_PyUnicode_EncodeRawUnicodeEscape, METH_VARARGS, NULL},
+    {"PyUnicode_EncodeUTF16", capi_PyUnicode_EncodeUTF16, METH_VARARGS, NULL},
+    {"PyUnicode_EncodeUTF32", capi_PyUnicode_EncodeUTF32, METH_VARARGS, NULL},
+    {"PyUnicode_EncodeUTF7", capi_PyUnicode_EncodeUTF7, METH_VARARGS, NULL},
+    {"PyUnicode_EncodeUTF8", capi_PyUnicode_EncodeUTF8, METH_VARARGS, NULL},
+    {"PyUnicode_EncodeUnicodeEscape", capi_PyUnicode_EncodeUnicodeEscape, METH_VARARGS, NULL},
+    {"PyUnicode_Find", capi_PyUnicode_Find, METH_VARARGS, NULL},
     {"PyUnicode_Format", capi_PyUnicode_Format, METH_VARARGS, NULL},
+    {"PyUnicode_FromEncodedObject", capi_PyUnicode_FromEncodedObject, METH_VARARGS, NULL},
     {"PyUnicode_FromObject", capi_PyUnicode_FromObject, METH_O, NULL},
+    {"PyUnicode_FromString", capi_PyUnicode_FromString, METH_VARARGS, NULL},
+    {"PyUnicode_FromStringAndSize", capi_PyUnicode_FromStringAndSize, METH_VARARGS, NULL},
+    {"PyUnicode_FromUnicode", capi_PyUnicode_FromUnicode, METH_VARARGS, NULL},
+    {"PyUnicode_FromWideChar", capi_PyUnicode_FromWideChar, METH_VARARGS, NULL},
     {"PyUnicode_GET_DATA_SIZE", capi_PyUnicode_GET_DATA_SIZE, METH_O, NULL},
     {"PyUnicode_GET_LENGTH", capi_PyUnicode_GET_LENGTH, METH_O, NULL},
     {"PyUnicode_GET_SIZE", capi_PyUnicode_GET_SIZE, METH_O, NULL},
     {"PyUnicode_GetLength", capi_PyUnicode_GetLength, METH_O, NULL},
     {"PyUnicode_GetSize", capi_PyUnicode_GetSize, METH_O, NULL},
+    {"PyUnicode_InternFromString", capi_PyUnicode_InternFromString, METH_VARARGS, NULL},
     {"PyUnicode_Join", capi_PyUnicode_Join, METH_VARARGS, NULL},
     {"PyUnicode_KIND", capi_PyUnicode_KIND, METH_O, NULL},
     {"PyUnicode_READY", capi_PyUnicode_READY, METH_O, NULL},
+    {"PyUnicode_Replace", capi_PyUnicode_Replace, METH_VARARGS, NULL},
+    {"PyUnicode_RichCompare", capi_PyUnicode_RichCompare, METH_VARARGS, NULL},
+    {"PyUnicode_Split", capi_PyUnicode_Split, METH_VARARGS, NULL},
+    {"PyUnicode_Splitlines", capi_PyUnicode_Splitlines, METH_VARARGS, NULL},
+    {"PyUnicode_Substring", capi_PyUnicode_Substring, METH_VARARGS, NULL},
+    {"PyUnicode_Tailmatch", capi_PyUnicode_Tailmatch, METH_VARARGS, NULL},
+    {"PyUnicode_TransformDecimalToASCII", capi_PyUnicode_TransformDecimalToASCII, METH_VARARGS, NULL},
+    {"PyUnicode_Translate", capi_PyUnicode_Translate, METH_VARARGS, NULL},
+    {"PyUnicode_TranslateCharmap", capi_PyUnicode_TranslateCharmap, METH_VARARGS, NULL},
 
     /* PyWeakref */
 
