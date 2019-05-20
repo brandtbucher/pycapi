@@ -599,6 +599,7 @@ API: typing.Tuple[
     ("PySys_ResetWarnOptions", "", ""),
     ("PySys_SetObject", "yO", "i"),
     ("PyThreadState_GetDict", "", "N"),
+    ("PyThreadState_SetAsyncExc", "kO", "i"),
     (
         "PyTimeZone_FromOffset",
         "O",

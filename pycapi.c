@@ -8026,6 +8026,26 @@ static PyObject* capi_PyThreadState_GetDict(PyObject* Py_UNUSED(self), PyObject*
     return result;
 }
 
+static PyObject* capi_PyThreadState_SetAsyncExc(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    unsigned long int arg0;
+    PyObject* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "kO:PyThreadState_SetAsyncExc", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyThreadState_SetAsyncExc(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 # if 0x030700F0 <= PY_VERSION_HEX
 
     /* PyTimeZone */
@@ -10025,6 +10045,7 @@ static PyMethodDef CAPIMethods[] =  {
     /* PyThreadState */
 
     {"PyThreadState_GetDict", capi_PyThreadState_GetDict, METH_NOARGS, NULL},
+    {"PyThreadState_SetAsyncExc", capi_PyThreadState_SetAsyncExc, METH_VARARGS, NULL},
 
     # if 0x030700F0 <= PY_VERSION_HEX
 
