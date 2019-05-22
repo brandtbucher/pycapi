@@ -8374,6 +8374,35 @@ static PyObject* capi_PyType_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg
 
 /* PyUnicodeDecodeError */
 
+static PyObject* capi_PyUnicodeDecodeError_Create(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    char* arg1;
+    Py_ssize_t arg2;
+    Py_ssize_t arg3;
+    Py_ssize_t arg4;
+    char* arg5;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yynnny:PyUnicodeDecodeError_Create", &arg0, &arg1, &arg2, &arg3, &arg4, &arg5)) {
+        return NULL;
+    }
+
+    result = PyUnicodeDecodeError_Create(arg0, arg1, arg2, arg3, arg4, arg5);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyUnicodeDecodeError_GetEncoding(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
@@ -8426,6 +8455,66 @@ static PyObject* capi_PyUnicodeDecodeError_GetReason(PyObject* Py_UNUSED(self), 
     }
 
     return result;
+}
+
+static PyObject* capi_PyUnicodeDecodeError_SetEnd(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "On:PyUnicodeDecodeError_SetEnd", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicodeDecodeError_SetEnd(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyUnicodeDecodeError_SetReason(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyUnicodeDecodeError_SetReason", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicodeDecodeError_SetReason(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyUnicodeDecodeError_SetStart(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "On:PyUnicodeDecodeError_SetStart", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicodeDecodeError_SetStart(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
 }
 
 /* PyUnicode */
@@ -11286,9 +11375,13 @@ static PyMethodDef CAPIMethods[] =  {
 
     /* PyUnicodeDecodeError */
 
+    {"PyUnicodeDecodeError_Create", capi_PyUnicodeDecodeError_Create, METH_VARARGS, NULL},
     {"PyUnicodeDecodeError_GetEncoding", capi_PyUnicodeDecodeError_GetEncoding, METH_O, NULL},
     {"PyUnicodeDecodeError_GetObject", capi_PyUnicodeDecodeError_GetObject, METH_O, NULL},
     {"PyUnicodeDecodeError_GetReason", capi_PyUnicodeDecodeError_GetReason, METH_O, NULL},
+    {"PyUnicodeDecodeError_SetEnd", capi_PyUnicodeDecodeError_SetEnd, METH_VARARGS, NULL},
+    {"PyUnicodeDecodeError_SetReason", capi_PyUnicodeDecodeError_SetReason, METH_VARARGS, NULL},
+    {"PyUnicodeDecodeError_SetStart", capi_PyUnicodeDecodeError_SetStart, METH_VARARGS, NULL},
 
     /* PyUnicode */
 
