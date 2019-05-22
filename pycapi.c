@@ -12,6 +12,329 @@
 /* Wrapper definitions: */
 
 
+/* Py */
+
+static PyObject* capi_Py_CLEAR(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    Py_CLEAR(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_CompileString(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    char* arg1;
+    int arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yyi:Py_CompileString", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = Py_CompileString(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_Py_DECREF(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    Py_DECREF(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_Exit(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    if (!PyArg_ParseTuple(args, "i:Py_Exit", &arg0)) {
+        return NULL;
+    }
+
+    Py_Exit(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_FatalError(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+
+    if (!PyArg_ParseTuple(args, "y:Py_FatalError", &arg0)) {
+        return NULL;
+    }
+
+    Py_FatalError(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_Finalize(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    Py_Finalize();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_GetBuildInfo(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const char* result;
+
+    result = Py_GetBuildInfo();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyBytes_FromString(result);
+}
+
+static PyObject* capi_Py_GetCompiler(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const char* result;
+
+    result = Py_GetCompiler();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyBytes_FromString(result);
+}
+
+static PyObject* capi_Py_GetCopyright(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const char* result;
+
+    result = Py_GetCopyright();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyBytes_FromString(result);
+}
+
+static PyObject* capi_Py_GetExecPrefix(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const wchar_t* result;
+
+    result = Py_GetExecPrefix();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyUnicode_FromWideChar(result, -1);
+}
+
+static PyObject* capi_Py_GetPath(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const wchar_t* result;
+
+    result = Py_GetPath();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyUnicode_FromWideChar(result, -1);
+}
+
+static PyObject* capi_Py_GetPlatform(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const char* result;
+
+    result = Py_GetPlatform();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyBytes_FromString(result);
+}
+
+static PyObject* capi_Py_GetPrefix(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const wchar_t* result;
+
+    result = Py_GetPrefix();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyUnicode_FromWideChar(result, -1);
+}
+
+static PyObject* capi_Py_GetProgramFullPath(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const wchar_t* result;
+
+    result = Py_GetProgramFullPath();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyUnicode_FromWideChar(result, -1);
+}
+
+static PyObject* capi_Py_GetProgramName(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const wchar_t* result;
+
+    result = Py_GetProgramName();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyUnicode_FromWideChar(result, -1);
+}
+
+static PyObject* capi_Py_GetVersion(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const char* result;
+
+    result = Py_GetVersion();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyBytes_FromString(result);
+}
+
+static PyObject* capi_Py_INCREF(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    Py_INCREF(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_Initialize(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    Py_Initialize();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_IsInitialized(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    int result;
+
+    result = Py_IsInitialized();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_ReprEnter(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    int result;
+
+    result = Py_ReprEnter(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_ReprLeave(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    Py_ReprLeave(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_SetProgramName(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+
+    if (!PyArg_ParseTuple(args, "u:Py_SetProgramName", &arg0)) {
+        return NULL;
+    }
+
+    Py_SetProgramName(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_XDECREF(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    Py_XDECREF(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_XINCREF(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    Py_XINCREF(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
 /* PyAnySet */
 
 static PyObject* capi_PyAnySet_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -1149,106 +1472,6 @@ static PyObject* capi_PyComplex_RealAsDouble(PyObject* Py_UNUSED(self), PyObject
 
 # if 0x030700F0 <= PY_VERSION_HEX
 
-    /* PyContextToken */
-
-    static PyObject* capi_PyContextToken_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-        int result;
-
-        result = PyContextToken_CheckExact(arg);
-
-        if (PyErr_Occurred()) {
-            return NULL;
-        }
-
-        return PyLong_FromLong(result);
-    }
-
-    /* PyContextVar */
-
-    static PyObject* capi_PyContextVar_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-        int result;
-
-        result = PyContextVar_CheckExact(arg);
-
-        if (PyErr_Occurred()) {
-            return NULL;
-        }
-
-        return PyLong_FromLong(result);
-    }
-
-    static PyObject* capi_PyContextVar_New(PyObject* Py_UNUSED(self), PyObject* args) {
-
-        char* arg0;
-        PyObject* arg1;
-
-        PyObject* result;
-
-        if (!PyArg_ParseTuple(args, "yO:PyContextVar_New", &arg0, &arg1)) {
-            return NULL;
-        }
-
-        result = PyContextVar_New(arg0, arg1);
-
-        if (!result) {
-
-            if (PyErr_Occurred()) {
-                return NULL;
-            }
-
-            Py_RETURN_NONE;
-        }
-
-        return result;
-    }
-
-    static PyObject* capi_PyContextVar_Reset(PyObject* Py_UNUSED(self), PyObject* args) {
-
-        PyObject* arg0;
-        PyObject* arg1;
-
-        int result;
-
-        if (!PyArg_UnpackTuple(args, "PyContextVar_Reset", 2, 2, &arg0, &arg1)) {
-            return NULL;
-        }
-
-        result = PyContextVar_Reset(arg0, arg1);
-
-        if (PyErr_Occurred()) {
-            return NULL;
-        }
-
-        return PyLong_FromLong(result);
-    }
-
-    static PyObject* capi_PyContextVar_Set(PyObject* Py_UNUSED(self), PyObject* args) {
-
-        PyObject* arg0;
-        PyObject* arg1;
-
-        PyObject* result;
-
-        if (!PyArg_UnpackTuple(args, "PyContextVar_Set", 2, 2, &arg0, &arg1)) {
-            return NULL;
-        }
-
-        result = PyContextVar_Set(arg0, arg1);
-
-        if (!result) {
-
-            if (PyErr_Occurred()) {
-                return NULL;
-            }
-
-            Py_RETURN_NONE;
-        }
-
-        return result;
-    }
-
     /* PyContext */
 
     static PyObject* capi_PyContext_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -1357,6 +1580,106 @@ static PyObject* capi_PyComplex_RealAsDouble(PyObject* Py_UNUSED(self), PyObject
         return result;
     }
 
+    /* PyContextToken */
+
+    static PyObject* capi_PyContextToken_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+        int result;
+
+        result = PyContextToken_CheckExact(arg);
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
+    }
+
+    /* PyContextVar */
+
+    static PyObject* capi_PyContextVar_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+        int result;
+
+        result = PyContextVar_CheckExact(arg);
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
+    }
+
+    static PyObject* capi_PyContextVar_New(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        char* arg0;
+        PyObject* arg1;
+
+        PyObject* result;
+
+        if (!PyArg_ParseTuple(args, "yO:PyContextVar_New", &arg0, &arg1)) {
+            return NULL;
+        }
+
+        result = PyContextVar_New(arg0, arg1);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+    static PyObject* capi_PyContextVar_Reset(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        PyObject* arg0;
+        PyObject* arg1;
+
+        int result;
+
+        if (!PyArg_UnpackTuple(args, "PyContextVar_Reset", 2, 2, &arg0, &arg1)) {
+            return NULL;
+        }
+
+        result = PyContextVar_Reset(arg0, arg1);
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
+    }
+
+    static PyObject* capi_PyContextVar_Set(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        PyObject* arg0;
+        PyObject* arg1;
+
+        PyObject* result;
+
+        if (!PyArg_UnpackTuple(args, "PyContextVar_Set", 2, 2, &arg0, &arg1)) {
+            return NULL;
+        }
+
+        result = PyContextVar_Set(arg0, arg1);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
 # endif
 
 /* PyCoro */
@@ -1372,6 +1695,78 @@ static PyObject* capi_PyCoro_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg
     }
 
     return PyLong_FromLong(result);
+}
+
+/* PyDate */
+
+static PyObject* capi_PyDate_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    int result;
+
+    result = PyDate_Check(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyDate_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    int result;
+
+    result = PyDate_CheckExact(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyDate_FromDate(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+    int arg1;
+    int arg2;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "iii:PyDate_FromDate", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyDate_FromDate(arg0, arg1, arg2);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyDate_FromTimestamp(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    PyObject* result;
+
+    result = PyDate_FromTimestamp(arg);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
 }
 
 /* PyDateTime */
@@ -1437,78 +1832,6 @@ static PyObject* capi_PyDateTime_FromTimestamp(PyObject* Py_UNUSED(self), PyObje
     PyObject* result;
 
     result = PyDateTime_FromTimestamp(arg);
-
-    if (!result) {
-
-        if (PyErr_Occurred()) {
-            return NULL;
-        }
-
-        Py_RETURN_NONE;
-    }
-
-    return result;
-}
-
-/* PyDate */
-
-static PyObject* capi_PyDate_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    int result;
-
-    result = PyDate_Check(arg);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyLong_FromLong(result);
-}
-
-static PyObject* capi_PyDate_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    int result;
-
-    result = PyDate_CheckExact(arg);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyLong_FromLong(result);
-}
-
-static PyObject* capi_PyDate_FromDate(PyObject* Py_UNUSED(self), PyObject* args) {
-
-    int arg0;
-    int arg1;
-    int arg2;
-
-    PyObject* result;
-
-    if (!PyArg_ParseTuple(args, "iii:PyDate_FromDate", &arg0, &arg1, &arg2)) {
-        return NULL;
-    }
-
-    result = PyDate_FromDate(arg0, arg1, arg2);
-
-    if (!result) {
-
-        if (PyErr_Occurred()) {
-            return NULL;
-        }
-
-        Py_RETURN_NONE;
-    }
-
-    return result;
-}
-
-static PyObject* capi_PyDate_FromTimestamp(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    PyObject* result;
-
-    result = PyDate_FromTimestamp(arg);
 
     if (!result) {
 
@@ -1589,26 +1912,6 @@ static PyObject* capi_PyDescr_IsData(PyObject* Py_UNUSED(self), PyObject* arg) {
     }
 
     return PyLong_FromLong(result);
-}
-
-/* PyDictProxy */
-
-static PyObject* capi_PyDictProxy_New(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    PyObject* result;
-
-    result = PyDictProxy_New(arg);
-
-    if (!result) {
-
-        if (PyErr_Occurred()) {
-            return NULL;
-        }
-
-        Py_RETURN_NONE;
-    }
-
-    return result;
 }
 
 /* PyDict */
@@ -2005,6 +2308,26 @@ static PyObject* capi_PyDict_Values(PyObject* Py_UNUSED(self), PyObject* arg) {
     PyObject* result;
 
     result = PyDict_Values(arg);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+/* PyDictProxy */
+
+static PyObject* capi_PyDictProxy_New(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    PyObject* result;
+
+    result = PyDictProxy_New(arg);
 
     if (!result) {
 
@@ -8046,55 +8369,6 @@ static PyObject* capi_PyThreadState_SetAsyncExc(PyObject* Py_UNUSED(self), PyObj
     return PyLong_FromLong(result);
 }
 
-# if 0x030700F0 <= PY_VERSION_HEX
-
-    /* PyTimeZone */
-
-    static PyObject* capi_PyTimeZone_FromOffset(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-        PyObject* result;
-
-        result = PyTimeZone_FromOffset(arg);
-
-        if (!result) {
-
-            if (PyErr_Occurred()) {
-                return NULL;
-            }
-
-            Py_RETURN_NONE;
-        }
-
-        return result;
-    }
-
-    static PyObject* capi_PyTimeZone_FromOffsetAndName(PyObject* Py_UNUSED(self), PyObject* args) {
-
-        PyObject* arg0;
-        PyObject* arg1;
-
-        PyObject* result;
-
-        if (!PyArg_UnpackTuple(args, "PyTimeZone_FromOffsetAndName", 2, 2, &arg0, &arg1)) {
-            return NULL;
-        }
-
-        result = PyTimeZone_FromOffsetAndName(arg0, arg1);
-
-        if (!result) {
-
-            if (PyErr_Occurred()) {
-                return NULL;
-            }
-
-            Py_RETURN_NONE;
-        }
-
-        return result;
-    }
-
-# endif
-
 /* PyTime */
 
 static PyObject* capi_PyTime_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -8149,6 +8423,55 @@ static PyObject* capi_PyTime_FromTime(PyObject* Py_UNUSED(self), PyObject* args)
 
     return result;
 }
+
+# if 0x030700F0 <= PY_VERSION_HEX
+
+    /* PyTimeZone */
+
+    static PyObject* capi_PyTimeZone_FromOffset(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+        PyObject* result;
+
+        result = PyTimeZone_FromOffset(arg);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+    static PyObject* capi_PyTimeZone_FromOffsetAndName(PyObject* Py_UNUSED(self), PyObject* args) {
+
+        PyObject* arg0;
+        PyObject* arg1;
+
+        PyObject* result;
+
+        if (!PyArg_UnpackTuple(args, "PyTimeZone_FromOffsetAndName", 2, 2, &arg0, &arg1)) {
+            return NULL;
+        }
+
+        result = PyTimeZone_FromOffsetAndName(arg0, arg1);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+# endif
 
 /* PyTuple */
 
@@ -8364,151 +8687,6 @@ static PyObject* capi_PyType_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg
     int result;
 
     result = PyType_CheckExact(arg);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyLong_FromLong(result);
-}
-
-/* PyUnicodeDecodeError */
-
-static PyObject* capi_PyUnicodeDecodeError_Create(PyObject* Py_UNUSED(self), PyObject* args) {
-
-    char* arg0;
-    char* arg1;
-    Py_ssize_t arg2;
-    Py_ssize_t arg3;
-    Py_ssize_t arg4;
-    char* arg5;
-
-    PyObject* result;
-
-    if (!PyArg_ParseTuple(args, "yynnny:PyUnicodeDecodeError_Create", &arg0, &arg1, &arg2, &arg3, &arg4, &arg5)) {
-        return NULL;
-    }
-
-    result = PyUnicodeDecodeError_Create(arg0, arg1, arg2, arg3, arg4, arg5);
-
-    if (!result) {
-
-        if (PyErr_Occurred()) {
-            return NULL;
-        }
-
-        Py_RETURN_NONE;
-    }
-
-    return result;
-}
-
-static PyObject* capi_PyUnicodeDecodeError_GetEncoding(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    PyObject* result;
-
-    result = PyUnicodeDecodeError_GetEncoding(arg);
-
-    if (!result) {
-
-        if (PyErr_Occurred()) {
-            return NULL;
-        }
-
-        Py_RETURN_NONE;
-    }
-
-    return result;
-}
-
-static PyObject* capi_PyUnicodeDecodeError_GetObject(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    PyObject* result;
-
-    result = PyUnicodeDecodeError_GetObject(arg);
-
-    if (!result) {
-
-        if (PyErr_Occurred()) {
-            return NULL;
-        }
-
-        Py_RETURN_NONE;
-    }
-
-    return result;
-}
-
-static PyObject* capi_PyUnicodeDecodeError_GetReason(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    PyObject* result;
-
-    result = PyUnicodeDecodeError_GetReason(arg);
-
-    if (!result) {
-
-        if (PyErr_Occurred()) {
-            return NULL;
-        }
-
-        Py_RETURN_NONE;
-    }
-
-    return result;
-}
-
-static PyObject* capi_PyUnicodeDecodeError_SetEnd(PyObject* Py_UNUSED(self), PyObject* args) {
-
-    PyObject* arg0;
-    Py_ssize_t arg1;
-
-    int result;
-
-    if (!PyArg_ParseTuple(args, "On:PyUnicodeDecodeError_SetEnd", &arg0, &arg1)) {
-        return NULL;
-    }
-
-    result = PyUnicodeDecodeError_SetEnd(arg0, arg1);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyLong_FromLong(result);
-}
-
-static PyObject* capi_PyUnicodeDecodeError_SetReason(PyObject* Py_UNUSED(self), PyObject* args) {
-
-    PyObject* arg0;
-    char* arg1;
-
-    int result;
-
-    if (!PyArg_ParseTuple(args, "Oy:PyUnicodeDecodeError_SetReason", &arg0, &arg1)) {
-        return NULL;
-    }
-
-    result = PyUnicodeDecodeError_SetReason(arg0, arg1);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyLong_FromLong(result);
-}
-
-static PyObject* capi_PyUnicodeDecodeError_SetStart(PyObject* Py_UNUSED(self), PyObject* args) {
-
-    PyObject* arg0;
-    Py_ssize_t arg1;
-
-    int result;
-
-    if (!PyArg_ParseTuple(args, "On:PyUnicodeDecodeError_SetStart", &arg0, &arg1)) {
-        return NULL;
-    }
-
-    result = PyUnicodeDecodeError_SetStart(arg0, arg1);
 
     if (PyErr_Occurred()) {
         return NULL;
@@ -10229,6 +10407,151 @@ static PyObject* capi_PyUnicode_TranslateCharmap(PyObject* Py_UNUSED(self), PyOb
     return result;
 }
 
+/* PyUnicodeDecodeError */
+
+static PyObject* capi_PyUnicodeDecodeError_Create(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    char* arg1;
+    Py_ssize_t arg2;
+    Py_ssize_t arg3;
+    Py_ssize_t arg4;
+    char* arg5;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yynnny:PyUnicodeDecodeError_Create", &arg0, &arg1, &arg2, &arg3, &arg4, &arg5)) {
+        return NULL;
+    }
+
+    result = PyUnicodeDecodeError_Create(arg0, arg1, arg2, arg3, arg4, arg5);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicodeDecodeError_GetEncoding(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    PyObject* result;
+
+    result = PyUnicodeDecodeError_GetEncoding(arg);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicodeDecodeError_GetObject(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    PyObject* result;
+
+    result = PyUnicodeDecodeError_GetObject(arg);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicodeDecodeError_GetReason(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    PyObject* result;
+
+    result = PyUnicodeDecodeError_GetReason(arg);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyUnicodeDecodeError_SetEnd(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "On:PyUnicodeDecodeError_SetEnd", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicodeDecodeError_SetEnd(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyUnicodeDecodeError_SetReason(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy:PyUnicodeDecodeError_SetReason", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicodeDecodeError_SetReason(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyUnicodeDecodeError_SetStart(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_ssize_t arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "On:PyUnicodeDecodeError_SetStart", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicodeDecodeError_SetStart(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 /* PyWeakref */
 
 static PyObject* capi_PyWeakref_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -10383,334 +10706,38 @@ static PyObject* capi_PyWrapper_New(PyObject* Py_UNUSED(self), PyObject* args) {
     return result;
 }
 
-/* Py */
-
-static PyObject* capi_Py_CLEAR(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    Py_CLEAR(arg);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
-
-static PyObject* capi_Py_CompileString(PyObject* Py_UNUSED(self), PyObject* args) {
-
-    char* arg0;
-    char* arg1;
-    int arg2;
-
-    PyObject* result;
-
-    if (!PyArg_ParseTuple(args, "yyi:Py_CompileString", &arg0, &arg1, &arg2)) {
-        return NULL;
-    }
-
-    result = Py_CompileString(arg0, arg1, arg2);
-
-    if (!result) {
-
-        if (PyErr_Occurred()) {
-            return NULL;
-        }
-
-        Py_RETURN_NONE;
-    }
-
-    return result;
-}
-
-static PyObject* capi_Py_DECREF(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    Py_DECREF(arg);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
-
-static PyObject* capi_Py_Exit(PyObject* Py_UNUSED(self), PyObject* args) {
-
-    int arg0;
-
-    if (!PyArg_ParseTuple(args, "i:Py_Exit", &arg0)) {
-        return NULL;
-    }
-
-    Py_Exit(arg0);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
-
-static PyObject* capi_Py_FatalError(PyObject* Py_UNUSED(self), PyObject* args) {
-
-    char* arg0;
-
-    if (!PyArg_ParseTuple(args, "y:Py_FatalError", &arg0)) {
-        return NULL;
-    }
-
-    Py_FatalError(arg0);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
-
-static PyObject* capi_Py_Finalize(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    Py_Finalize();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
-
-static PyObject* capi_Py_GetBuildInfo(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    const char* result;
-
-    result = Py_GetBuildInfo();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyBytes_FromString(result);
-}
-
-static PyObject* capi_Py_GetCompiler(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    const char* result;
-
-    result = Py_GetCompiler();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyBytes_FromString(result);
-}
-
-static PyObject* capi_Py_GetCopyright(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    const char* result;
-
-    result = Py_GetCopyright();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyBytes_FromString(result);
-}
-
-static PyObject* capi_Py_GetExecPrefix(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    const wchar_t* result;
-
-    result = Py_GetExecPrefix();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyUnicode_FromWideChar(result, -1);
-}
-
-static PyObject* capi_Py_GetPath(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    const wchar_t* result;
-
-    result = Py_GetPath();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyUnicode_FromWideChar(result, -1);
-}
-
-static PyObject* capi_Py_GetPlatform(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    const char* result;
-
-    result = Py_GetPlatform();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyBytes_FromString(result);
-}
-
-static PyObject* capi_Py_GetPrefix(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    const wchar_t* result;
-
-    result = Py_GetPrefix();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyUnicode_FromWideChar(result, -1);
-}
-
-static PyObject* capi_Py_GetProgramFullPath(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    const wchar_t* result;
-
-    result = Py_GetProgramFullPath();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyUnicode_FromWideChar(result, -1);
-}
-
-static PyObject* capi_Py_GetProgramName(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    const wchar_t* result;
-
-    result = Py_GetProgramName();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyUnicode_FromWideChar(result, -1);
-}
-
-static PyObject* capi_Py_GetVersion(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    const char* result;
-
-    result = Py_GetVersion();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyBytes_FromString(result);
-}
-
-static PyObject* capi_Py_INCREF(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    Py_INCREF(arg);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
-
-static PyObject* capi_Py_Initialize(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    Py_Initialize();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
-
-static PyObject* capi_Py_IsInitialized(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
-
-    int result;
-
-    result = Py_IsInitialized();
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyLong_FromLong(result);
-}
-
-static PyObject* capi_Py_ReprEnter(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    int result;
-
-    result = Py_ReprEnter(arg);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyLong_FromLong(result);
-}
-
-static PyObject* capi_Py_ReprLeave(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    Py_ReprLeave(arg);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
-
-static PyObject* capi_Py_SetProgramName(PyObject* Py_UNUSED(self), PyObject* args) {
-
-    wchar_t* arg0;
-
-    if (!PyArg_ParseTuple(args, "u:Py_SetProgramName", &arg0)) {
-        return NULL;
-    }
-
-    Py_SetProgramName(arg0);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
-
-static PyObject* capi_Py_XDECREF(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    Py_XDECREF(arg);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
-
-static PyObject* capi_Py_XINCREF(PyObject* Py_UNUSED(self), PyObject* arg) {
-
-    Py_XINCREF(arg);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
-
 
 /* Module bindings: */
 
 
 static PyMethodDef CAPIMethods[] =  {
+
+    /* Py */
+
+    {"Py_CLEAR", capi_Py_CLEAR, METH_O, NULL},
+    {"Py_CompileString", capi_Py_CompileString, METH_VARARGS, NULL},
+    {"Py_DECREF", capi_Py_DECREF, METH_O, NULL},
+    {"Py_Exit", capi_Py_Exit, METH_VARARGS, NULL},
+    {"Py_FatalError", capi_Py_FatalError, METH_VARARGS, NULL},
+    {"Py_Finalize", capi_Py_Finalize, METH_NOARGS, NULL},
+    {"Py_GetBuildInfo", capi_Py_GetBuildInfo, METH_NOARGS, NULL},
+    {"Py_GetCompiler", capi_Py_GetCompiler, METH_NOARGS, NULL},
+    {"Py_GetCopyright", capi_Py_GetCopyright, METH_NOARGS, NULL},
+    {"Py_GetExecPrefix", capi_Py_GetExecPrefix, METH_NOARGS, NULL},
+    {"Py_GetPath", capi_Py_GetPath, METH_NOARGS, NULL},
+    {"Py_GetPlatform", capi_Py_GetPlatform, METH_NOARGS, NULL},
+    {"Py_GetPrefix", capi_Py_GetPrefix, METH_NOARGS, NULL},
+    {"Py_GetProgramFullPath", capi_Py_GetProgramFullPath, METH_NOARGS, NULL},
+    {"Py_GetProgramName", capi_Py_GetProgramName, METH_NOARGS, NULL},
+    {"Py_GetVersion", capi_Py_GetVersion, METH_NOARGS, NULL},
+    {"Py_INCREF", capi_Py_INCREF, METH_O, NULL},
+    {"Py_Initialize", capi_Py_Initialize, METH_NOARGS, NULL},
+    {"Py_IsInitialized", capi_Py_IsInitialized, METH_NOARGS, NULL},
+    {"Py_ReprEnter", capi_Py_ReprEnter, METH_O, NULL},
+    {"Py_ReprLeave", capi_Py_ReprLeave, METH_O, NULL},
+    {"Py_SetProgramName", capi_Py_SetProgramName, METH_VARARGS, NULL},
+    {"Py_XDECREF", capi_Py_XDECREF, METH_O, NULL},
+    {"Py_XINCREF", capi_Py_XINCREF, METH_O, NULL},
 
     /* PyAnySet */
 
@@ -10815,6 +10842,16 @@ static PyMethodDef CAPIMethods[] =  {
 
     # if 0x030700F0 <= PY_VERSION_HEX
 
+        /* PyContext */
+
+        {"PyContext_CheckExact", capi_PyContext_CheckExact, METH_O, NULL},
+        {"PyContext_ClearFreeList", capi_PyContext_ClearFreeList, METH_NOARGS, NULL},
+        {"PyContext_Copy", capi_PyContext_Copy, METH_O, NULL},
+        {"PyContext_CopyCurrent", capi_PyContext_CopyCurrent, METH_NOARGS, NULL},
+        {"PyContext_Enter", capi_PyContext_Enter, METH_O, NULL},
+        {"PyContext_Exit", capi_PyContext_Exit, METH_O, NULL},
+        {"PyContext_New", capi_PyContext_New, METH_NOARGS, NULL},
+
         /* PyContextToken */
 
         {"PyContextToken_CheckExact", capi_PyContextToken_CheckExact, METH_O, NULL},
@@ -10826,28 +10863,11 @@ static PyMethodDef CAPIMethods[] =  {
         {"PyContextVar_Reset", capi_PyContextVar_Reset, METH_VARARGS, NULL},
         {"PyContextVar_Set", capi_PyContextVar_Set, METH_VARARGS, NULL},
 
-        /* PyContext */
-
-        {"PyContext_CheckExact", capi_PyContext_CheckExact, METH_O, NULL},
-        {"PyContext_ClearFreeList", capi_PyContext_ClearFreeList, METH_NOARGS, NULL},
-        {"PyContext_Copy", capi_PyContext_Copy, METH_O, NULL},
-        {"PyContext_CopyCurrent", capi_PyContext_CopyCurrent, METH_NOARGS, NULL},
-        {"PyContext_Enter", capi_PyContext_Enter, METH_O, NULL},
-        {"PyContext_Exit", capi_PyContext_Exit, METH_O, NULL},
-        {"PyContext_New", capi_PyContext_New, METH_NOARGS, NULL},
-
     # endif
 
     /* PyCoro */
 
     {"PyCoro_CheckExact", capi_PyCoro_CheckExact, METH_O, NULL},
-
-    /* PyDateTime */
-
-    {"PyDateTime_Check", capi_PyDateTime_Check, METH_O, NULL},
-    {"PyDateTime_CheckExact", capi_PyDateTime_CheckExact, METH_O, NULL},
-    {"PyDateTime_FromDateAndTime", capi_PyDateTime_FromDateAndTime, METH_VARARGS, NULL},
-    {"PyDateTime_FromTimestamp", capi_PyDateTime_FromTimestamp, METH_O, NULL},
 
     /* PyDate */
 
@@ -10855,6 +10875,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyDate_CheckExact", capi_PyDate_CheckExact, METH_O, NULL},
     {"PyDate_FromDate", capi_PyDate_FromDate, METH_VARARGS, NULL},
     {"PyDate_FromTimestamp", capi_PyDate_FromTimestamp, METH_O, NULL},
+
+    /* PyDateTime */
+
+    {"PyDateTime_Check", capi_PyDateTime_Check, METH_O, NULL},
+    {"PyDateTime_CheckExact", capi_PyDateTime_CheckExact, METH_O, NULL},
+    {"PyDateTime_FromDateAndTime", capi_PyDateTime_FromDateAndTime, METH_VARARGS, NULL},
+    {"PyDateTime_FromTimestamp", capi_PyDateTime_FromTimestamp, METH_O, NULL},
 
     /* PyDelta */
 
@@ -10865,10 +10892,6 @@ static PyMethodDef CAPIMethods[] =  {
     /* PyDescr */
 
     {"PyDescr_IsData", capi_PyDescr_IsData, METH_O, NULL},
-
-    /* PyDictProxy */
-
-    {"PyDictProxy_New", capi_PyDictProxy_New, METH_O, NULL},
 
     /* PyDict */
 
@@ -10893,6 +10916,10 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyDict_Size", capi_PyDict_Size, METH_O, NULL},
     {"PyDict_Update", capi_PyDict_Update, METH_VARARGS, NULL},
     {"PyDict_Values", capi_PyDict_Values, METH_O, NULL},
+
+    /* PyDictProxy */
+
+    {"PyDictProxy_New", capi_PyDictProxy_New, METH_O, NULL},
 
     /* PyErr */
 
@@ -11340,6 +11367,12 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyThreadState_GetDict", capi_PyThreadState_GetDict, METH_NOARGS, NULL},
     {"PyThreadState_SetAsyncExc", capi_PyThreadState_SetAsyncExc, METH_VARARGS, NULL},
 
+    /* PyTime */
+
+    {"PyTime_Check", capi_PyTime_Check, METH_O, NULL},
+    {"PyTime_CheckExact", capi_PyTime_CheckExact, METH_O, NULL},
+    {"PyTime_FromTime", capi_PyTime_FromTime, METH_VARARGS, NULL},
+
     # if 0x030700F0 <= PY_VERSION_HEX
 
         /* PyTimeZone */
@@ -11348,12 +11381,6 @@ static PyMethodDef CAPIMethods[] =  {
         {"PyTimeZone_FromOffsetAndName", capi_PyTimeZone_FromOffsetAndName, METH_VARARGS, NULL},
 
     # endif
-
-    /* PyTime */
-
-    {"PyTime_Check", capi_PyTime_Check, METH_O, NULL},
-    {"PyTime_CheckExact", capi_PyTime_CheckExact, METH_O, NULL},
-    {"PyTime_FromTime", capi_PyTime_FromTime, METH_VARARGS, NULL},
 
     /* PyTuple */
 
@@ -11372,16 +11399,6 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyType_Check", capi_PyType_Check, METH_O, NULL},
     {"PyType_CheckExact", capi_PyType_CheckExact, METH_O, NULL},
-
-    /* PyUnicodeDecodeError */
-
-    {"PyUnicodeDecodeError_Create", capi_PyUnicodeDecodeError_Create, METH_VARARGS, NULL},
-    {"PyUnicodeDecodeError_GetEncoding", capi_PyUnicodeDecodeError_GetEncoding, METH_O, NULL},
-    {"PyUnicodeDecodeError_GetObject", capi_PyUnicodeDecodeError_GetObject, METH_O, NULL},
-    {"PyUnicodeDecodeError_GetReason", capi_PyUnicodeDecodeError_GetReason, METH_O, NULL},
-    {"PyUnicodeDecodeError_SetEnd", capi_PyUnicodeDecodeError_SetEnd, METH_VARARGS, NULL},
-    {"PyUnicodeDecodeError_SetReason", capi_PyUnicodeDecodeError_SetReason, METH_VARARGS, NULL},
-    {"PyUnicodeDecodeError_SetStart", capi_PyUnicodeDecodeError_SetStart, METH_VARARGS, NULL},
 
     /* PyUnicode */
 
@@ -11487,6 +11504,16 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicode_Translate", capi_PyUnicode_Translate, METH_VARARGS, NULL},
     {"PyUnicode_TranslateCharmap", capi_PyUnicode_TranslateCharmap, METH_VARARGS, NULL},
 
+    /* PyUnicodeDecodeError */
+
+    {"PyUnicodeDecodeError_Create", capi_PyUnicodeDecodeError_Create, METH_VARARGS, NULL},
+    {"PyUnicodeDecodeError_GetEncoding", capi_PyUnicodeDecodeError_GetEncoding, METH_O, NULL},
+    {"PyUnicodeDecodeError_GetObject", capi_PyUnicodeDecodeError_GetObject, METH_O, NULL},
+    {"PyUnicodeDecodeError_GetReason", capi_PyUnicodeDecodeError_GetReason, METH_O, NULL},
+    {"PyUnicodeDecodeError_SetEnd", capi_PyUnicodeDecodeError_SetEnd, METH_VARARGS, NULL},
+    {"PyUnicodeDecodeError_SetReason", capi_PyUnicodeDecodeError_SetReason, METH_VARARGS, NULL},
+    {"PyUnicodeDecodeError_SetStart", capi_PyUnicodeDecodeError_SetStart, METH_VARARGS, NULL},
+
     /* PyWeakref */
 
     {"PyWeakref_Check", capi_PyWeakref_Check, METH_O, NULL},
@@ -11500,33 +11527,6 @@ static PyMethodDef CAPIMethods[] =  {
     /* PyWrapper */
 
     {"PyWrapper_New", capi_PyWrapper_New, METH_VARARGS, NULL},
-
-    /* Py */
-
-    {"Py_CLEAR", capi_Py_CLEAR, METH_O, NULL},
-    {"Py_CompileString", capi_Py_CompileString, METH_VARARGS, NULL},
-    {"Py_DECREF", capi_Py_DECREF, METH_O, NULL},
-    {"Py_Exit", capi_Py_Exit, METH_VARARGS, NULL},
-    {"Py_FatalError", capi_Py_FatalError, METH_VARARGS, NULL},
-    {"Py_Finalize", capi_Py_Finalize, METH_NOARGS, NULL},
-    {"Py_GetBuildInfo", capi_Py_GetBuildInfo, METH_NOARGS, NULL},
-    {"Py_GetCompiler", capi_Py_GetCompiler, METH_NOARGS, NULL},
-    {"Py_GetCopyright", capi_Py_GetCopyright, METH_NOARGS, NULL},
-    {"Py_GetExecPrefix", capi_Py_GetExecPrefix, METH_NOARGS, NULL},
-    {"Py_GetPath", capi_Py_GetPath, METH_NOARGS, NULL},
-    {"Py_GetPlatform", capi_Py_GetPlatform, METH_NOARGS, NULL},
-    {"Py_GetPrefix", capi_Py_GetPrefix, METH_NOARGS, NULL},
-    {"Py_GetProgramFullPath", capi_Py_GetProgramFullPath, METH_NOARGS, NULL},
-    {"Py_GetProgramName", capi_Py_GetProgramName, METH_NOARGS, NULL},
-    {"Py_GetVersion", capi_Py_GetVersion, METH_NOARGS, NULL},
-    {"Py_INCREF", capi_Py_INCREF, METH_O, NULL},
-    {"Py_Initialize", capi_Py_Initialize, METH_NOARGS, NULL},
-    {"Py_IsInitialized", capi_Py_IsInitialized, METH_NOARGS, NULL},
-    {"Py_ReprEnter", capi_Py_ReprEnter, METH_O, NULL},
-    {"Py_ReprLeave", capi_Py_ReprLeave, METH_O, NULL},
-    {"Py_SetProgramName", capi_Py_SetProgramName, METH_VARARGS, NULL},
-    {"Py_XDECREF", capi_Py_XDECREF, METH_O, NULL},
-    {"Py_XINCREF", capi_Py_XINCREF, METH_O, NULL},
 
      /* End */
 
