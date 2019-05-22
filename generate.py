@@ -713,6 +713,7 @@ API: typing.Tuple[
     ("PyUnicodeDecodeError_SetEnd", "On", "i"),
     ("PyUnicodeDecodeError_SetReason", "Oy", "i"),
     ("PyUnicodeDecodeError_SetStart", "On", "i"),
+    ("PyUnicodeTranslateError_Create", "unnny", "N"),
     ("PyWeakref_Check", "O", "i"),
     ("PyWeakref_CheckProxy", "O", "i"),
     ("PyWeakref_CheckRef", "O", "i"),

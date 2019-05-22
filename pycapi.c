@@ -10552,6 +10552,36 @@ static PyObject* capi_PyUnicodeDecodeError_SetStart(PyObject* Py_UNUSED(self), P
     return PyLong_FromLong(result);
 }
 
+/* PyUnicodeTranslateError */
+
+static PyObject* capi_PyUnicodeTranslateError_Create(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+    Py_ssize_t arg1;
+    Py_ssize_t arg2;
+    Py_ssize_t arg3;
+    char* arg4;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "unnny:PyUnicodeTranslateError_Create", &arg0, &arg1, &arg2, &arg3, &arg4)) {
+        return NULL;
+    }
+
+    result = PyUnicodeTranslateError_Create(arg0, arg1, arg2, arg3, arg4);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 /* PyWeakref */
 
 static PyObject* capi_PyWeakref_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -11513,6 +11543,10 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicodeDecodeError_SetEnd", capi_PyUnicodeDecodeError_SetEnd, METH_VARARGS, NULL},
     {"PyUnicodeDecodeError_SetReason", capi_PyUnicodeDecodeError_SetReason, METH_VARARGS, NULL},
     {"PyUnicodeDecodeError_SetStart", capi_PyUnicodeDecodeError_SetStart, METH_VARARGS, NULL},
+
+    /* PyUnicodeTranslateError */
+
+    {"PyUnicodeTranslateError_Create", capi_PyUnicodeTranslateError_Create, METH_VARARGS, NULL},
 
     /* PyWeakref */
 
