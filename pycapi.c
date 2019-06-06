@@ -71,6 +71,12 @@ static PyObject* capi_Py_Exit(PyObject* Py_UNUSED(self), PyObject* args) {
     }
 
     Py_Exit(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
 }
 
 static PyObject* capi_Py_FatalError(PyObject* Py_UNUSED(self), PyObject* args) {
@@ -82,6 +88,12 @@ static PyObject* capi_Py_FatalError(PyObject* Py_UNUSED(self), PyObject* args) {
     }
 
     Py_FatalError(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
 }
 
 static PyObject* capi_Py_Finalize(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
