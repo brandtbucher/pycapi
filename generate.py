@@ -85,7 +85,7 @@ API: typing.Tuple[
         "PyCodec_NameReplaceErrors",
         "O",
         "N",
-        "0x030500F0 <= PY_VERSION_HEX",
+        "if 0x030500F0 <= PY_VERSION_HEX",
         '(3, 5, 0, "final", 0) <= sys.version_info',
     ),
     ("PyCodec_Register", "O", "i"),
@@ -106,84 +106,84 @@ API: typing.Tuple[
         "PyContext_CheckExact",
         "O",
         "i",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyContext_ClearFreeList",
         "",
         "i",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyContext_Copy",
         "O",
         "N",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyContext_CopyCurrent",
         "",
         "N",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyContext_Enter",
         "O",
         "i",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyContext_Exit",
         "O",
         "i",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyContext_New",
         "",
         "N",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyContextToken_CheckExact",
         "O",
         "i",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyContextVar_CheckExact",
         "O",
         "i",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyContextVar_New",
         "yO",
         "N",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyContextVar_Reset",
         "OO",
         "i",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyContextVar_Set",
         "OO",
         "N",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     ("PyCoro_CheckExact", "O", "i"),
@@ -234,26 +234,32 @@ API: typing.Tuple[
     ("PyErr_Print", "", ""),
     ("PyErr_PrintEx", "i", ""),
     ("PyErr_Restore", "OOO", ""),
-    ("PyErr_SetExcFromWindowsErr", "Oi", "N", "MS_WINDOWS", 'sys.platform == "win32"'),
+    (
+        "PyErr_SetExcFromWindowsErr",
+        "Oi",
+        "N",
+        "ifdef MS_WINDOWS",
+        'sys.platform == "win32"',
+    ),
     (
         "PyErr_SetExcFromWindowsErrWithFilename",
         "Oiy",
         "N",
-        "MS_WINDOWS",
+        "ifdef MS_WINDOWS",
         'sys.platform == "win32"',
     ),
     (
         "PyErr_SetExcFromWindowsErrWithFilenameObject",
         "OiO",
         "N",
-        "MS_WINDOWS",
+        "ifdef MS_WINDOWS",
         'sys.platform == "win32"',
     ),
     (
         "PyErr_SetExcFromWindowsErrWithFilenameObjects",
         "OiOO",
         "N",
-        "MS_WINDOWS",
+        "ifdef MS_WINDOWS",
         'sys.platform == "win32"',
     ),
     ("PyErr_SetExcInfo", "OOO", ""),
@@ -261,12 +267,18 @@ API: typing.Tuple[
     ("PyErr_SetFromErrnoWithFilename", "Oy", "N"),
     ("PyErr_SetFromErrnoWithFilenameObject", "OO", "N"),
     ("PyErr_SetFromErrnoWithFilenameObjects", "OOO", "N"),
-    ("PyErr_SetFromWindowsErr", "i", "N", "MS_WINDOWS", 'sys.platform == "win32"'),
+    (
+        "PyErr_SetFromWindowsErr",
+        "i",
+        "N",
+        "ifdef MS_WINDOWS",
+        'sys.platform == "win32"',
+    ),
     (
         "PyErr_SetFromWindowsErrWithFilename",
         "iy",
         "N",
-        "MS_WINDOWS",
+        "ifdef MS_WINDOWS",
         'sys.platform == "win32"',
     ),
     ("PyErr_SetImportError", "OOO", "N"),
@@ -274,7 +286,7 @@ API: typing.Tuple[
         "PyErr_SetImportErrorSubclass",
         "OOOO",
         "N",
-        "0x030600F0 <= PY_VERSION_HEX",
+        "if 0x030600F0 <= PY_VERSION_HEX",
         '(3, 6, 0, "final", 0) <= sys.version_info',
     ),
     ("PyErr_SetInterrupt", "", ""),
@@ -344,7 +356,7 @@ API: typing.Tuple[
         "PyImport_GetModule",
         "O",
         "N",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     ("PyImport_GetModuleDict", "", "N"),
@@ -451,7 +463,7 @@ API: typing.Tuple[
         "PyNumber_InPlaceMatrixMultiply",
         "OO",
         "N",
-        "0x030500F0 <= PY_VERSION_HEX",
+        "if 0x030500F0 <= PY_VERSION_HEX",
         '(3, 5, 0, "final", 0) <= sys.version_info',
     ),
     ("PyNumber_InPlaceMultiply", "OO", "N"),
@@ -470,7 +482,7 @@ API: typing.Tuple[
         "PyNumber_MatrixMultiply",
         "OO",
         "N",
-        "0x030500F0 <= PY_VERSION_HEX",
+        "if 0x030500F0 <= PY_VERSION_HEX",
         '(3, 5, 0, "final", 0) <= sys.version_info',
     ),
     ("PyNumber_Multiply", "OO", "N"),
@@ -489,28 +501,28 @@ API: typing.Tuple[
         "PyOS_AfterFork_Child",
         "",
         "",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
+        "if 0x030700F0 <= PY_VERSION_HEX\nifndef MS_WINDOWS",
+        '(3, 7, 0, "final", 0) <= sys.version_info and sys.platform != "win32"',
     ),
     (
         "PyOS_AfterFork_Parent",
         "",
         "",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
+        "if 0x030700F0 <= PY_VERSION_HEX\nifndef MS_WINDOWS",
+        '(3, 7, 0, "final", 0) <= sys.version_info and sys.platform != "win32"',
     ),
     (
         "PyOS_BeforeFork",
         "",
         "",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
+        "if 0x030700F0 <= PY_VERSION_HEX\nifndef MS_WINDOWS",
+        '(3, 7, 0, "final", 0) <= sys.version_info and sys.platform != "win32"',
     ),
     (
         "PyOS_FSPath",
         "O",
         "N",
-        "0x030600F0 <= PY_VERSION_HEX",
+        "if 0x030600F0 <= PY_VERSION_HEX",
         '(3, 6, 0, "final", 0) <= sys.version_info',
     ),
     ("PyObject_ASCII", "O", "N"),
@@ -585,7 +597,7 @@ API: typing.Tuple[
     ("PySet_New", "O", "N"),
     ("PySet_Pop", "O", "N"),
     ("PySet_Size", "O", "n"),
-    ("PySignal_SetWakeupFd", "i", "i"),
+    ("PySignal_SetWakeupFd", "i", "i", "ifndef MS_WINDOWS", 'sys.platform != "win32"'),
     ("PySlice_Check", "O", "i"),
     ("PySlice_New", "OOO", "N"),
     ("PyStructSequence_GET_ITEM", "On", "N"),
@@ -607,14 +619,14 @@ API: typing.Tuple[
         "PyTimeZone_FromOffset",
         "O",
         "N",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     (
         "PyTimeZone_FromOffsetAndName",
         "OO",
         "N",
-        "0x030700F0 <= PY_VERSION_HEX",
+        "if 0x030700F0 <= PY_VERSION_HEX",
         '(3, 7, 0, "final", 0) <= sys.version_info',
     ),
     ("PyTuple_Check", "O", "i"),
@@ -635,7 +647,7 @@ API: typing.Tuple[
     ("PyUnicode_AsCharmapString", "OO", "N"),
     ("PyUnicode_AsEncodedString", "Oyy", "N"),
     ("PyUnicode_AsLatin1String", "O", "N"),
-    ("PyUnicode_AsMBCSString", "O", "N", "MS_WINDOWS", 'sys.platform == "win32"'),
+    ("PyUnicode_AsMBCSString", "O", "N", "ifdef MS_WINDOWS", 'sys.platform == "win32"'),
     ("PyUnicode_AsRawUnicodeEscapeString", "O", "N"),
     ("PyUnicode_AsUTF16String", "O", "N"),
     ("PyUnicode_AsUTF32String", "O", "N"),
@@ -661,7 +673,7 @@ API: typing.Tuple[
     ("PyUnicode_DecodeLatin1", "yny", "N"),
     ("PyUnicode_DecodeLocale", "yy", "N"),
     ("PyUnicode_DecodeLocaleAndSize", "yny", "N"),
-    ("PyUnicode_DecodeMBCS", "yny", "N", "MS_WINDOWS", 'sys.platform == "win32"'),
+    ("PyUnicode_DecodeMBCS", "yny", "N", "ifdef MS_WINDOWS", 'sys.platform == "win32"'),
     ("PyUnicode_DecodeRawUnicodeEscape", "yny", "N"),
     ("PyUnicode_DecodeUTF7", "yny", "N"),
     ("PyUnicode_DecodeUTF8", "yny", "N"),
@@ -669,11 +681,17 @@ API: typing.Tuple[
     ("PyUnicode_Encode", "unyy", "N"),
     ("PyUnicode_EncodeASCII", "uny", "N"),
     ("PyUnicode_EncodeCharmap", "unOy", "N"),
-    ("PyUnicode_EncodeCodePage", "iOy", "N", "MS_WINDOWS", 'sys.platform == "win32"'),
+    (
+        "PyUnicode_EncodeCodePage",
+        "iOy",
+        "N",
+        "ifdef MS_WINDOWS",
+        'sys.platform == "win32"',
+    ),
     ("PyUnicode_EncodeFSDefault", "O", "N"),
     ("PyUnicode_EncodeLatin1", "uny", "N"),
     ("PyUnicode_EncodeLocale", "Oy", "N"),
-    ("PyUnicode_EncodeMBCS", "uny", "N", "MS_WINDOWS", 'sys.platform == "win32"'),
+    ("PyUnicode_EncodeMBCS", "uny", "N", "ifdef MS_WINDOWS", 'sys.platform == "win32"'),
     ("PyUnicode_EncodeRawUnicodeEscape", "un", "N"),
     ("PyUnicode_EncodeUTF16", "unyi", "N"),
     ("PyUnicode_EncodeUTF32", "unyi", "N"),
@@ -1067,15 +1085,17 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
             )
         )
 
-    if return_type == "N":
-        body.append("")
-        body.extend(ERROR_CHECK_PYOBJECT.splitlines())
-    else:
-        body.append("")
-        body.extend(ERROR_CHECK.splitlines())
+    if api not in {"Py_Exit", "Py_FatalError"}:
 
-    body.append("")
-    body.append(CONVERTERS[return_type])
+        if return_type == "N":
+            body.append("")
+            body.extend(ERROR_CHECK_PYOBJECT.splitlines())
+        else:
+            body.append("")
+            body.extend(ERROR_CHECK.splitlines())
+
+        body.append("")
+        body.append(CONVERTERS[return_type])
 
     if not arg_types:
         args = "Py_UNUSED(null)"
@@ -1115,8 +1135,10 @@ if __name__ == "__main__":
                 pycapi_c_1.append("")
                 pycapi_c_2.append("")
 
-                pycapi_c_1.append("# endif")
-                pycapi_c_2.append(INDENT + "# endif")
+                for _ in condition[0].splitlines():
+
+                    pycapi_c_1.append("# endif")
+                    pycapi_c_2.append(INDENT + "# endif")
 
             pycapi_c_1.append("")
             pycapi_c_2.append("")
@@ -1124,15 +1146,10 @@ if __name__ == "__main__":
 
             if new_condition:
 
-                if new_condition[0] == "MS_WINDOWS":
+                for c in new_condition[0].splitlines():
 
-                    pycapi_c_1.append("# ifdef MS_WINDOWS")
-                    pycapi_c_2.append(INDENT + "# ifdef MS_WINDOWS")
-
-                else:
-
-                    pycapi_c_1.append(f"# if {new_condition[0]}")
-                    pycapi_c_2.append(INDENT + f"# if {new_condition[0]}")
+                    pycapi_c_1.append(f"# {c}")
+                    pycapi_c_2.append(INDENT + f"# {c}")
 
                 pycapi_pyi.append(f"if {new_condition[1]}:")
 

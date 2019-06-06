@@ -71,12 +71,6 @@ static PyObject* capi_Py_Exit(PyObject* Py_UNUSED(self), PyObject* args) {
     }
 
     Py_Exit(arg0);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
 }
 
 static PyObject* capi_Py_FatalError(PyObject* Py_UNUSED(self), PyObject* args) {
@@ -88,12 +82,6 @@ static PyObject* capi_Py_FatalError(PyObject* Py_UNUSED(self), PyObject* args) {
     }
 
     Py_FatalError(arg0);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
 }
 
 static PyObject* capi_Py_Finalize(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
@@ -6622,6 +6610,7 @@ static PyObject* capi_PyOS_AfterFork(PyObject* Py_UNUSED(self), PyObject* Py_UNU
 }
 
 # if 0x030700F0 <= PY_VERSION_HEX
+# ifndef MS_WINDOWS
 
     static PyObject* capi_PyOS_AfterFork_Child(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
@@ -6656,6 +6645,7 @@ static PyObject* capi_PyOS_AfterFork(PyObject* Py_UNUSED(self), PyObject* Py_UNU
         Py_RETURN_NONE;
     }
 
+# endif
 # endif
 
 # if 0x030600F0 <= PY_VERSION_HEX
@@ -8076,26 +8066,30 @@ static PyObject* capi_PySet_Size(PyObject* Py_UNUSED(self), PyObject* arg) {
     return PyLong_FromSsize_t(result);
 }
 
-/* PySignal */
+# ifndef MS_WINDOWS
 
-static PyObject* capi_PySignal_SetWakeupFd(PyObject* Py_UNUSED(self), PyObject* args) {
+    /* PySignal */
 
-    int arg0;
+    static PyObject* capi_PySignal_SetWakeupFd(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int result;
+        int arg0;
 
-    if (!PyArg_ParseTuple(args, "i:PySignal_SetWakeupFd", &arg0)) {
-        return NULL;
+        int result;
+
+        if (!PyArg_ParseTuple(args, "i:PySignal_SetWakeupFd", &arg0)) {
+            return NULL;
+        }
+
+        result = PySignal_SetWakeupFd(arg0);
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
     }
 
-    result = PySignal_SetWakeupFd(arg0);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    return PyLong_FromLong(result);
-}
+# endif
 
 /* PySlice */
 
@@ -11267,11 +11261,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyOS_AfterFork", capi_PyOS_AfterFork, METH_NOARGS, NULL},
 
     # if 0x030700F0 <= PY_VERSION_HEX
+    # ifndef MS_WINDOWS
 
         {"PyOS_AfterFork_Child", capi_PyOS_AfterFork_Child, METH_NOARGS, NULL},
         {"PyOS_AfterFork_Parent", capi_PyOS_AfterFork_Parent, METH_NOARGS, NULL},
         {"PyOS_BeforeFork", capi_PyOS_BeforeFork, METH_NOARGS, NULL},
 
+    # endif
     # endif
 
     # if 0x030600F0 <= PY_VERSION_HEX
@@ -11367,9 +11363,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PySet_Pop", capi_PySet_Pop, METH_O, NULL},
     {"PySet_Size", capi_PySet_Size, METH_O, NULL},
 
-    /* PySignal */
+    # ifndef MS_WINDOWS
 
-    {"PySignal_SetWakeupFd", capi_PySignal_SetWakeupFd, METH_VARARGS, NULL},
+        /* PySignal */
+
+        {"PySignal_SetWakeupFd", capi_PySignal_SetWakeupFd, METH_VARARGS, NULL},
+
+    # endif
 
     /* PySlice */
 
