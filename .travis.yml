@@ -3,6 +3,20 @@
 # CPython 3.7.3 / CPython 3.6.8 / CPython 3.5.2
 # Ubuntu 16.04 (Xenial Xerus) / Windows 10 / macOS 10.14 (Mojave)
 
+# Builds the following wheels:
+# - cp37-cp37m-linux-x86-64.whl -> cp37-cp37m-manylinux1-x86-64.whl
+# - cp36-cp36m-linux-x86-64.whl -> cp36-cp36m-manylinux1-x86-64.whl
+# - cp35-cp35m-linux-x86-64.whl -> cp35-cp35m-manylinux1-x86-64.whl
+# - cp37-cp37m-win_amd64.whl
+# - cp36-cp36m-win_amd64.whl
+# - cp35-cp35m-win_amd64.whl
+# - cp37-cp37m-win32.whl
+# - cp36-cp36m-win32.whl
+# - cp35-cp35m-win32.whl
+# - cp37-cp37m-macosx_10_9_x86_64.whl -> cp37-cp37m-macosx_10_6_intel.whl
+# - cp36-cp36m-macosx_10_9_x86_64.whl -> cp36-cp36m-macosx_10_6_intel.whl
+# - cp35-cp35m-macosx_10_9_x86_64.whl -> cp35-cp35m-macosx_10_6_intel.whl
+
 git:
 
     depth: False
@@ -10,71 +24,140 @@ git:
 matrix:
 
   include:
-  
+
     - name: CPython 3.7.3 on Ubuntu 16.04 (Xenial Xerus)
       language: python
       os: linux
       dist: xenial
       python: 3.7.3
+      before_install:
+        - sudo apt-get install -y patchelf
 
     - name: CPython 3.6.8 on Ubuntu 16.04 (Xenial Xerus)
       language: python
       os: linux
       dist: xenial
       python: 3.6.8
-      
+      before_install:
+        - sudo apt-get install -y patchelf
+
     - name: CPython 3.5.2 on Ubuntu 16.04 (Xenial Xerus)
       language: python
       os: linux
       dist: xenial
       python: 3.5.2
+      before_install:
+        - sudo apt-get install -y patchelf
 
-    - name: CPython 3.7.3 on Windows 10
+    - name: CPython 3.7.3 on Windows 10 (64-bit)
       language: shell
       os: windows
       before_install:
         - export PATH=/c/Python37:/c/Python37/Scripts:$PATH
         - choco install python --version 3.7.3
 
-    - name: CPython 3.6.8 on Windows 10
+    - name: CPython 3.6.8 on Windows 10 (64-bit)
       language: shell
       os: windows
       before_install:
         - export PATH=/c/Python36:/c/Python36/Scripts:$PATH
         - choco install python --version 3.6.8
 
-    - name: CPython 3.5.2 on Windows 10
+    - name: CPython 3.5.2 on Windows 10 (64-bit)
       language: shell
       os: windows
       before_install:
         - export PATH=/c/Python35:/c/Python35/Scripts:$PATH
         - choco install python --version 3.5.2.20161029
 
+    - name: CPython 3.7.3 on Windows 10 (32-bit)
+      language: shell
+      os: windows
+      before_install:
+        - export PATH=/c/Python37:/c/Python37/Scripts:$PATH
+        - choco install python --version 3.7.3 --x86
+
+    - name: CPython 3.6.8 on Windows 10 (32-bit)
+      language: shell
+      os: windows
+      before_install:
+        - export PATH=/c/Python36:/c/Python36/Scripts:$PATH
+        - choco install python --version 3.6.8 --x86
+
+    - name: CPython 3.5.2 on Windows 10 (32-bit)
+      language: shell
+      os: windows
+      before_install:
+        - export PATH=/c/Python35:/c/Python35/Scripts:$PATH
+        - choco install python --version 3.5.2.20161029 --x86
+
     - name: CPython 3.7.3 on macOS 10.14 (Mojave)
       language: shell
       os: osx
       osx_image: xcode10.2
       before_install:
+        # Build using the ancient 10.9 SDK (Anaconda/Python.org compatibility):
+        - export MACOSX_DEPLOYMENT_TARGET=10.9
+        # Includes are broken on Mojave, so fix them here:
+        - export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
         - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.7.3
-        - CFLAGS="-I$(xcrun --show-sdk-path)/usr/include" pyenv install $PYENV_VERSION
+        - pyenv install $PYENV_VERSION
 
     - name: CPython 3.6.8 on macOS 10.14 (Mojave)
       language: shell
       os: osx
       osx_image: xcode10.2
       before_install:
+        # Build using the ancient 10.9 SDK (Anaconda/Python.org compatibility):
+        - export MACOSX_DEPLOYMENT_TARGET=10.9
+        # Includes are broken on Mojave, so fix them here:
+        - export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
         - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.6.8
-        - CFLAGS="-I$(xcrun --show-sdk-path)/usr/include" pyenv install $PYENV_VERSION
+        - pyenv install $PYENV_VERSION
 
     - name: CPython 3.5.2 on macOS 10.14 (Mojave)
       language: shell
       os: osx
       osx_image: xcode10.2
       before_install:
+        # Build using the ancient 10.9 SDK (Anaconda/Python.org compatibility):
+        - export MACOSX_DEPLOYMENT_TARGET=10.9
+        # Includes are broken on Mojave, so fix them here:
+        - export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
         - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.5.2
-        - CFLAGS="-I$(xcrun --show-sdk-path)/usr/include" pyenv install $PYENV_VERSION
+        - pyenv install $PYENV_VERSION
+
+# env:
+#   global:
+#     - TWINE_USERNAME=brandtbucher
+#     - secure: ...
+
+# Needed for Windows. Remove once Travis fixes this (or pypi deploy works):
+# https://travis-ci.community/t/current-known-issues-please-read-this-before-posting-a-new-topic/264/10
+# Not a dealbreaker, since secrets are disabled on forks/PRs. Just nice to have.
+# filter_secrets: false
+
+# install:
+#   - pip install --upgrade -r requirements.txt
+#   # We need to pin wheel (ha) for auditwheel to work properly:
+#   - pip install auditwheel codecov pytest-cov setuptools twine wheel==0.31.1
+#   # Build and test wheels and source distributions:
+#   - python setup.py develop sdist bdist_wheel
+#   - python fix_wheels.py
+#   - pip install --force-reinstall --no-cache-dir .
+#   - pip install --force-reinstall --no-cache-dir dist/*.tar.gz
+#   - pip install --force-reinstall --no-cache-dir dist/*.whl
 
 install: pip install --upgrade -r requirements.txt
 
 script: invoke test
 
+# deploy:
+#   # The "pypi" provider breaks on Windows right now, so we need to use "script":
+#   # https://github.com/travis-ci/dpl/issues/955
+#   provider: script
+#   skip_cleanup: true
+#   script: twine upload --skip-existing dist/*
+#   on:
+#     repo: brandtbucher/pycapi
+#     branch: master
