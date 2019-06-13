@@ -313,6 +313,329 @@ static PyObject* capi_Py_SetProgramName(PyObject* Py_UNUSED(self), PyObject* arg
     Py_RETURN_NONE;
 }
 
+static PyObject* capi_Py_UNICODE_ISALNUM(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_ISALNUM", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_ISALNUM(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_ISALPHA(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_ISALPHA", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_ISALPHA(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_ISDECIMAL(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_ISDECIMAL", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_ISDECIMAL(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_ISDIGIT(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_ISDIGIT", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_ISDIGIT(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_ISLINEBREAK(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_ISLINEBREAK", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_ISLINEBREAK(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_ISLOWER(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_ISLOWER", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_ISLOWER(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_ISNUMERIC(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_ISNUMERIC", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_ISNUMERIC(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_ISPRINTABLE(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_ISPRINTABLE", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_ISPRINTABLE(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_ISSPACE(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_ISSPACE", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_ISSPACE(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_ISTITLE(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_ISTITLE", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_ISTITLE(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_ISUPPER(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_ISUPPER", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_ISUPPER(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_TODECIMAL(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_TODECIMAL", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_TODECIMAL(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_TODIGIT(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_TODIGIT", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_TODIGIT(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_UNICODE_TOLOWER(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_TOLOWER", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_TOLOWER(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyUnicode_FromFormat("%c", result);
+}
+
+static PyObject* capi_Py_UNICODE_TONUMERIC(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    double result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_TONUMERIC", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_TONUMERIC(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyFloat_FromDouble(result);
+}
+
+static PyObject* capi_Py_UNICODE_TOTITLE(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_TOTITLE", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_TOTITLE(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyUnicode_FromFormat("%c", result);
+}
+
+static PyObject* capi_Py_UNICODE_TOUPPER(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "C:Py_UNICODE_TOUPPER", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_UNICODE_TOUPPER(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyUnicode_FromFormat("%c", result);
+}
+
 static PyObject* capi_Py_XDECREF(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     Py_XDECREF(arg);
@@ -10558,6 +10881,37 @@ static PyObject* capi_PyUnicodeDecodeError_SetStart(PyObject* Py_UNUSED(self), P
     return PyLong_FromLong(result);
 }
 
+/* PyUnicodeEncodeError */
+
+static PyObject* capi_PyUnicodeEncodeError_Create(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    wchar_t* arg1;
+    Py_ssize_t arg2;
+    Py_ssize_t arg3;
+    Py_ssize_t arg4;
+    char* arg5;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "yunnny:PyUnicodeEncodeError_Create", &arg0, &arg1, &arg2, &arg3, &arg4, &arg5)) {
+        return NULL;
+    }
+
+    result = PyUnicodeEncodeError_Create(arg0, arg1, arg2, arg3, arg4, arg5);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 /* PyUnicodeTranslateError */
 
 static PyObject* capi_PyUnicodeTranslateError_Create(PyObject* Py_UNUSED(self), PyObject* args) {
@@ -10772,6 +11126,23 @@ static PyMethodDef CAPIMethods[] =  {
     {"Py_ReprEnter", capi_Py_ReprEnter, METH_O, NULL},
     {"Py_ReprLeave", capi_Py_ReprLeave, METH_O, NULL},
     {"Py_SetProgramName", capi_Py_SetProgramName, METH_VARARGS, NULL},
+    {"Py_UNICODE_ISALNUM", capi_Py_UNICODE_ISALNUM, METH_VARARGS, NULL},
+    {"Py_UNICODE_ISALPHA", capi_Py_UNICODE_ISALPHA, METH_VARARGS, NULL},
+    {"Py_UNICODE_ISDECIMAL", capi_Py_UNICODE_ISDECIMAL, METH_VARARGS, NULL},
+    {"Py_UNICODE_ISDIGIT", capi_Py_UNICODE_ISDIGIT, METH_VARARGS, NULL},
+    {"Py_UNICODE_ISLINEBREAK", capi_Py_UNICODE_ISLINEBREAK, METH_VARARGS, NULL},
+    {"Py_UNICODE_ISLOWER", capi_Py_UNICODE_ISLOWER, METH_VARARGS, NULL},
+    {"Py_UNICODE_ISNUMERIC", capi_Py_UNICODE_ISNUMERIC, METH_VARARGS, NULL},
+    {"Py_UNICODE_ISPRINTABLE", capi_Py_UNICODE_ISPRINTABLE, METH_VARARGS, NULL},
+    {"Py_UNICODE_ISSPACE", capi_Py_UNICODE_ISSPACE, METH_VARARGS, NULL},
+    {"Py_UNICODE_ISTITLE", capi_Py_UNICODE_ISTITLE, METH_VARARGS, NULL},
+    {"Py_UNICODE_ISUPPER", capi_Py_UNICODE_ISUPPER, METH_VARARGS, NULL},
+    {"Py_UNICODE_TODECIMAL", capi_Py_UNICODE_TODECIMAL, METH_VARARGS, NULL},
+    {"Py_UNICODE_TODIGIT", capi_Py_UNICODE_TODIGIT, METH_VARARGS, NULL},
+    {"Py_UNICODE_TOLOWER", capi_Py_UNICODE_TOLOWER, METH_VARARGS, NULL},
+    {"Py_UNICODE_TONUMERIC", capi_Py_UNICODE_TONUMERIC, METH_VARARGS, NULL},
+    {"Py_UNICODE_TOTITLE", capi_Py_UNICODE_TOTITLE, METH_VARARGS, NULL},
+    {"Py_UNICODE_TOUPPER", capi_Py_UNICODE_TOUPPER, METH_VARARGS, NULL},
     {"Py_XDECREF", capi_Py_XDECREF, METH_O, NULL},
     {"Py_XINCREF", capi_Py_XINCREF, METH_O, NULL},
 
@@ -11555,6 +11926,10 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicodeDecodeError_SetEnd", capi_PyUnicodeDecodeError_SetEnd, METH_VARARGS, NULL},
     {"PyUnicodeDecodeError_SetReason", capi_PyUnicodeDecodeError_SetReason, METH_VARARGS, NULL},
     {"PyUnicodeDecodeError_SetStart", capi_PyUnicodeDecodeError_SetStart, METH_VARARGS, NULL},
+
+    /* PyUnicodeEncodeError */
+
+    {"PyUnicodeEncodeError_Create", capi_PyUnicodeEncodeError_Create, METH_VARARGS, NULL},
 
     /* PyUnicodeTranslateError */
 

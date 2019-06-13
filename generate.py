@@ -32,6 +32,23 @@ API: typing.Tuple[
     ("Py_ReprEnter", "O", "i"),
     ("Py_ReprLeave", "O", ""),
     ("Py_SetProgramName", "u", ""),
+    ("Py_UNICODE_ISALNUM", "C", "i"),
+    ("Py_UNICODE_ISALPHA", "C", "i"),
+    ("Py_UNICODE_ISDECIMAL", "C", "i"),
+    ("Py_UNICODE_ISDIGIT", "C", "i"),
+    ("Py_UNICODE_ISLINEBREAK", "C", "i"),
+    ("Py_UNICODE_ISLOWER", "C", "i"),
+    ("Py_UNICODE_ISNUMERIC", "C", "i"),
+    ("Py_UNICODE_ISPRINTABLE", "C", "i"),
+    ("Py_UNICODE_ISSPACE", "C", "i"),
+    ("Py_UNICODE_ISTITLE", "C", "i"),
+    ("Py_UNICODE_ISUPPER", "C", "i"),
+    ("Py_UNICODE_TODECIMAL", "C", "i"),
+    ("Py_UNICODE_TODIGIT", "C", "i"),
+    ("Py_UNICODE_TOLOWER", "C", "C"),
+    ("Py_UNICODE_TONUMERIC", "C", "d"),
+    ("Py_UNICODE_TOTITLE", "C", "C"),
+    ("Py_UNICODE_TOUPPER", "C", "C"),
     ("Py_XDECREF", "O", ""),
     ("Py_XINCREF", "O", ""),
     ("PyAnySet_Check", "O", "i"),
@@ -731,6 +748,7 @@ API: typing.Tuple[
     ("PyUnicodeDecodeError_SetEnd", "On", "i"),
     ("PyUnicodeDecodeError_SetReason", "Oy", "i"),
     ("PyUnicodeDecodeError_SetStart", "On", "i"),
+    ("PyUnicodeEncodeError_Create", "yunnny", "N"),
     ("PyUnicodeTranslateError_Create", "unnny", "N"),
     ("PyWeakref_Check", "O", "i"),
     ("PyWeakref_CheckProxy", "O", "i"),
@@ -760,6 +778,7 @@ import typing
 STUB = "def {}({}) -> {}: ..."
 
 ARG_TYPES_PYI = {
+    "C": "str",
     "c": "bytes",
     "D": "complex",
     "d": "float",
@@ -776,6 +795,7 @@ ARG_TYPES_PYI = {
 
 RETURN_TYPES_PYI = {
     "": "None",
+    "C": "str",
     "D": "complex",
     "d": "float",
     "i": "int",
@@ -790,6 +810,7 @@ RETURN_TYPES_PYI = {
 }
 
 ARG_TYPES_C = {
+    "C": "int",
     "c": "char",
     "D": "Py_complex",
     "d": "double",
@@ -806,6 +827,7 @@ ARG_TYPES_C = {
 
 RETURN_TYPES_C = {
     "": "void",
+    "C": "int",
     "D": "Py_complex",
     "d": "double",
     "i": "int",
@@ -821,6 +843,7 @@ RETURN_TYPES_C = {
 
 CONVERTERS = {
     "": "Py_RETURN_NONE;",
+    "C": 'return PyUnicode_FromFormat("%c", result);',
     "D": "return PyComplex_FromCComplex(result);",
     "d": "return PyFloat_FromDouble(result);",
     "i": "return PyLong_FromLong(result);",
