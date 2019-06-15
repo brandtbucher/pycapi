@@ -62,6 +62,25 @@ static PyObject* capi_Py_DECREF(PyObject* Py_UNUSED(self), PyObject* arg) {
     Py_RETURN_NONE;
 }
 
+static PyObject* capi_Py_EnterRecursiveCall(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "y:Py_EnterRecursiveCall", &arg0)) {
+        return NULL;
+    }
+
+    result = Py_EnterRecursiveCall(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_Py_Exit(PyObject* Py_UNUSED(self), PyObject* args) {
 
     int arg0;
@@ -105,6 +124,19 @@ static PyObject* capi_Py_Finalize(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED
     }
 
     Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_FinalizeEx(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    int result;
+
+    result = Py_FinalizeEx();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
 }
 
 static PyObject* capi_Py_GetBuildInfo(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
@@ -224,6 +256,19 @@ static PyObject* capi_Py_GetProgramName(PyObject* Py_UNUSED(self), PyObject* Py_
     return PyUnicode_FromWideChar(result, -1);
 }
 
+static PyObject* capi_Py_GetPythonHome(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const wchar_t* result;
+
+    result = Py_GetPythonHome();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyUnicode_FromWideChar(result, -1);
+}
+
 static PyObject* capi_Py_GetVersion(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
     const char* result;
@@ -259,6 +304,23 @@ static PyObject* capi_Py_Initialize(PyObject* Py_UNUSED(self), PyObject* Py_UNUS
     Py_RETURN_NONE;
 }
 
+static PyObject* capi_Py_InitializeEx(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    int arg0;
+
+    if (!PyArg_ParseTuple(args, "i:Py_InitializeEx", &arg0)) {
+        return NULL;
+    }
+
+    Py_InitializeEx(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
 static PyObject* capi_Py_IsInitialized(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
     int result;
@@ -270,6 +332,17 @@ static PyObject* capi_Py_IsInitialized(PyObject* Py_UNUSED(self), PyObject* Py_U
     }
 
     return PyLong_FromLong(result);
+}
+
+static PyObject* capi_Py_LeaveRecursiveCall(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    Py_LeaveRecursiveCall();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
 }
 
 static PyObject* capi_Py_ReprEnter(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -296,6 +369,23 @@ static PyObject* capi_Py_ReprLeave(PyObject* Py_UNUSED(self), PyObject* arg) {
     Py_RETURN_NONE;
 }
 
+static PyObject* capi_Py_SetPath(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+
+    if (!PyArg_ParseTuple(args, "u:Py_SetPath", &arg0)) {
+        return NULL;
+    }
+
+    Py_SetPath(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
 static PyObject* capi_Py_SetProgramName(PyObject* Py_UNUSED(self), PyObject* args) {
 
     wchar_t* arg0;
@@ -311,6 +401,43 @@ static PyObject* capi_Py_SetProgramName(PyObject* Py_UNUSED(self), PyObject* arg
     }
 
     Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_SetPythonHome(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+
+    if (!PyArg_ParseTuple(args, "u:Py_SetPythonHome", &arg0)) {
+        return NULL;
+    }
+
+    Py_SetPythonHome(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
+static PyObject* capi_Py_SetStandardStreamEncoding(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "yy:Py_SetStandardStreamEncoding", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = Py_SetStandardStreamEncoding(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
 }
 
 static PyObject* capi_Py_UNICODE_ISALNUM(PyObject* Py_UNUSED(self), PyObject* args) {
@@ -11107,9 +11234,11 @@ static PyMethodDef CAPIMethods[] =  {
     {"Py_CLEAR", capi_Py_CLEAR, METH_O, NULL},
     {"Py_CompileString", capi_Py_CompileString, METH_VARARGS, NULL},
     {"Py_DECREF", capi_Py_DECREF, METH_O, NULL},
+    {"Py_EnterRecursiveCall", capi_Py_EnterRecursiveCall, METH_VARARGS, NULL},
     {"Py_Exit", capi_Py_Exit, METH_VARARGS, NULL},
     {"Py_FatalError", capi_Py_FatalError, METH_VARARGS, NULL},
     {"Py_Finalize", capi_Py_Finalize, METH_NOARGS, NULL},
+    {"Py_FinalizeEx", capi_Py_FinalizeEx, METH_NOARGS, NULL},
     {"Py_GetBuildInfo", capi_Py_GetBuildInfo, METH_NOARGS, NULL},
     {"Py_GetCompiler", capi_Py_GetCompiler, METH_NOARGS, NULL},
     {"Py_GetCopyright", capi_Py_GetCopyright, METH_NOARGS, NULL},
@@ -11119,13 +11248,19 @@ static PyMethodDef CAPIMethods[] =  {
     {"Py_GetPrefix", capi_Py_GetPrefix, METH_NOARGS, NULL},
     {"Py_GetProgramFullPath", capi_Py_GetProgramFullPath, METH_NOARGS, NULL},
     {"Py_GetProgramName", capi_Py_GetProgramName, METH_NOARGS, NULL},
+    {"Py_GetPythonHome", capi_Py_GetPythonHome, METH_NOARGS, NULL},
     {"Py_GetVersion", capi_Py_GetVersion, METH_NOARGS, NULL},
     {"Py_INCREF", capi_Py_INCREF, METH_O, NULL},
     {"Py_Initialize", capi_Py_Initialize, METH_NOARGS, NULL},
+    {"Py_InitializeEx", capi_Py_InitializeEx, METH_VARARGS, NULL},
     {"Py_IsInitialized", capi_Py_IsInitialized, METH_NOARGS, NULL},
+    {"Py_LeaveRecursiveCall", capi_Py_LeaveRecursiveCall, METH_NOARGS, NULL},
     {"Py_ReprEnter", capi_Py_ReprEnter, METH_O, NULL},
     {"Py_ReprLeave", capi_Py_ReprLeave, METH_O, NULL},
+    {"Py_SetPath", capi_Py_SetPath, METH_VARARGS, NULL},
     {"Py_SetProgramName", capi_Py_SetProgramName, METH_VARARGS, NULL},
+    {"Py_SetPythonHome", capi_Py_SetPythonHome, METH_VARARGS, NULL},
+    {"Py_SetStandardStreamEncoding", capi_Py_SetStandardStreamEncoding, METH_VARARGS, NULL},
     {"Py_UNICODE_ISALNUM", capi_Py_UNICODE_ISALNUM, METH_VARARGS, NULL},
     {"Py_UNICODE_ISALPHA", capi_Py_UNICODE_ISALPHA, METH_VARARGS, NULL},
     {"Py_UNICODE_ISDECIMAL", capi_Py_UNICODE_ISDECIMAL, METH_VARARGS, NULL},
