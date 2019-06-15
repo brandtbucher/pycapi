@@ -126,18 +126,22 @@ static PyObject* capi_Py_Finalize(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED
     Py_RETURN_NONE;
 }
 
-static PyObject* capi_Py_FinalizeEx(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+# if 0x030600F0 <= PY_VERSION_HEX
 
-    int result;
+    static PyObject* capi_Py_FinalizeEx(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-    result = Py_FinalizeEx();
+        int result;
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        result = Py_FinalizeEx();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
     }
 
-    return PyLong_FromLong(result);
-}
+# endif
 
 static PyObject* capi_Py_GetBuildInfo(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
@@ -11238,7 +11242,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"Py_Exit", capi_Py_Exit, METH_VARARGS, NULL},
     {"Py_FatalError", capi_Py_FatalError, METH_VARARGS, NULL},
     {"Py_Finalize", capi_Py_Finalize, METH_NOARGS, NULL},
-    {"Py_FinalizeEx", capi_Py_FinalizeEx, METH_NOARGS, NULL},
+
+    # if 0x030600F0 <= PY_VERSION_HEX
+
+        {"Py_FinalizeEx", capi_Py_FinalizeEx, METH_NOARGS, NULL},
+
+    # endif
+
     {"Py_GetBuildInfo", capi_Py_GetBuildInfo, METH_NOARGS, NULL},
     {"Py_GetCompiler", capi_Py_GetCompiler, METH_NOARGS, NULL},
     {"Py_GetCopyright", capi_Py_GetCopyright, METH_NOARGS, NULL},
