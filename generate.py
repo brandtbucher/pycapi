@@ -67,6 +67,7 @@ API: typing.Tuple[
     ("Py_XINCREF", "O", ""),
     ("PyAnySet_Check", "O", "i"),
     ("PyAnySet_CheckExact", "O", "i"),
+    ("PyArg_ValidateKeywordArguments", "O", "i"),
     ("PyBool_Check", "O", "i"),
     ("PyBool_FromLong", "l", "N"),
     ("PyByteArray_AS_STRING", "O", "y"),

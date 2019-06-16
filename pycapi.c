@@ -817,6 +817,21 @@ static PyObject* capi_PyAnySet_CheckExact(PyObject* Py_UNUSED(self), PyObject* a
     return PyLong_FromLong(result);
 }
 
+/* PyArg */
+
+static PyObject* capi_PyArg_ValidateKeywordArguments(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    int result;
+
+    result = PyArg_ValidateKeywordArguments(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 /* PyBool */
 
 static PyObject* capi_PyBool_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -11295,6 +11310,10 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyAnySet_Check", capi_PyAnySet_Check, METH_O, NULL},
     {"PyAnySet_CheckExact", capi_PyAnySet_CheckExact, METH_O, NULL},
+
+    /* PyArg */
+
+    {"PyArg_ValidateKeywordArguments", capi_PyArg_ValidateKeywordArguments, METH_O, NULL},
 
     /* PyBool */
 
