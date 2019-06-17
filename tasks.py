@@ -53,6 +53,11 @@ def test(context):
 
     print("\nTEST\n")
 
+    context.run(
+        '{} -c \'import pycapi; print("APIs:", len([api for api in dir(pycapi) if not api.startswith("_")]))\''.format(
+            sys.executable
+        )
+    )
     # context.run("mypy --strict .")
     # context.run("pytest")
 
