@@ -234,6 +234,7 @@ API: typing.Tuple[
     ("PyDict_Check", "O", "i"),
     ("PyDict_CheckExact", "O", "i"),
     ("PyDict_Clear", "O", ""),
+    ("PyDict_ClearFreeList", "", "i"),
     ("PyDict_Contains", "OO", "i"),
     ("PyDict_Copy", "O", "N"),
     ("PyDict_DelItem", "OO", "i"),

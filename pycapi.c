@@ -2422,6 +2422,19 @@ static PyObject* capi_PyDict_Clear(PyObject* Py_UNUSED(self), PyObject* arg) {
     Py_RETURN_NONE;
 }
 
+static PyObject* capi_PyDict_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    int result;
+
+    result = PyDict_ClearFreeList();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyDict_Contains(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -11469,6 +11482,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyDict_Check", capi_PyDict_Check, METH_O, NULL},
     {"PyDict_CheckExact", capi_PyDict_CheckExact, METH_O, NULL},
     {"PyDict_Clear", capi_PyDict_Clear, METH_O, NULL},
+    {"PyDict_ClearFreeList", capi_PyDict_ClearFreeList, METH_NOARGS, NULL},
     {"PyDict_Contains", capi_PyDict_Contains, METH_VARARGS, NULL},
     {"PyDict_Copy", capi_PyDict_Copy, METH_O, NULL},
     {"PyDict_DelItem", capi_PyDict_DelItem, METH_VARARGS, NULL},
