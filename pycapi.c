@@ -3624,6 +3624,28 @@ static PyObject* capi_PyEval_GetBuiltins(PyObject* Py_UNUSED(self), PyObject* Py
     return result;
 }
 
+# if PY_VERSION_HEX <= 0x030600F0
+
+    static PyObject* capi_PyEval_GetCallStats(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+        PyObject* result;
+
+        result = PyEval_GetCallStats(arg);
+
+        if (!result) {
+
+            if (PyErr_Occurred()) {
+                return NULL;
+            }
+
+            Py_RETURN_NONE;
+        }
+
+        return result;
+    }
+
+# endif
+
 static PyObject* capi_PyEval_GetFuncDesc(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     const char* result;
@@ -3697,6 +3719,17 @@ static PyObject* capi_PyEval_InitThreads(PyObject* Py_UNUSED(self), PyObject* Py
     Py_RETURN_NONE;
 }
 
+static PyObject* capi_PyEval_ReInitThreads(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    PyEval_ReInitThreads();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
 static PyObject* capi_PyEval_ReleaseLock(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
     PyEval_ReleaseLock();
@@ -3706,6 +3739,19 @@ static PyObject* capi_PyEval_ReleaseLock(PyObject* Py_UNUSED(self), PyObject* Py
     }
 
     Py_RETURN_NONE;
+}
+
+static PyObject* capi_PyEval_ThreadsInitialized(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    int result;
+
+    result = PyEval_ThreadsInitialized();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
 }
 
 /* PyException */
@@ -11569,12 +11615,21 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyEval_AcquireLock", capi_PyEval_AcquireLock, METH_NOARGS, NULL},
     {"PyEval_EvalCode", capi_PyEval_EvalCode, METH_VARARGS, NULL},
     {"PyEval_GetBuiltins", capi_PyEval_GetBuiltins, METH_NOARGS, NULL},
+
+    # if PY_VERSION_HEX <= 0x030600F0
+
+        {"PyEval_GetCallStats", capi_PyEval_GetCallStats, METH_O, NULL},
+
+    # endif
+
     {"PyEval_GetFuncDesc", capi_PyEval_GetFuncDesc, METH_O, NULL},
     {"PyEval_GetFuncName", capi_PyEval_GetFuncName, METH_O, NULL},
     {"PyEval_GetGlobals", capi_PyEval_GetGlobals, METH_NOARGS, NULL},
     {"PyEval_GetLocals", capi_PyEval_GetLocals, METH_NOARGS, NULL},
     {"PyEval_InitThreads", capi_PyEval_InitThreads, METH_NOARGS, NULL},
+    {"PyEval_ReInitThreads", capi_PyEval_ReInitThreads, METH_NOARGS, NULL},
     {"PyEval_ReleaseLock", capi_PyEval_ReleaseLock, METH_NOARGS, NULL},
+    {"PyEval_ThreadsInitialized", capi_PyEval_ThreadsInitialized, METH_NOARGS, NULL},
 
     /* PyException */
 
