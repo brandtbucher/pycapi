@@ -4019,6 +4019,19 @@ static PyObject* capi_PyFloat_CheckExact(PyObject* Py_UNUSED(self), PyObject* ar
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyFloat_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    int result;
+
+    result = PyFloat_ClearFreeList();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyFloat_FromDouble(PyObject* Py_UNUSED(self), PyObject* args) {
 
     double arg0;
@@ -4077,6 +4090,32 @@ static PyObject* capi_PyFloat_GetInfo(PyObject* Py_UNUSED(self), PyObject* Py_UN
     }
 
     return result;
+}
+
+static PyObject* capi_PyFloat_GetMax(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    double result;
+
+    result = PyFloat_GetMax();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyFloat_FromDouble(result);
+}
+
+static PyObject* capi_PyFloat_GetMin(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    double result;
+
+    result = PyFloat_GetMin();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyFloat_FromDouble(result);
 }
 
 /* PyFrozenSet */
@@ -11653,9 +11692,12 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyFloat_AsDouble", capi_PyFloat_AsDouble, METH_O, NULL},
     {"PyFloat_Check", capi_PyFloat_Check, METH_O, NULL},
     {"PyFloat_CheckExact", capi_PyFloat_CheckExact, METH_O, NULL},
+    {"PyFloat_ClearFreeList", capi_PyFloat_ClearFreeList, METH_NOARGS, NULL},
     {"PyFloat_FromDouble", capi_PyFloat_FromDouble, METH_VARARGS, NULL},
     {"PyFloat_FromString", capi_PyFloat_FromString, METH_O, NULL},
     {"PyFloat_GetInfo", capi_PyFloat_GetInfo, METH_NOARGS, NULL},
+    {"PyFloat_GetMax", capi_PyFloat_GetMax, METH_NOARGS, NULL},
+    {"PyFloat_GetMin", capi_PyFloat_GetMin, METH_NOARGS, NULL},
 
     /* PyFrozenSet */
 
