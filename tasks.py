@@ -54,7 +54,7 @@ def test(context):
     print("\nTEST\n")
 
     context.run(
-        "{} -c \"import pycapi; print('APIs:', len([api for api in dir(pycapi) if not api.startswith('_')]))\"".format(
+        "{} -c \"import generate, pycapi; print('APIs:', len([api for api in dir(pycapi) if not api.startswith('_')]), '/', len(generate.API))\"".format(
             sys.executable
         )
     )
