@@ -386,6 +386,7 @@ API: typing.Tuple[
     ("PyFunction_SetAnnotations", "OO", "i"),
     ("PyFunction_SetClosure", "OO", "i"),
     ("PyFunction_SetDefaults", "OO", "i"),
+    ("PyGILState_Check", "", "i"),
     ("PyGen_Check", "O", "i"),
     ("PyGen_CheckExact", "O", "i"),
     ("PyImport_AddModule", "y", "N"),

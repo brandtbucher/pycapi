@@ -4398,6 +4398,21 @@ static PyObject* capi_PyFunction_SetDefaults(PyObject* Py_UNUSED(self), PyObject
     return PyLong_FromLong(result);
 }
 
+/* PyGILState */
+
+static PyObject* capi_PyGILState_Check(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    int result;
+
+    result = PyGILState_Check();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 /* PyGen */
 
 static PyObject* capi_PyGen_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -11719,6 +11734,10 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyFunction_SetAnnotations", capi_PyFunction_SetAnnotations, METH_VARARGS, NULL},
     {"PyFunction_SetClosure", capi_PyFunction_SetClosure, METH_VARARGS, NULL},
     {"PyFunction_SetDefaults", capi_PyFunction_SetDefaults, METH_VARARGS, NULL},
+
+    /* PyGILState */
+
+    {"PyGILState_Check", capi_PyGILState_Check, METH_NOARGS, NULL},
 
     /* PyGen */
 
