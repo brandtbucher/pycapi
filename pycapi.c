@@ -4632,6 +4632,19 @@ static PyObject* capi_PyImport_GetMagicNumber(PyObject* Py_UNUSED(self), PyObjec
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyImport_GetMagicTag(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    const char* result;
+
+    result = PyImport_GetMagicTag();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyBytes_FromString(result);
+}
+
 # if 0x030700F0 <= PY_VERSION_HEX
 
     static PyObject* capi_PyImport_GetModule(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -11755,6 +11768,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyImport_ExecCodeModuleWithPathnames", capi_PyImport_ExecCodeModuleWithPathnames, METH_VARARGS, NULL},
     {"PyImport_GetImporter", capi_PyImport_GetImporter, METH_O, NULL},
     {"PyImport_GetMagicNumber", capi_PyImport_GetMagicNumber, METH_NOARGS, NULL},
+    {"PyImport_GetMagicTag", capi_PyImport_GetMagicTag, METH_NOARGS, NULL},
 
     # if 0x030700F0 <= PY_VERSION_HEX
 

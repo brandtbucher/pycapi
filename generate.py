@@ -398,6 +398,7 @@ API: typing.Tuple[
     ("PyImport_ExecCodeModuleWithPathnames", "yOyy", "N"),
     ("PyImport_GetImporter", "O", "N"),
     ("PyImport_GetMagicNumber", "", "l"),
+    ("PyImport_GetMagicTag", "", "y"),
     (
         "PyImport_GetModule",
         "O",
