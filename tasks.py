@@ -53,11 +53,14 @@ def test(context):
 
     print("\nTEST\n")
 
-    context.run(
-        "{} -c \"import generate, pycapi; print('APIs:', len([api for api in dir(pycapi) if not api.startswith('_')]), '/', len(generate.API))\"".format(
-            sys.executable
+    if (3, 6) <= sys.version_info:
+
+        context.run(
+            "{} -c \"import generate, pycapi; print('APIs:', len([api for api in dir(pycapi) if not api.startswith('_')]), '/', len(generate.API))\"".format(
+                sys.executable
+            )
         )
-    )
+        
     # context.run("mypy --strict .")
     # context.run("pytest")
 
