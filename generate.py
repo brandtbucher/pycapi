@@ -427,6 +427,7 @@ API: typing.Tuple[
     ("PyList_AsTuple", "O", "N"),
     ("PyList_Check", "O", "i"),
     ("PyList_CheckExact", "O", "i"),
+    ("PyList_ClearFreeList", "", "i"),
     ("PyList_GET_ITEM", "On", "N"),
     ("PyList_GET_SIZE", "O", "n"),
     ("PyList_GetItem", "On", "N"),

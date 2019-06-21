@@ -5067,6 +5067,19 @@ static PyObject* capi_PyList_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyList_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    int result;
+
+    result = PyList_ClearFreeList();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyList_GET_ITEM(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -11809,6 +11822,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyList_AsTuple", capi_PyList_AsTuple, METH_O, NULL},
     {"PyList_Check", capi_PyList_Check, METH_O, NULL},
     {"PyList_CheckExact", capi_PyList_CheckExact, METH_O, NULL},
+    {"PyList_ClearFreeList", capi_PyList_ClearFreeList, METH_NOARGS, NULL},
     {"PyList_GET_ITEM", capi_PyList_GET_ITEM, METH_VARARGS, NULL},
     {"PyList_GET_SIZE", capi_PyList_GET_SIZE, METH_O, NULL},
     {"PyList_GetItem", capi_PyList_GetItem, METH_VARARGS, NULL},

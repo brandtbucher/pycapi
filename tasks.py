@@ -60,7 +60,7 @@ def test(context):
                 sys.executable
             )
         )
-        
+
     # context.run("mypy --strict .")
     # context.run("pytest")
 
