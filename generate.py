@@ -472,6 +472,7 @@ API: typing.Tuple[
     ("PyMapping_Values", "O", "N"),
     ("PyMarshal_ReadObjectFromString", "yn", "N"),
     ("PyMarshal_WriteObjectToString", "Oi", "N"),
+    ("PyMem_SetupDebugHooks", "", ""),
     ("PyMemoryView_Check", "O", "i"),
     ("PyMemoryView_FromMemory", "yni", "N"),
     ("PyMemoryView_FromObject", "O", "N"),

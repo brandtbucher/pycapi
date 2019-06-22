@@ -5915,6 +5915,19 @@ static PyObject* capi_PyMarshal_WriteObjectToString(PyObject* Py_UNUSED(self), P
     return result;
 }
 
+/* PyMem */
+
+static PyObject* capi_PyMem_SetupDebugHooks(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    PyMem_SetupDebugHooks();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
 /* PyMemoryView */
 
 static PyObject* capi_PyMemoryView_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -11876,6 +11889,10 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyMarshal_ReadObjectFromString", capi_PyMarshal_ReadObjectFromString, METH_VARARGS, NULL},
     {"PyMarshal_WriteObjectToString", capi_PyMarshal_WriteObjectToString, METH_VARARGS, NULL},
+
+    /* PyMem */
+
+    {"PyMem_SetupDebugHooks", capi_PyMem_SetupDebugHooks, METH_NOARGS, NULL},
 
     /* PyMemoryView */
 
