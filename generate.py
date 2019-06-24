@@ -478,6 +478,7 @@ API: typing.Tuple[
     ("PyMemoryView_FromObject", "O", "N"),
     ("PyMemoryView_GetContiguous", "Oic", "N"),
     ("PyMethod_Check", "O", "i"),
+    ("PyMethod_ClearFreeList", "", "i"),
     ("PyMethod_Function", "O", "N"),
     ("PyMethod_GET_FUNCTION", "O", "N"),
     ("PyMethod_GET_SELF", "O", "N"),

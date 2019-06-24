@@ -6028,6 +6028,19 @@ static PyObject* capi_PyMethod_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyMethod_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    int result;
+
+    result = PyMethod_ClearFreeList();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyMethod_Function(PyObject* Py_UNUSED(self), PyObject* arg) {
 
     PyObject* result;
@@ -11904,6 +11917,7 @@ static PyMethodDef CAPIMethods[] =  {
     /* PyMethod */
 
     {"PyMethod_Check", capi_PyMethod_Check, METH_O, NULL},
+    {"PyMethod_ClearFreeList", capi_PyMethod_ClearFreeList, METH_NOARGS, NULL},
     {"PyMethod_Function", capi_PyMethod_Function, METH_O, NULL},
     {"PyMethod_GET_FUNCTION", capi_PyMethod_GET_FUNCTION, METH_O, NULL},
     {"PyMethod_GET_SELF", capi_PyMethod_GET_SELF, METH_O, NULL},
