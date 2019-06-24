@@ -568,6 +568,7 @@ API: typing.Tuple[
         "if 0x030700F0 <= PY_VERSION_HEX\nifndef MS_WINDOWS",
         '(3, 7, 0, "final", 0) <= sys.version_info and sys.platform != "win32"',
     ),
+    ("PyOS_CheckStack", "", "i", "ifdef MS_WINDOWS", 'sys.platform == "win32"'),
     (
         "PyOS_FSPath",
         "O",
@@ -575,6 +576,8 @@ API: typing.Tuple[
         "if 0x030600F0 <= PY_VERSION_HEX",
         '(3, 6, 0, "final", 0) <= sys.version_info',
     ),
+    ("PyOS_stricmp", "yy", "i"),
+    ("PyOS_strnicmp", "yyn", "i"),
     ("PyObject_ASCII", "O", "N"),
     ("PyObject_AsFileDescriptor", "O", "i"),
     ("PyObject_Bytes", "O", "N"),

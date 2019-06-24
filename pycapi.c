@@ -7294,6 +7294,23 @@ static PyObject* capi_PyOS_AfterFork(PyObject* Py_UNUSED(self), PyObject* Py_UNU
 # endif
 # endif
 
+# ifdef MS_WINDOWS
+
+    static PyObject* capi_PyOS_CheckStack(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+        int result;
+
+        result = PyOS_CheckStack();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
+    }
+
+# endif
+
 # if 0x030600F0 <= PY_VERSION_HEX
 
     static PyObject* capi_PyOS_FSPath(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -7315,6 +7332,47 @@ static PyObject* capi_PyOS_AfterFork(PyObject* Py_UNUSED(self), PyObject* Py_UNU
     }
 
 # endif
+
+static PyObject* capi_PyOS_stricmp(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    char* arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "yy:PyOS_stricmp", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyOS_stricmp(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyOS_strnicmp(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    char* arg0;
+    char* arg1;
+    Py_ssize_t arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "yyn:PyOS_strnicmp", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyOS_strnicmp(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
 
 /* PyObject */
 
@@ -12006,11 +12064,20 @@ static PyMethodDef CAPIMethods[] =  {
     # endif
     # endif
 
+    # ifdef MS_WINDOWS
+
+        {"PyOS_CheckStack", capi_PyOS_CheckStack, METH_NOARGS, NULL},
+
+    # endif
+
     # if 0x030600F0 <= PY_VERSION_HEX
 
         {"PyOS_FSPath", capi_PyOS_FSPath, METH_O, NULL},
 
     # endif
+
+    {"PyOS_stricmp", capi_PyOS_stricmp, METH_VARARGS, NULL},
+    {"PyOS_strnicmp", capi_PyOS_strnicmp, METH_VARARGS, NULL},
 
     /* PyObject */
 
