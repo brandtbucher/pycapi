@@ -568,7 +568,13 @@ API: typing.Tuple[
         "if 0x030700F0 <= PY_VERSION_HEX\nifndef MS_WINDOWS",
         '(3, 7, 0, "final", 0) <= sys.version_info and sys.platform != "win32"',
     ),
-    ("PyOS_CheckStack", "", "i", "ifdef MS_WINDOWS", 'sys.platform == "win32"'),
+    (
+        "PyOS_CheckStack",
+        "",
+        "i",
+        "ifdef USE_STACKCHECK",
+        'sys.platform == "win32"',  # TODO: This should be more specific...
+    ),
     (
         "PyOS_FSPath",
         "O",

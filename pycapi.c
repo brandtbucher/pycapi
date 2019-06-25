@@ -7294,7 +7294,7 @@ static PyObject* capi_PyOS_AfterFork(PyObject* Py_UNUSED(self), PyObject* Py_UNU
 # endif
 # endif
 
-# ifdef MS_WINDOWS
+# ifdef USE_STACKCHECK
 
     static PyObject* capi_PyOS_CheckStack(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
@@ -12064,7 +12064,7 @@ static PyMethodDef CAPIMethods[] =  {
     # endif
     # endif
 
-    # ifdef MS_WINDOWS
+    # ifdef USE_STACKCHECK
 
         {"PyOS_CheckStack", capi_PyOS_CheckStack, METH_NOARGS, NULL},
 
