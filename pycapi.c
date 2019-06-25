@@ -7502,6 +7502,17 @@ static PyObject* capi_PyObject_CheckReadBuffer(PyObject* Py_UNUSED(self), PyObje
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyObject_Del(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    PyObject_Del(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
 static PyObject* capi_PyObject_DelAttr(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -12088,6 +12099,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyObject_CallObject", capi_PyObject_CallObject, METH_VARARGS, NULL},
     {"PyObject_CheckBuffer", capi_PyObject_CheckBuffer, METH_O, NULL},
     {"PyObject_CheckReadBuffer", capi_PyObject_CheckReadBuffer, METH_O, NULL},
+    {"PyObject_Del", capi_PyObject_Del, METH_O, NULL},
     {"PyObject_DelAttr", capi_PyObject_DelAttr, METH_VARARGS, NULL},
     {"PyObject_DelAttrString", capi_PyObject_DelAttrString, METH_VARARGS, NULL},
     {"PyObject_DelItem", capi_PyObject_DelItem, METH_VARARGS, NULL},

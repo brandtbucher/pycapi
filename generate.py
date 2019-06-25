@@ -591,6 +591,7 @@ API: typing.Tuple[
     ("PyObject_CallObject", "OO", "N"),
     ("PyObject_CheckBuffer", "O", "i"),
     ("PyObject_CheckReadBuffer", "O", "i"),
+    ("PyObject_Del", "O", ""),
     ("PyObject_DelAttr", "OO", "i"),
     ("PyObject_DelAttrString", "Oy", "i"),
     ("PyObject_DelItem", "OO", "i"),
