@@ -651,6 +651,7 @@ API: typing.Tuple[
     ("PySet_Add", "OO", "i"),
     ("PySet_Check", "O", "i"),
     ("PySet_Clear", "O", "i"),
+    ("PySet_ClearFreeList", "", "i"),
     ("PySet_Contains", "OO", "i"),
     ("PySet_Discard", "OO", "i"),
     ("PySet_GET_SIZE", "O", "n"),

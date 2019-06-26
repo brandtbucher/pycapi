@@ -8679,6 +8679,19 @@ static PyObject* capi_PySet_Clear(PyObject* Py_UNUSED(self), PyObject* arg) {
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PySet_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    int result;
+
+    result = PySet_ClearFreeList();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PySet_Contains(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -12171,6 +12184,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PySet_Add", capi_PySet_Add, METH_VARARGS, NULL},
     {"PySet_Check", capi_PySet_Check, METH_O, NULL},
     {"PySet_Clear", capi_PySet_Clear, METH_O, NULL},
+    {"PySet_ClearFreeList", capi_PySet_ClearFreeList, METH_NOARGS, NULL},
     {"PySet_Contains", capi_PySet_Contains, METH_VARARGS, NULL},
     {"PySet_Discard", capi_PySet_Discard, METH_VARARGS, NULL},
     {"PySet_GET_SIZE", capi_PySet_GET_SIZE, METH_O, NULL},
