@@ -9051,6 +9051,23 @@ static PyObject* capi_PySys_SetObject(PyObject* Py_UNUSED(self), PyObject* args)
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PySys_SetPath(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    wchar_t* arg0;
+
+    if (!PyArg_ParseTuple(args, "u:PySys_SetPath", &arg0)) {
+        return NULL;
+    }
+
+    PySys_SetPath(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
 /* PyThreadState */
 
 static PyObject* capi_PyThreadState_GetDict(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
@@ -12220,6 +12237,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PySys_GetXOptions", capi_PySys_GetXOptions, METH_NOARGS, NULL},
     {"PySys_ResetWarnOptions", capi_PySys_ResetWarnOptions, METH_NOARGS, NULL},
     {"PySys_SetObject", capi_PySys_SetObject, METH_VARARGS, NULL},
+    {"PySys_SetPath", capi_PySys_SetPath, METH_VARARGS, NULL},
 
     /* PyThreadState */
 
