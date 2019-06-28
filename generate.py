@@ -672,6 +672,8 @@ API: typing.Tuple[
     ("PySys_ResetWarnOptions", "", ""),
     ("PySys_SetObject", "yO", "i"),
     ("PySys_SetPath", "u", ""),
+    ("PyTZInfo_Check", "O", "i"),
+    ("PyTZInfo_CheckExact", "O", "i"),
     ("PyThreadState_GetDict", "", "N"),
     ("PyThreadState_SetAsyncExc", "kO", "i"),
     ("PyTime_Check", "O", "i"),

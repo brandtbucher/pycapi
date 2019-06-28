@@ -9068,6 +9068,34 @@ static PyObject* capi_PySys_SetPath(PyObject* Py_UNUSED(self), PyObject* args) {
     Py_RETURN_NONE;
 }
 
+/* PyTZInfo */
+
+static PyObject* capi_PyTZInfo_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    int result;
+
+    result = PyTZInfo_Check(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyTZInfo_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    int result;
+
+    result = PyTZInfo_CheckExact(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 /* PyThreadState */
 
 static PyObject* capi_PyThreadState_GetDict(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
@@ -12238,6 +12266,11 @@ static PyMethodDef CAPIMethods[] =  {
     {"PySys_ResetWarnOptions", capi_PySys_ResetWarnOptions, METH_NOARGS, NULL},
     {"PySys_SetObject", capi_PySys_SetObject, METH_VARARGS, NULL},
     {"PySys_SetPath", capi_PySys_SetPath, METH_VARARGS, NULL},
+
+    /* PyTZInfo */
+
+    {"PyTZInfo_Check", capi_PyTZInfo_Check, METH_O, NULL},
+    {"PyTZInfo_CheckExact", capi_PyTZInfo_CheckExact, METH_O, NULL},
 
     /* PyThreadState */
 
