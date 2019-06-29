@@ -9096,65 +9096,69 @@ static PyObject* capi_PyTZInfo_CheckExact(PyObject* Py_UNUSED(self), PyObject* a
     return PyLong_FromLong(result);
 }
 
-/* PyThread */
+# if 0x030700F0 <= PY_VERSION_HEX
 
-static PyObject* capi_PyThread_ReInitTLS(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+    /* PyThread */
 
-    PyThread_ReInitTLS();
+    static PyObject* capi_PyThread_ReInitTLS(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        PyThread_ReInitTLS();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
     }
 
-    Py_RETURN_NONE;
-}
+    static PyObject* capi_PyThread_create_key(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-static PyObject* capi_PyThread_create_key(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+        int result;
 
-    int result;
+        result = PyThread_create_key();
 
-    result = PyThread_create_key();
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        return PyLong_FromLong(result);
     }
 
-    return PyLong_FromLong(result);
-}
+    static PyObject* capi_PyThread_delete_key(PyObject* Py_UNUSED(self), PyObject* args) {
 
-static PyObject* capi_PyThread_delete_key(PyObject* Py_UNUSED(self), PyObject* args) {
+        int arg0;
 
-    int arg0;
+        if (!PyArg_ParseTuple(args, "i:PyThread_delete_key", &arg0)) {
+            return NULL;
+        }
 
-    if (!PyArg_ParseTuple(args, "i:PyThread_delete_key", &arg0)) {
-        return NULL;
+        PyThread_delete_key(arg0);
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
     }
 
-    PyThread_delete_key(arg0);
+    static PyObject* capi_PyThread_delete_key_value(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        int arg0;
+
+        if (!PyArg_ParseTuple(args, "i:PyThread_delete_key_value", &arg0)) {
+            return NULL;
+        }
+
+        PyThread_delete_key_value(arg0);
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
     }
 
-    Py_RETURN_NONE;
-}
-
-static PyObject* capi_PyThread_delete_key_value(PyObject* Py_UNUSED(self), PyObject* args) {
-
-    int arg0;
-
-    if (!PyArg_ParseTuple(args, "i:PyThread_delete_key_value", &arg0)) {
-        return NULL;
-    }
-
-    PyThread_delete_key_value(arg0);
-
-    if (PyErr_Occurred()) {
-        return NULL;
-    }
-
-    Py_RETURN_NONE;
-}
+# endif
 
 /* PyThreadState */
 
@@ -12332,12 +12336,16 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyTZInfo_Check", capi_PyTZInfo_Check, METH_O, NULL},
     {"PyTZInfo_CheckExact", capi_PyTZInfo_CheckExact, METH_O, NULL},
 
-    /* PyThread */
+    # if 0x030700F0 <= PY_VERSION_HEX
 
-    {"PyThread_ReInitTLS", capi_PyThread_ReInitTLS, METH_NOARGS, NULL},
-    {"PyThread_create_key", capi_PyThread_create_key, METH_NOARGS, NULL},
-    {"PyThread_delete_key", capi_PyThread_delete_key, METH_VARARGS, NULL},
-    {"PyThread_delete_key_value", capi_PyThread_delete_key_value, METH_VARARGS, NULL},
+        /* PyThread */
+
+        {"PyThread_ReInitTLS", capi_PyThread_ReInitTLS, METH_NOARGS, NULL},
+        {"PyThread_create_key", capi_PyThread_create_key, METH_NOARGS, NULL},
+        {"PyThread_delete_key", capi_PyThread_delete_key, METH_VARARGS, NULL},
+        {"PyThread_delete_key_value", capi_PyThread_delete_key_value, METH_VARARGS, NULL},
+
+    # endif
 
     /* PyThreadState */
 
