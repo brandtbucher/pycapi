@@ -723,6 +723,7 @@ API: typing.Tuple[
     ),
     ("PyTuple_Check", "O", "i"),
     ("PyTuple_CheckExact", "O", "i"),
+    ("PyTuple_ClearFreeList", "", "i"),
     ("PyTuple_GET_ITEM", "On", "N"),
     ("PyTuple_GET_SIZE", "O", "n"),
     ("PyTuple_GetItem", "On", "N"),
