@@ -9539,6 +9539,19 @@ static PyObject* capi_PyType_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyType_ClearCache(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    unsigned int result;
+
+    result = PyType_ClearCache();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromUnsignedLong(result);
+}
+
 /* PyUnicode */
 
 static PyObject* capi_PyUnicode_AS_DATA(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -12398,6 +12411,7 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyType_Check", capi_PyType_Check, METH_O, NULL},
     {"PyType_CheckExact", capi_PyType_CheckExact, METH_O, NULL},
+    {"PyType_ClearCache", capi_PyType_ClearCache, METH_NOARGS, NULL},
 
     /* PyUnicode */
 
