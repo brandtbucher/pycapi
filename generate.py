@@ -753,6 +753,7 @@ API: typing.Tuple[
     ("PyUnicode_AsWideChar", "Oun", "n"),
     ("PyUnicode_Check", "O", "i"),
     ("PyUnicode_CheckExact", "O", "i"),
+    ("PyUnicode_ClearFreeList", "", "i"),
     ("PyUnicode_Compare", "OO", "i"),
     ("PyUnicode_CompareWithASCIIString", "Oy", "i"),
     ("PyUnicode_Concat", "OO", "N"),

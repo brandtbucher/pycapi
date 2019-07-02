@@ -9865,6 +9865,19 @@ static PyObject* capi_PyUnicode_CheckExact(PyObject* Py_UNUSED(self), PyObject* 
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyUnicode_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+
+    int result;
+
+    result = PyUnicode_ClearFreeList();
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyUnicode_Compare(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -12439,6 +12452,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicode_AsWideChar", capi_PyUnicode_AsWideChar, METH_VARARGS, NULL},
     {"PyUnicode_Check", capi_PyUnicode_Check, METH_O, NULL},
     {"PyUnicode_CheckExact", capi_PyUnicode_CheckExact, METH_O, NULL},
+    {"PyUnicode_ClearFreeList", capi_PyUnicode_ClearFreeList, METH_NOARGS, NULL},
     {"PyUnicode_Compare", capi_PyUnicode_Compare, METH_VARARGS, NULL},
     {"PyUnicode_CompareWithASCIIString", capi_PyUnicode_CompareWithASCIIString, METH_VARARGS, NULL},
     {"PyUnicode_Concat", capi_PyUnicode_Concat, METH_VARARGS, NULL},
