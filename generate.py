@@ -70,6 +70,8 @@ API: typing.Tuple[
     ("PyArg_ValidateKeywordArguments", "O", "i"),
     ("PyBool_Check", "O", "i"),
     ("PyBool_FromLong", "l", "N"),
+    ("PyBuffer_IsContiguous", "y*c", "i"),
+    ("PyBuffer_Release", "y*", ""),
     ("PyByteArray_AS_STRING", "O", "y"),
     ("PyByteArray_AsString", "O", "y"),
     ("PyByteArray_Check", "O", "i"),
@@ -869,6 +871,7 @@ ARG_TYPES_PYI = {
     "O": "object",
     "u": "str",
     "y": "bytes",
+    "y*": "bytes",
 }
 
 RETURN_TYPES_PYI = {
@@ -902,6 +905,7 @@ ARG_TYPES_C = {
     "O": "PyObject*",
     "u": "wchar_t*",
     "y": "char*",
+    "y*": "Py_buffer*",
 }
 
 RETURN_TYPES_C = {
@@ -937,6 +941,8 @@ CONVERTERS = {
     "u": "return PyUnicode_FromWideChar(result, -1);",
     "y": "return PyBytes_FromString(result);",
 }
+
+EXTRAS = {"*"}
 
 FUNCTIONDEF = """\
 static PyObject* capi_{}(PyObject* Py_UNUSED(self), PyObject* {}) {{
@@ -1118,9 +1124,16 @@ PyObject* PyInit_pycapi(void) {{
 
 def build_stub(api: str, arg_types: str, return_type: str) -> str:
 
+    preprocessed_args: typing.List[str] = []
+    for index, code in enumerate(arg_types):
+        if code in EXTRAS:
+            preprocessed_args[-1] = arg_types[index - 1] + code
+        else:
+            preprocessed_args.append(code)
+
     args_str = ", ".join(
         "__{}: {}".format(arg, ARG_TYPES_PYI[annotation])
-        for arg, annotation in enumerate(arg_types)
+        for arg, annotation in enumerate(preprocessed_args)
     )
     return_str = RETURN_TYPES_PYI[return_type]
 
@@ -1136,11 +1149,18 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
 
     body: typing.List[str] = []
 
+    preprocessed_args: typing.List[str] = []
+    for index, code in enumerate(arg_types):
+        if code in EXTRAS:
+            preprocessed_args[-1] = arg_types[index - 1] + code
+        else:
+            preprocessed_args.append(code)
+
     if arg_types and arg_types != "O":
         body.append("")
         body.extend(
             "{} arg{};".format(ARG_TYPES_C[annotation], arg)
-            for arg, annotation in enumerate(arg_types)
+            for arg, annotation in enumerate(preprocessed_args)
         )
     if return_type:
         body.append("")
@@ -1154,7 +1174,9 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
                     api,
                     len(arg_types),
                     len(arg_types),
-                    "".join(", &arg{}".format(arg) for arg in range(len(arg_types))),
+                    "".join(
+                        ", &arg{}".format(arg) for arg in range(len(preprocessed_args))
+                    ),
                 )
             )
         else:
@@ -1162,7 +1184,9 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
                 'if (!PyArg_ParseTuple(args, "{}:{}"{})) {{'.format(
                     arg_types,
                     api,
-                    "".join(", &arg{}".format(arg) for arg in range(len(arg_types))),
+                    "".join(
+                        ", &arg{}".format(arg) for arg in range(len(preprocessed_args))
+                    ),
                 )
             )
         body.append(INDENT + "return NULL;")
@@ -1173,7 +1197,7 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
         body.append(
             "result = {}({});".format(
                 api,
-                ", ".join("arg{}".format(arg) for arg in range(len(arg_types)))
+                ", ".join("arg{}".format(arg) for arg in range(len(preprocessed_args)))
                 if arg_types != "O"
                 else "arg",
             )
@@ -1183,7 +1207,7 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
         body.append(
             "{}({});".format(
                 api,
-                ", ".join("arg{}".format(arg) for arg in range(len(arg_types)))
+                ", ".join("arg{}".format(arg) for arg in range(len(preprocessed_args)))
                 if arg_types != "O"
                 else "arg",
             )

@@ -871,6 +871,45 @@ static PyObject* capi_PyBool_FromLong(PyObject* Py_UNUSED(self), PyObject* args)
     return result;
 }
 
+/* PyBuffer */
+
+static PyObject* capi_PyBuffer_IsContiguous(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    Py_buffer* arg0;
+    char arg1;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "y*c:PyBuffer_IsContiguous", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyBuffer_IsContiguous(arg0, arg1);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
+static PyObject* capi_PyBuffer_Release(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    Py_buffer* arg0;
+
+    if (!PyArg_ParseTuple(args, "y*:PyBuffer_Release", &arg0)) {
+        return NULL;
+    }
+
+    PyBuffer_Release(arg0);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    Py_RETURN_NONE;
+}
+
 /* PyByteArray */
 
 static PyObject* capi_PyByteArray_AS_STRING(PyObject* Py_UNUSED(self), PyObject* arg) {
@@ -11714,6 +11753,11 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyBool_Check", capi_PyBool_Check, METH_O, NULL},
     {"PyBool_FromLong", capi_PyBool_FromLong, METH_VARARGS, NULL},
+
+    /* PyBuffer */
+
+    {"PyBuffer_IsContiguous", capi_PyBuffer_IsContiguous, METH_VARARGS, NULL},
+    {"PyBuffer_Release", capi_PyBuffer_Release, METH_VARARGS, NULL},
 
     /* PyByteArray */
 
