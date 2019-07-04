@@ -5982,6 +5982,30 @@ static PyObject* capi_PyMemoryView_Check(PyObject* Py_UNUSED(self), PyObject* ar
     return PyLong_FromLong(result);
 }
 
+static PyObject* capi_PyMemoryView_FromBuffer(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    Py_buffer* arg0;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "y*:PyMemoryView_FromBuffer", &arg0)) {
+        return NULL;
+    }
+
+    result = PyMemoryView_FromBuffer(arg0);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyMemoryView_FromMemory(PyObject* Py_UNUSED(self), PyObject* args) {
 
     char* arg0;
@@ -6024,6 +6048,37 @@ static PyObject* capi_PyMemoryView_FromObject(PyObject* Py_UNUSED(self), PyObjec
     }
 
     return result;
+}
+
+static PyObject* capi_PyMemoryView_GET_BASE(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    PyObject* result;
+
+    result = PyMemoryView_GET_BASE(arg);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
+static PyObject* capi_PyMemoryView_GET_BUFFER(PyObject* Py_UNUSED(self), PyObject* arg) {
+
+    Py_buffer* result;
+
+    result = PyMemoryView_GET_BUFFER(arg);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyMemoryView_FromBuffer(result);
 }
 
 static PyObject* capi_PyMemoryView_GetContiguous(PyObject* Py_UNUSED(self), PyObject* args) {
@@ -12184,8 +12239,11 @@ static PyMethodDef CAPIMethods[] =  {
     /* PyMemoryView */
 
     {"PyMemoryView_Check", capi_PyMemoryView_Check, METH_O, NULL},
+    {"PyMemoryView_FromBuffer", capi_PyMemoryView_FromBuffer, METH_VARARGS, NULL},
     {"PyMemoryView_FromMemory", capi_PyMemoryView_FromMemory, METH_VARARGS, NULL},
     {"PyMemoryView_FromObject", capi_PyMemoryView_FromObject, METH_O, NULL},
+    {"PyMemoryView_GET_BASE", capi_PyMemoryView_GET_BASE, METH_O, NULL},
+    {"PyMemoryView_GET_BUFFER", capi_PyMemoryView_GET_BUFFER, METH_O, NULL},
     {"PyMemoryView_GetContiguous", capi_PyMemoryView_GetContiguous, METH_VARARGS, NULL},
 
     /* PyMethod */

@@ -476,8 +476,11 @@ API: typing.Tuple[
     ("PyMarshal_WriteObjectToString", "Oi", "N"),
     ("PyMem_SetupDebugHooks", "", ""),
     ("PyMemoryView_Check", "O", "i"),
+    ("PyMemoryView_FromBuffer", "y*", "N"),
     ("PyMemoryView_FromMemory", "yni", "N"),
     ("PyMemoryView_FromObject", "O", "N"),
+    ("PyMemoryView_GET_BASE", "O", "N"),
+    ("PyMemoryView_GET_BUFFER", "O", "y*"),
     ("PyMemoryView_GetContiguous", "Oic", "N"),
     ("PyMethod_Check", "O", "i"),
     ("PyMethod_ClearFreeList", "", "i"),
@@ -889,6 +892,7 @@ RETURN_TYPES_PYI = {
     "n": "int",
     "u": "typing.Optional[str]",
     "y": "typing.Optional[bytes]",
+    "y*": "memoryview",
 }
 
 ARG_TYPES_C = {
@@ -923,6 +927,7 @@ RETURN_TYPES_C = {
     "n": "Py_ssize_t",
     "u": "const wchar_t*",
     "y": "const char*",
+    "y*": "Py_buffer*",
 }
 
 CONVERTERS = {
@@ -940,6 +945,7 @@ CONVERTERS = {
     "n": "return PyLong_FromSsize_t(result);",
     "u": "return PyUnicode_FromWideChar(result, -1);",
     "y": "return PyBytes_FromString(result);",
+    "y*": "return PyMemoryView_FromBuffer(result);",
 }
 
 EXTRAS = {"*"}
