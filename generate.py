@@ -845,6 +845,25 @@ API: typing.Tuple[
 )
 
 
+MACROS = (
+    ("PyBUF_ANY_CONTIGUOUS", "i"),
+    ("PyBUF_CONTIG", "i"),
+    ("PyBUF_CONTIG_RO", "i"),
+    ("PyBUF_C_CONTIGUOUS", "i"),
+    ("PyBUF_FULL", "i"),
+    ("PyBUF_FULL_RO", "i"),
+    ("PyBUF_F_CONTIGUOUS", "i"),
+    ("PyBUF_INDIRECT", "i"),
+    ("PyBUF_ND", "i"),
+    ("PyBUF_RECORDS", "i"),
+    ("PyBUF_RECORDS_RO", "i"),
+    ("PyBUF_SIMPLE", "i"),
+    ("PyBUF_STRIDED", "i"),
+    ("PyBUF_STRIDED_RO", "i"),
+    ("PyBUF_STRIDES", "i"),
+)
+
+
 INDENT = 4 * " "
 
 
@@ -1115,6 +1134,13 @@ PyObject* PyInit_pycapi(void) {{
     PyDateTime_IMPORT;
 
     capi = PyModule_Create(&CAPIModule);
+
+    if (
+{}
+    ) {{
+        return NULL;
+    }}
+
     /*
     capi_null = PyObject_New(PyObject, &NULLType);
 
@@ -1339,7 +1365,23 @@ if __name__ == "__main__":
         pycapi_c_1.append("# endif")
         pycapi_c_2.append(INDENT + "# endif")
 
-    pycapi_c = PYCAPI_C.format("\n".join(pycapi_c_1), "\n".join(pycapi_c_2))
+    indent = False
+
+    macros = []
+    connector = ""
+    for macro, kind in MACROS:
+        if kind == "i":
+            macros.append(
+                INDENT * (indent + 2)
+                + f"{connector}PyModule_AddIntMacro(capi, {macro})"
+            )
+        else:
+            raise NotImplementedError(kind)
+        connector = "|| "
+
+    pycapi_c = PYCAPI_C.format(
+        "\n".join(pycapi_c_1), "\n".join(pycapi_c_2), "\n".join(macros)
+    )
 
     with open("pycapi.c", "w") as file:
         file.write(pycapi_c)

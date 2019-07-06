@@ -12799,6 +12799,27 @@ PyObject* PyInit_pycapi(void) {
     PyDateTime_IMPORT;
 
     capi = PyModule_Create(&CAPIModule);
+
+    if (
+        PyModule_AddIntMacro(capi, PyBUF_ANY_CONTIGUOUS)
+        || PyModule_AddIntMacro(capi, PyBUF_CONTIG)
+        || PyModule_AddIntMacro(capi, PyBUF_CONTIG_RO)
+        || PyModule_AddIntMacro(capi, PyBUF_C_CONTIGUOUS)
+        || PyModule_AddIntMacro(capi, PyBUF_FULL)
+        || PyModule_AddIntMacro(capi, PyBUF_FULL_RO)
+        || PyModule_AddIntMacro(capi, PyBUF_F_CONTIGUOUS)
+        || PyModule_AddIntMacro(capi, PyBUF_INDIRECT)
+        || PyModule_AddIntMacro(capi, PyBUF_ND)
+        || PyModule_AddIntMacro(capi, PyBUF_RECORDS)
+        || PyModule_AddIntMacro(capi, PyBUF_RECORDS_RO)
+        || PyModule_AddIntMacro(capi, PyBUF_SIMPLE)
+        || PyModule_AddIntMacro(capi, PyBUF_STRIDED)
+        || PyModule_AddIntMacro(capi, PyBUF_STRIDED_RO)
+        || PyModule_AddIntMacro(capi, PyBUF_STRIDES)
+    ) {
+        return NULL;
+    }
+
     /*
     capi_null = PyObject_New(PyObject, &NULLType);
 

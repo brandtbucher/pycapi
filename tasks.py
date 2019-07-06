@@ -56,7 +56,7 @@ def test(context):
     if (3, 6) <= sys.version_info:
 
         context.run(
-            "{} -c \"import generate, pycapi; print('APIs:', len([api for api in dir(pycapi) if not api.startswith('_')]), '/', len(generate.API))\"".format(
+            "{} -c \"import generate, pycapi; print('APIs:', len([api for api in dir(pycapi) if not api.startswith('_')]), '/', len(generate.API + generate.MACROS))\"".format(
                 sys.executable
             )
         )
