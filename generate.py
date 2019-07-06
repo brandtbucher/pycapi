@@ -606,6 +606,7 @@ API: typing.Tuple[
     ("PyObject_GenericSetAttr", "OOO", "i"),
     ("PyObject_GetAttr", "OO", "N"),
     ("PyObject_GetAttrString", "Oy", "N"),
+    ("PyObject_GetBuffer", "Oy*i", "i"),
     ("PyObject_GetItem", "OO", "N"),
     ("PyObject_GetIter", "O", "N"),
     ("PyObject_HasAttr", "OO", "i"),

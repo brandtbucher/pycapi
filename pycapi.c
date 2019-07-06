@@ -7792,6 +7792,27 @@ static PyObject* capi_PyObject_GetAttrString(PyObject* Py_UNUSED(self), PyObject
     return result;
 }
 
+static PyObject* capi_PyObject_GetBuffer(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    PyObject* arg0;
+    Py_buffer* arg1;
+    int arg2;
+
+    int result;
+
+    if (!PyArg_ParseTuple(args, "Oy*i:PyObject_GetBuffer", &arg0, &arg1, &arg2)) {
+        return NULL;
+    }
+
+    result = PyObject_GetBuffer(arg0, arg1, arg2);
+
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+
+    return PyLong_FromLong(result);
+}
+
 static PyObject* capi_PyObject_GetItem(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -12372,6 +12393,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyObject_GenericSetAttr", capi_PyObject_GenericSetAttr, METH_VARARGS, NULL},
     {"PyObject_GetAttr", capi_PyObject_GetAttr, METH_VARARGS, NULL},
     {"PyObject_GetAttrString", capi_PyObject_GetAttrString, METH_VARARGS, NULL},
+    {"PyObject_GetBuffer", capi_PyObject_GetBuffer, METH_VARARGS, NULL},
     {"PyObject_GetItem", capi_PyObject_GetItem, METH_VARARGS, NULL},
     {"PyObject_GetIter", capi_PyObject_GetIter, METH_O, NULL},
     {"PyObject_HasAttr", capi_PyObject_HasAttr, METH_VARARGS, NULL},
