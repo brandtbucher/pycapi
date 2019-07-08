@@ -11206,6 +11206,31 @@ static PyObject* capi_PyUnicode_MAX_CHAR_VALUE(PyObject* Py_UNUSED(self), PyObje
     return PyUnicode_FromFormat("%c", result);
 }
 
+static PyObject* capi_PyUnicode_New(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    Py_ssize_t arg0;
+    unsigned int arg1;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "nI:PyUnicode_New", &arg0, &arg1)) {
+        return NULL;
+    }
+
+    result = PyUnicode_New(arg0, arg1);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyUnicode_READ_CHAR(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -12766,6 +12791,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicode_Join", capi_PyUnicode_Join, METH_VARARGS, NULL},
     {"PyUnicode_KIND", capi_PyUnicode_KIND, METH_O, NULL},
     {"PyUnicode_MAX_CHAR_VALUE", capi_PyUnicode_MAX_CHAR_VALUE, METH_O, NULL},
+    {"PyUnicode_New", capi_PyUnicode_New, METH_VARARGS, NULL},
     {"PyUnicode_READ_CHAR", capi_PyUnicode_READ_CHAR, METH_VARARGS, NULL},
     {"PyUnicode_READY", capi_PyUnicode_READY, METH_O, NULL},
     {"PyUnicode_ReadChar", capi_PyUnicode_ReadChar, METH_VARARGS, NULL},
