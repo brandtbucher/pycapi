@@ -9573,6 +9573,38 @@ static PyObject* capi_PyTuple_New(PyObject* Py_UNUSED(self), PyObject* args) {
     return result;
 }
 
+static PyObject* capi_PyTuple_Pack(PyObject* Py_UNUSED(self), PyObject* args) {
+
+    Py_ssize_t arg0;
+    PyObject* arg1;
+    PyObject* arg2;
+    PyObject* arg3;
+    PyObject* arg4;
+    PyObject* arg5;
+    PyObject* arg6;
+    PyObject* arg7;
+    PyObject* arg8;
+
+    PyObject* result;
+
+    if (!PyArg_ParseTuple(args, "n|OOOOOOOO:PyTuple_Pack", &arg0, &arg1, &arg2, &arg3, &arg4, &arg5, &arg6, &arg7, &arg8)) {
+        return NULL;
+    }
+
+    result = PyTuple_Pack(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+
+    if (!result) {
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
+    }
+
+    return result;
+}
+
 static PyObject* capi_PyTuple_SET_ITEM(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
@@ -12684,6 +12716,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyTuple_GetItem", capi_PyTuple_GetItem, METH_VARARGS, NULL},
     {"PyTuple_GetSlice", capi_PyTuple_GetSlice, METH_VARARGS, NULL},
     {"PyTuple_New", capi_PyTuple_New, METH_VARARGS, NULL},
+    {"PyTuple_Pack", capi_PyTuple_Pack, METH_VARARGS, NULL},
     {"PyTuple_SET_ITEM", capi_PyTuple_SET_ITEM, METH_VARARGS, NULL},
     {"PyTuple_SetItem", capi_PyTuple_SetItem, METH_VARARGS, NULL},
     {"PyTuple_Size", capi_PyTuple_Size, METH_O, NULL},

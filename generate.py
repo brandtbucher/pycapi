@@ -1,6 +1,9 @@
 import typing
 
 
+ARGS = 8
+
+
 API: typing.Tuple[
     typing.Union[typing.Tuple[str, str, str], typing.Tuple[str, str, str, str, str]],
     ...,
@@ -735,6 +738,7 @@ API: typing.Tuple[
     ("PyTuple_GetItem", "On", "N"),
     ("PyTuple_GetSlice", "Onn", "N"),
     ("PyTuple_New", "n", "N"),
+    ("PyTuple_Pack", "n" + "|" + "O" * ARGS, "N"),
     ("PyTuple_SET_ITEM", "OnO", ""),
     ("PyTuple_SetItem", "OnO", "i"),
     ("PyTuple_Size", "O", "n"),
@@ -978,6 +982,7 @@ CONVERTERS = {
 }
 
 EXTRAS = {"*"}
+SKIP = {"|"}
 
 FUNCTIONDEF = """\
 static PyObject* capi_{}(PyObject* Py_UNUSED(self), PyObject* {}) {{
@@ -1170,7 +1175,7 @@ def build_stub(api: str, arg_types: str, return_type: str) -> str:
     for index, code in enumerate(arg_types):
         if code in EXTRAS:
             preprocessed_args[-1] = arg_types[index - 1] + code
-        else:
+        elif code not in SKIP:
             preprocessed_args.append(code)
 
     args_str = ", ".join(
@@ -1195,7 +1200,7 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
     for index, code in enumerate(arg_types):
         if code in EXTRAS:
             preprocessed_args[-1] = arg_types[index - 1] + code
-        else:
+        elif code not in SKIP:
             preprocessed_args.append(code)
 
     if arg_types and arg_types != "O":
