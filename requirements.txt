@@ -5,5 +5,5 @@ invoke
 # pytest-forked
 # pytest-xdist
 setuptools
-twine
+twine < 2
 wheel
