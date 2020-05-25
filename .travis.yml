@@ -129,7 +129,7 @@ matrix:
         # Includes are broken on Mojave, so fix them here:
         - export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
         - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.8.1
-        - pyenv install $PYENV_VERSION
+        - pyenv install --force $PYENV_VERSION
 
     - name: CPython 3.7.3 on macOS 10.14 (Mojave)
       language: shell
@@ -141,7 +141,7 @@ matrix:
         # Includes are broken on Mojave, so fix them here:
         - export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
         - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.7.3
-        - pyenv install $PYENV_VERSION
+        - pyenv install --force $PYENV_VERSION
 
     - name: CPython 3.6.8 on macOS 10.14 (Mojave)
       language: shell
@@ -153,7 +153,7 @@ matrix:
         # Includes are broken on Mojave, so fix them here:
         - export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
         - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.6.8
-        - pyenv install $PYENV_VERSION
+        - pyenv install --force $PYENV_VERSION
 
     - name: CPython 3.5.2 on macOS 10.14 (Mojave)
       language: shell
@@ -165,7 +165,7 @@ matrix:
         # Includes are broken on Mojave, so fix them here:
         - export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
         - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.5.2
-        - pyenv install $PYENV_VERSION
+        - pyenv install --force $PYENV_VERSION
 
 # env:
 #   global:
