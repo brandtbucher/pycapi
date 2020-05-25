@@ -1266,15 +1266,17 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
             )
         )
 
-    if return_type == "N":
-        body.append("")
-        body.extend(ERROR_CHECK_PYOBJECT.splitlines())
-    else:
-        body.append("")
-        body.extend(ERROR_CHECK.splitlines())
+    if api not in {"Py_Exit", "Py_FatalError"}:
 
-    body.append("")
-    body.append(CONVERTERS[return_type])
+        if return_type == "N":
+            body.append("")
+            body.extend(ERROR_CHECK_PYOBJECT.splitlines())
+        else:
+            body.append("")
+            body.extend(ERROR_CHECK.splitlines())
+
+        body.append("")
+        body.append(CONVERTERS[return_type])
 
     if not arg_types:
         args = "Py_UNUSED(null)"
