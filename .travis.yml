@@ -1,18 +1,22 @@
 # https://github.com/brandtbucher/travis-python-matrix
 
-# CPython 3.7.3 / CPython 3.6.8 / CPython 3.5.2
+# CPython 3.8.1 / CPython 3.7.3 / CPython 3.6.8 / CPython 3.5.2
 # Ubuntu 16.04 (Xenial Xerus) / Windows 10 / macOS 10.14 (Mojave)
 
 # Builds the following wheels:
+# - cp38-cp38-linux-x86-64.whl -> cp38-cp38-manylinux1-x86-64.whl
 # - cp37-cp37m-linux-x86-64.whl -> cp37-cp37m-manylinux1-x86-64.whl
 # - cp36-cp36m-linux-x86-64.whl -> cp36-cp36m-manylinux1-x86-64.whl
 # - cp35-cp35m-linux-x86-64.whl -> cp35-cp35m-manylinux1-x86-64.whl
+# - cp38-cp38-win_amd64.whl
 # - cp37-cp37m-win_amd64.whl
 # - cp36-cp36m-win_amd64.whl
 # - cp35-cp35m-win_amd64.whl
+# - cp38-cp38-win32.whl
 # - cp37-cp37m-win32.whl
 # - cp36-cp36m-win32.whl
 # - cp35-cp35m-win32.whl
+# - cp38-cp38-macosx_10_9_x86_64.whl -> cp38-cp38-macosx_10_6_intel.whl
 # - cp37-cp37m-macosx_10_9_x86_64.whl -> cp37-cp37m-macosx_10_6_intel.whl
 # - cp36-cp36m-macosx_10_9_x86_64.whl -> cp36-cp36m-macosx_10_6_intel.whl
 # - cp35-cp35m-macosx_10_9_x86_64.whl -> cp35-cp35m-macosx_10_6_intel.whl
@@ -24,6 +28,14 @@ git:
 matrix:
 
   include:
+
+    - name: CPython 3.8.1 on Ubuntu 16.04 (Xenial Xerus)
+      language: python
+      os: linux
+      dist: xenial
+      python: 3.8.1
+      before_install:
+        - sudo apt-get install -y patchelf
 
     - name: CPython 3.7.3 on Ubuntu 16.04 (Xenial Xerus)
       language: python
@@ -49,6 +61,13 @@ matrix:
       before_install:
         - sudo apt-get install -y patchelf
 
+    - name: CPython 3.8.1 on Windows 10 (64-bit)
+      language: shell
+      os: windows
+      before_install:
+        - export PATH=/c/Python38:/c/Python38/Scripts:$PATH
+        - choco install python --version 3.8.1
+
     - name: CPython 3.7.3 on Windows 10 (64-bit)
       language: shell
       os: windows
@@ -70,6 +89,13 @@ matrix:
         - export PATH=/c/Python35:/c/Python35/Scripts:$PATH
         - choco install python --version 3.5.2.20161029
 
+    - name: CPython 3.8.1 on Windows 10 (32-bit)
+      language: shell
+      os: windows
+      before_install:
+        - export PATH=/c/Python38:/c/Python38/Scripts:$PATH
+        - choco install python --version 3.8.1 --x86
+
     - name: CPython 3.7.3 on Windows 10 (32-bit)
       language: shell
       os: windows
@@ -90,6 +116,21 @@ matrix:
       before_install:
         - export PATH=/c/Python35:/c/Python35/Scripts:$PATH
         - choco install python --version 3.5.2.20161029 --x86
+
+    - name: CPython 3.8.1 on macOS 10.14 (Mojave)
+      language: shell
+      os: osx
+      osx_image: xcode10.2
+      before_install:
+        - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.8.1
+        - travis_wait brew upgrade pyenv && pyenv install $PYENV_VERSION
+      before_install:
+        # Build using the ancient 10.9 SDK (Anaconda/Python.org compatibility):
+        - export MACOSX_DEPLOYMENT_TARGET=10.9
+        # Includes are broken on Mojave, so fix them here:
+        - export CFLAGS="-I$(xcrun --show-sdk-path)/usr/include"
+        - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.8.1
+        - pyenv install $PYENV_VERSION
 
     - name: CPython 3.7.3 on macOS 10.14 (Mojave)
       language: shell
