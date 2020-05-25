@@ -973,7 +973,7 @@ RETURN_TYPES_C = {
 
 CONVERTERS = {
     "": "Py_RETURN_NONE;",
-    "!": "abort();",
+    "!": "assert(0);",
     "C": 'return PyUnicode_FromFormat("%c", result);',
     "D": "return PyComplex_FromCComplex(result);",
     "d": "return PyFloat_FromDouble(result);",
