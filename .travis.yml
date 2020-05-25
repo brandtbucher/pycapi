@@ -124,7 +124,6 @@ matrix:
       before_install:
         - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.8.1
         - travis_wait brew upgrade pyenv && pyenv install $PYENV_VERSION
-      before_install:
         # Build using the ancient 10.9 SDK (Anaconda/Python.org compatibility):
         - export MACOSX_DEPLOYMENT_TARGET=10.9
         # Includes are broken on Mojave, so fix them here:
