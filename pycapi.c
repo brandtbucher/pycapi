@@ -91,7 +91,7 @@ static PyObject* capi_Py_Exit(PyObject* Py_UNUSED(self), PyObject* args) {
 
     Py_Exit(arg0);
 
-    assert(0);
+    assert(0); abort();
 }
 
 static PyObject* capi_Py_FatalError(PyObject* Py_UNUSED(self), PyObject* args) {
@@ -104,7 +104,7 @@ static PyObject* capi_Py_FatalError(PyObject* Py_UNUSED(self), PyObject* args) {
 
     Py_FatalError(arg0);
 
-    assert(0);
+    assert(0); abort();
 }
 
 static PyObject* capi_Py_Finalize(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
