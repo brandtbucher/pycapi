@@ -446,7 +446,7 @@ static PyObject* capi_Py_SetStandardStreamEncoding(PyObject* Py_UNUSED(self), Py
 
 static PyObject* capi_Py_UNICODE_ISALNUM(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -465,7 +465,7 @@ static PyObject* capi_Py_UNICODE_ISALNUM(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_Py_UNICODE_ISALPHA(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -484,7 +484,7 @@ static PyObject* capi_Py_UNICODE_ISALPHA(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_Py_UNICODE_ISDECIMAL(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -503,7 +503,7 @@ static PyObject* capi_Py_UNICODE_ISDECIMAL(PyObject* Py_UNUSED(self), PyObject* 
 
 static PyObject* capi_Py_UNICODE_ISDIGIT(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -522,7 +522,7 @@ static PyObject* capi_Py_UNICODE_ISDIGIT(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_Py_UNICODE_ISLINEBREAK(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -541,7 +541,7 @@ static PyObject* capi_Py_UNICODE_ISLINEBREAK(PyObject* Py_UNUSED(self), PyObject
 
 static PyObject* capi_Py_UNICODE_ISLOWER(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -560,7 +560,7 @@ static PyObject* capi_Py_UNICODE_ISLOWER(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_Py_UNICODE_ISNUMERIC(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -579,7 +579,7 @@ static PyObject* capi_Py_UNICODE_ISNUMERIC(PyObject* Py_UNUSED(self), PyObject* 
 
 static PyObject* capi_Py_UNICODE_ISPRINTABLE(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -598,7 +598,7 @@ static PyObject* capi_Py_UNICODE_ISPRINTABLE(PyObject* Py_UNUSED(self), PyObject
 
 static PyObject* capi_Py_UNICODE_ISSPACE(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -617,7 +617,7 @@ static PyObject* capi_Py_UNICODE_ISSPACE(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_Py_UNICODE_ISTITLE(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -636,7 +636,7 @@ static PyObject* capi_Py_UNICODE_ISTITLE(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_Py_UNICODE_ISUPPER(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -655,7 +655,7 @@ static PyObject* capi_Py_UNICODE_ISUPPER(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_Py_UNICODE_TODECIMAL(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -674,7 +674,7 @@ static PyObject* capi_Py_UNICODE_TODECIMAL(PyObject* Py_UNUSED(self), PyObject* 
 
 static PyObject* capi_Py_UNICODE_TODIGIT(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -693,7 +693,7 @@ static PyObject* capi_Py_UNICODE_TODIGIT(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_Py_UNICODE_TOLOWER(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -712,7 +712,7 @@ static PyObject* capi_Py_UNICODE_TOLOWER(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_Py_UNICODE_TONUMERIC(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     double result;
 
@@ -731,7 +731,7 @@ static PyObject* capi_Py_UNICODE_TONUMERIC(PyObject* Py_UNUSED(self), PyObject* 
 
 static PyObject* capi_Py_UNICODE_TOTITLE(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -750,7 +750,7 @@ static PyObject* capi_Py_UNICODE_TOTITLE(PyObject* Py_UNUSED(self), PyObject* ar
 
 static PyObject* capi_Py_UNICODE_TOUPPER(PyObject* Py_UNUSED(self), PyObject* args) {
 
-    int arg0;
+    unsigned int arg0;
 
     int result;
 
@@ -3663,7 +3663,7 @@ static PyObject* capi_PyEval_GetBuiltins(PyObject* Py_UNUSED(self), PyObject* Py
     return result;
 }
 
-# if PY_VERSION_HEX <= 0x030600F0
+# if PY_VERSION_HEX < 0x030700F0
 
     static PyObject* capi_PyEval_GetCallStats(PyObject* Py_UNUSED(self), PyObject* arg) {
 
@@ -3758,16 +3758,20 @@ static PyObject* capi_PyEval_InitThreads(PyObject* Py_UNUSED(self), PyObject* Py
     Py_RETURN_NONE;
 }
 
-static PyObject* capi_PyEval_ReInitThreads(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+# if PY_VERSION_HEX < 0x030800F0
 
-    PyEval_ReInitThreads();
+    static PyObject* capi_PyEval_ReInitThreads(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        PyEval_ReInitThreads();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
     }
 
-    Py_RETURN_NONE;
-}
+# endif
 
 static PyObject* capi_PyEval_ReleaseLock(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
@@ -10867,7 +10871,7 @@ static PyObject* capi_PyUnicode_Fill(PyObject* Py_UNUSED(self), PyObject* args) 
     PyObject* arg0;
     Py_ssize_t arg1;
     Py_ssize_t arg2;
-    int arg3;
+    unsigned int arg3;
 
     Py_ssize_t result;
 
@@ -10910,7 +10914,7 @@ static PyObject* capi_PyUnicode_Find(PyObject* Py_UNUSED(self), PyObject* args) 
 static PyObject* capi_PyUnicode_FindChar(PyObject* Py_UNUSED(self), PyObject* args) {
 
     PyObject* arg0;
-    int arg1;
+    unsigned int arg1;
     Py_ssize_t arg2;
     Py_ssize_t arg3;
     int arg4;
@@ -11551,7 +11555,7 @@ static PyObject* capi_PyUnicode_WriteChar(PyObject* Py_UNUSED(self), PyObject* a
 
     PyObject* arg0;
     Py_ssize_t arg1;
-    int arg2;
+    unsigned int arg2;
 
     int result;
 
@@ -12248,7 +12252,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyEval_EvalCode", capi_PyEval_EvalCode, METH_VARARGS, NULL},
     {"PyEval_GetBuiltins", capi_PyEval_GetBuiltins, METH_NOARGS, NULL},
 
-    # if PY_VERSION_HEX <= 0x030600F0
+    # if PY_VERSION_HEX < 0x030700F0
 
         {"PyEval_GetCallStats", capi_PyEval_GetCallStats, METH_O, NULL},
 
@@ -12259,7 +12263,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyEval_GetGlobals", capi_PyEval_GetGlobals, METH_NOARGS, NULL},
     {"PyEval_GetLocals", capi_PyEval_GetLocals, METH_NOARGS, NULL},
     {"PyEval_InitThreads", capi_PyEval_InitThreads, METH_NOARGS, NULL},
-    {"PyEval_ReInitThreads", capi_PyEval_ReInitThreads, METH_NOARGS, NULL},
+
+    # if PY_VERSION_HEX < 0x030800F0
+
+        {"PyEval_ReInitThreads", capi_PyEval_ReInitThreads, METH_NOARGS, NULL},
+
+    # endif
+
     {"PyEval_ReleaseLock", capi_PyEval_ReleaseLock, METH_NOARGS, NULL},
     {"PyEval_ThreadsInitialized", capi_PyEval_ThreadsInitialized, METH_NOARGS, NULL},
 

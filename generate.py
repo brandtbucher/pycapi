@@ -345,15 +345,21 @@ API: typing.Tuple[
         "PyEval_GetCallStats",
         "O",
         "N",
-        "if PY_VERSION_HEX <= 0x030600F0",
-        'sys.version_info <= (3, 6, 0, "final", 0)',
+        "if PY_VERSION_HEX < 0x030700F0",
+        'sys.version_info < (3, 7, 0, "final", 0)',
     ),
     ("PyEval_GetFuncDesc", "O", "y"),
     ("PyEval_GetFuncName", "O", "y"),
     ("PyEval_GetGlobals", "", "N"),
     ("PyEval_GetLocals", "", "N"),
     ("PyEval_InitThreads", "", ""),
-    ("PyEval_ReInitThreads", "", ""),
+    (
+        "PyEval_ReInitThreads",
+        "",
+        "",
+        "if PY_VERSION_HEX < 0x030800F0",
+        'sys.version_info < sys.version_info < (3, 8, 0, "final", 0)',
+    ),
     ("PyEval_ReleaseLock", "", ""),
     ("PyEval_ThreadsInitialized", "", "i"),
     ("PyException_GetCause", "O", "N"),
@@ -928,7 +934,7 @@ RETURN_TYPES_PYI = {
 }
 
 ARG_TYPES_C = {
-    "C": "int",
+    "C": "unsigned int",
     "c": "char",
     "D": "Py_complex",
     "d": "double",
