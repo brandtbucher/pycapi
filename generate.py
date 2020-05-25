@@ -17,8 +17,8 @@ API: typing.Tuple[
     ("Py_CompileString", "yyi", "N"),
     ("Py_DECREF", "O", ""),
     ("Py_EnterRecursiveCall", "y", "i"),
-    ("Py_Exit", "i", ""),
-    ("Py_FatalError", "y", ""),
+    ("Py_Exit", "i", "!"),
+    ("Py_FatalError", "y", "!"),
     ("Py_Finalize", "", ""),
     (
         "Py_FinalizeEx",
@@ -917,6 +917,7 @@ ARG_TYPES_PYI = {
 
 RETURN_TYPES_PYI = {
     "": "None",
+    "!": "typing.NoReturn",
     "C": "str",
     "D": "complex",
     "d": "float",
@@ -953,6 +954,7 @@ ARG_TYPES_C = {
 
 RETURN_TYPES_C = {
     "": "void",
+    "!": "void",
     "C": "int",
     "D": "Py_complex",
     "d": "double",
@@ -971,6 +973,7 @@ RETURN_TYPES_C = {
 
 CONVERTERS = {
     "": "Py_RETURN_NONE;",
+    "!": "Py_UNREACHABLE();",
     "C": 'return PyUnicode_FromFormat("%c", result);',
     "D": "return PyComplex_FromCComplex(result);",
     "d": "return PyFloat_FromDouble(result);",
@@ -1215,7 +1218,7 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
             "{} arg{};".format(ARG_TYPES_C[annotation], arg)
             for arg, annotation in enumerate(preprocessed_args)
         )
-    if return_type:
+    if return_type and return_type != "!":
         body.append("")
         body.append(f"{RETURN_TYPES_C[return_type]} result;")
 
@@ -1245,7 +1248,7 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
         body.append(INDENT + "return NULL;")
         body.append("}")
 
-    if return_type:
+    if return_type and return_type != "!":
         body.append("")
         body.append(
             "result = {}({});".format(
@@ -1266,17 +1269,15 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
             )
         )
 
-    if api not in {"Py_Exit", "Py_FatalError"}:
-
-        if return_type == "N":
-            body.append("")
-            body.extend(ERROR_CHECK_PYOBJECT.splitlines())
-        else:
-            body.append("")
-            body.extend(ERROR_CHECK.splitlines())
-
+    if return_type == "N":
         body.append("")
-        body.append(CONVERTERS[return_type])
+        body.extend(ERROR_CHECK_PYOBJECT.splitlines())
+    elif return_type != "!":
+        body.append("")
+        body.extend(ERROR_CHECK.splitlines())
+
+    body.append("")
+    body.append(CONVERTERS[return_type])
 
     if not arg_types:
         args = "Py_UNUSED(null)"
