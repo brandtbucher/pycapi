@@ -1,9 +1,9 @@
 black; '3.6' <= python_version
-# hypothesis
+hypothesis
 invoke
-# pytest
-# pytest-forked
-# pytest-xdist
+pytest
+pytest-forked
+pytest-xdist
 setuptools
 twine < 2
 wheel
