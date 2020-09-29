@@ -30,8 +30,8 @@ jobs:
       - run: cibuildwheel --output-dir dist
         env:
           CIBW_BUILD: cp3${{ matrix.minor }}-*
-          CIBW_BEFORE_TEST: pip install -r {project}/requirements.txt
-          CIBW_TEST_COMMAND: pytest {project}
+          # CIBW_BEFORE_TEST: pip install -r {project}/requirements.txt
+          # CIBW_TEST_COMMAND: pytest {project}
       - uses: actions/upload-artifact@master
         with:
           name: dist
