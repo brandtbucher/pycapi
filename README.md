@@ -5,7 +5,7 @@
 PyCAPI
 ======
 
-[![latest version](https://img.shields.io/github/release-pre/brandtbucher/pycapi.svg?style=for-the-badge&label=latest)![latest release date](https://img.shields.io/github/release-date-pre/brandtbucher/pycapi.svg?style=for-the-badge&label=released)](https://github.com/brandtbucher/pycapi/releases)[![build status](https://img.shields.io/travis/com/brandtbucher/pycapi/master.svg?style=for-the-badge)](https://travis-ci.com/brandtbucher/pycapi/branches)[![issues](https://img.shields.io/github/issues-raw/brandtbucher/pycapi.svg?label=issues&style=for-the-badge)](https://github.com/brandtbucher/pycapi/issues)
+[![latest version](https://img.shields.io/github/release-pre/brandtbucher/pycapi.svg?style=for-the-badge&label=latest)![latest release date](https://img.shields.io/github/release-date-pre/brandtbucher/pycapi.svg?style=for-the-badge&label=released)](https://github.com/brandtbucher/pycapi/releases)[![build status](https://img.shields.io/github/workflow/status/brandtbucher/pycapi/CI/master.svg?style=for-the-badge)](https://github.com/brandtbucher/pycapi/actions)[![issues](https://img.shields.io/github/issues-raw/brandtbucher/pycapi.svg?label=issues&style=for-the-badge)](https://github.com/brandtbucher/pycapi/issues)
 
 <br>
 
@@ -114,15 +114,15 @@ In [4]: %timeit PyDict_Copy({})
 
 ```py
 In [1]: import ctypes
-   ...: 
+   ...:
    ...: PyDict_New = ctypes.pythonapi.PyDict_New
    ...: PyDict_New.argtypes = ()
    ...: PyDict_New.restype = ctypes.py_object
-   ...: 
+   ...:
    ...: PyDict_Clear = ctypes.pythonapi.PyDict_Clear
    ...: PyDict_Clear.argtypes = (ctypes.py_object,)
    ...: PyDict_Clear.restype = None
-   ...: 
+   ...:
    ...: PyDict_Copy = ctypes.pythonapi.PyDict_Copy
    ...: PyDict_Copy.argtypes = (ctypes.py_object,)
    ...: PyDict_Copy.restype = None
