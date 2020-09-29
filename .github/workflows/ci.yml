@@ -1,0 +1,52 @@
+name: CI
+on:
+  pull_request:
+  push:
+  release:
+    types: published
+jobs:
+  tar_gz:
+    name: Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-python@master
+      - run: python setup.py sdist
+      - uses: actions/upload-artifact@master
+        with:
+          name: dist
+          path: dist
+  whl:
+    name: Build / ${{ matrix.os }} / Python 3.${{ matrix.minor }}
+    strategy:
+      matrix:
+        os: [macOS, Ubuntu, Windows]
+        minor: [5, 6, 7, 8]
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-python@master
+      - run: pip install cibuildwheel
+      - run: cibuildwheel --output-dir dist
+        env:
+          CIBW_BUILD: cp3${{ matrix.minor }}-*
+          CIBW_BEFORE_TEST: pip install -r {project}/requirements.txt
+          CIBW_TEST_COMMAND: pytest {project}
+      - uses: actions/upload-artifact@master
+        with:
+          name: dist
+          path: dist
+  upload:
+    name: Publish
+    if: github.event_name == 'release' && github.event.action == 'published'
+    needs: [tar_gz, whl]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: dist
+          path: dist
+      - uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.PYPI_TOKEN }}
+          skip_existing: true
