@@ -35,6 +35,7 @@ jobs:
           output-dir: dist
         env:
           CIBW_ARCHS: "${{ github.event_name == 'release' && github.event.action == 'published' && 'all' || 'auto' }}"
+          CIBW_ENVIRONMENT: "CFLAGS='-Werror -Wno-deprecated-declarations'"
           CIBW_BUILD: cp3${{ matrix.minor }}-*
           # CIBW_BEFORE_TEST: pip install -r {project}/requirements.txt
           # CIBW_TEST_COMMAND: pytest {project}
