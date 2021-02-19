@@ -26,14 +26,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - uses: joerick/cibuildwheel@v1
+      - uses: docker/setup-qemu-action@v1
+        if: matrix.os == 'Ubuntu' && github.event_name == 'release' && github.event.action == 'published'
         with:
-          env:
-            CIBW_ARCHS: all
-            CIBW_BUILD: cp3${{ matrix.minor }}-*
-            # CIBW_BEFORE_TEST: pip install -r {project}/requirements.txt
-            # CIBW_TEST_COMMAND: pytest {project}
+          platforms: all
+      - uses: joerick/cibuildwheel@v1.9.0
+        with:
           output-dir: dist
+        env:
+          CIBW_ARCHS: "${{ github.event_name == 'release' && github.event.action == 'published' && 'all' || 'auto' }}"
+          CIBW_BUILD: cp3${{ matrix.minor }}-*
+          # CIBW_BEFORE_TEST: pip install -r {project}/requirements.txt
+          # CIBW_TEST_COMMAND: pytest {project}
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -48,7 +52,7 @@ jobs:
         with:
           name: dist
           path: dist
-      - uses: pypa/gh-action-pypi-publish@v1
+      - uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
           password: ${{ secrets.PYPI_TOKEN }}
           skip_existing: true
