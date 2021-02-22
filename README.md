@@ -11,7 +11,7 @@ PyCAPI
 
 </div>
 
-PyCAPI is a Python package containing over 600 fast bindings to the CPython C API. Its goal is to support as much of the Python 3.5 - 3.8 stable public APIs as possible.
+PyCAPI is a Python package containing over 600 fast bindings to the CPython C API. Its goal is to support as much of the Python 3.5 - 3.9 stable public APIs as possible.
 
 To install, just run:
 ```sh
@@ -78,7 +78,7 @@ Traceback (most recent call last):
 AttributeError: dlsym(RTLD_DEFAULT, PyDict_Check): symbol not found
 ```
 
-`pycapi` is also fully loaded on import, so you can use tab-completion and other introspection techniques to discover APIs. `ctypes.pythonapi` requires you to access the attribute *before* it is loaded, and there is no way to get a complete listing of what it supports.
+`pycapi` is also fully loaded on import, so you can use tab-completion and other introspection techniques to discover APIs (it's also fully typed, so linters and other static editing tools "just work"). `ctypes.pythonapi` requires you to access the attribute *before* it is loaded, and there is no way to get a complete listing of what it supports.
 
 ### It's faster.
 

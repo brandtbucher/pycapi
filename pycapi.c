@@ -1987,6 +1987,10 @@ static PyObject* capi_PyComplex_RealAsDouble(PyObject* Py_UNUSED(self), PyObject
         return PyLong_FromLong(result);
     }
 
+# endif
+
+# if 0x030700F0 <= PY_VERSION_HEX < 0x030900F0
+
     static PyObject* capi_PyContext_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
         int result;
@@ -1999,6 +2003,10 @@ static PyObject* capi_PyComplex_RealAsDouble(PyObject* Py_UNUSED(self), PyObject
 
         return PyLong_FromLong(result);
     }
+
+# endif
+
+# if 0x030700F0 <= PY_VERSION_HEX
 
     static PyObject* capi_PyContext_Copy(PyObject* Py_UNUSED(self), PyObject* arg) {
 
@@ -2453,18 +2461,22 @@ static PyObject* capi_PyDict_Clear(PyObject* Py_UNUSED(self), PyObject* arg) {
     Py_RETURN_NONE;
 }
 
-static PyObject* capi_PyDict_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+# if PY_VERSION_HEX < 0x030900F0
 
-    int result;
+    static PyObject* capi_PyDict_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-    result = PyDict_ClearFreeList();
+        int result;
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        result = PyDict_ClearFreeList();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
     }
 
-    return PyLong_FromLong(result);
-}
+# endif
 
 static PyObject* capi_PyDict_Contains(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -4054,18 +4066,22 @@ static PyObject* capi_PyFloat_CheckExact(PyObject* Py_UNUSED(self), PyObject* ar
     return PyLong_FromLong(result);
 }
 
-static PyObject* capi_PyFloat_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+# if PY_VERSION_HEX < 0x030900F0
 
-    int result;
+    static PyObject* capi_PyFloat_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-    result = PyFloat_ClearFreeList();
+        int result;
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        result = PyFloat_ClearFreeList();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
     }
 
-    return PyLong_FromLong(result);
-}
+# endif
 
 static PyObject* capi_PyFloat_FromDouble(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -4520,16 +4536,20 @@ static PyObject* capi_PyImport_AddModuleObject(PyObject* Py_UNUSED(self), PyObje
     return result;
 }
 
-static PyObject* capi_PyImport_Cleanup(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+# if PY_VERSION_HEX < 0x030900F0
 
-    PyImport_Cleanup();
+    static PyObject* capi_PyImport_Cleanup(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        PyImport_Cleanup();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        Py_RETURN_NONE;
     }
 
-    Py_RETURN_NONE;
-}
+# endif
 
 static PyObject* capi_PyImport_ExecCodeModule(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -5102,18 +5122,22 @@ static PyObject* capi_PyList_CheckExact(PyObject* Py_UNUSED(self), PyObject* arg
     return PyLong_FromLong(result);
 }
 
-static PyObject* capi_PyList_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+# if PY_VERSION_HEX < 0x030900F0
 
-    int result;
+    static PyObject* capi_PyList_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-    result = PyList_ClearFreeList();
+        int result;
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        result = PyList_ClearFreeList();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
     }
 
-    return PyLong_FromLong(result);
-}
+# endif
 
 static PyObject* capi_PyList_GET_ITEM(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -6118,18 +6142,22 @@ static PyObject* capi_PyMethod_Check(PyObject* Py_UNUSED(self), PyObject* arg) {
     return PyLong_FromLong(result);
 }
 
-static PyObject* capi_PyMethod_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+# if PY_VERSION_HEX < 0x030900F0
 
-    int result;
+    static PyObject* capi_PyMethod_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-    result = PyMethod_ClearFreeList();
+        int result;
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        result = PyMethod_ClearFreeList();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
     }
 
-    return PyLong_FromLong(result);
-}
+# endif
 
 static PyObject* capi_PyMethod_Function(PyObject* Py_UNUSED(self), PyObject* arg) {
 
@@ -8790,18 +8818,22 @@ static PyObject* capi_PySet_Clear(PyObject* Py_UNUSED(self), PyObject* arg) {
     return PyLong_FromLong(result);
 }
 
-static PyObject* capi_PySet_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+# if PY_VERSION_HEX < 0x030900F0
 
-    int result;
+    static PyObject* capi_PySet_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-    result = PySet_ClearFreeList();
+        int result;
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        result = PySet_ClearFreeList();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
     }
 
-    return PyLong_FromLong(result);
-}
+# endif
 
 static PyObject* capi_PySet_Contains(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -9443,18 +9475,22 @@ static PyObject* capi_PyTuple_CheckExact(PyObject* Py_UNUSED(self), PyObject* ar
     return PyLong_FromLong(result);
 }
 
-static PyObject* capi_PyTuple_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+# if PY_VERSION_HEX < 0x030900F0
 
-    int result;
+    static PyObject* capi_PyTuple_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-    result = PyTuple_ClearFreeList();
+        int result;
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        result = PyTuple_ClearFreeList();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
     }
 
-    return PyLong_FromLong(result);
-}
+# endif
 
 static PyObject* capi_PyTuple_GET_ITEM(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -10008,18 +10044,22 @@ static PyObject* capi_PyUnicode_CheckExact(PyObject* Py_UNUSED(self), PyObject* 
     return PyLong_FromLong(result);
 }
 
-static PyObject* capi_PyUnicode_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
+# if PY_VERSION_HEX < 0x030900F0
 
-    int result;
+    static PyObject* capi_PyUnicode_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
-    result = PyUnicode_ClearFreeList();
+        int result;
 
-    if (PyErr_Occurred()) {
-        return NULL;
+        result = PyUnicode_ClearFreeList();
+
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+
+        return PyLong_FromLong(result);
     }
 
-    return PyLong_FromLong(result);
-}
+# endif
 
 static PyObject* capi_PyUnicode_Compare(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -12103,7 +12143,17 @@ static PyMethodDef CAPIMethods[] =  {
         /* PyContext */
 
         {"PyContext_CheckExact", capi_PyContext_CheckExact, METH_O, NULL},
+
+    # endif
+
+    # if 0x030700F0 <= PY_VERSION_HEX < 0x030900F0
+
         {"PyContext_ClearFreeList", capi_PyContext_ClearFreeList, METH_NOARGS, NULL},
+
+    # endif
+
+    # if 0x030700F0 <= PY_VERSION_HEX
+
         {"PyContext_Copy", capi_PyContext_Copy, METH_O, NULL},
         {"PyContext_CopyCurrent", capi_PyContext_CopyCurrent, METH_NOARGS, NULL},
         {"PyContext_Enter", capi_PyContext_Enter, METH_O, NULL},
@@ -12156,7 +12206,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyDict_Check", capi_PyDict_Check, METH_O, NULL},
     {"PyDict_CheckExact", capi_PyDict_CheckExact, METH_O, NULL},
     {"PyDict_Clear", capi_PyDict_Clear, METH_O, NULL},
-    {"PyDict_ClearFreeList", capi_PyDict_ClearFreeList, METH_NOARGS, NULL},
+
+    # if PY_VERSION_HEX < 0x030900F0
+
+        {"PyDict_ClearFreeList", capi_PyDict_ClearFreeList, METH_NOARGS, NULL},
+
+    # endif
+
     {"PyDict_Contains", capi_PyDict_Contains, METH_VARARGS, NULL},
     {"PyDict_Copy", capi_PyDict_Copy, METH_O, NULL},
     {"PyDict_DelItem", capi_PyDict_DelItem, METH_VARARGS, NULL},
@@ -12287,7 +12343,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyFloat_AsDouble", capi_PyFloat_AsDouble, METH_O, NULL},
     {"PyFloat_Check", capi_PyFloat_Check, METH_O, NULL},
     {"PyFloat_CheckExact", capi_PyFloat_CheckExact, METH_O, NULL},
-    {"PyFloat_ClearFreeList", capi_PyFloat_ClearFreeList, METH_NOARGS, NULL},
+
+    # if PY_VERSION_HEX < 0x030900F0
+
+        {"PyFloat_ClearFreeList", capi_PyFloat_ClearFreeList, METH_NOARGS, NULL},
+
+    # endif
+
     {"PyFloat_FromDouble", capi_PyFloat_FromDouble, METH_VARARGS, NULL},
     {"PyFloat_FromString", capi_PyFloat_FromString, METH_O, NULL},
     {"PyFloat_GetInfo", capi_PyFloat_GetInfo, METH_NOARGS, NULL},
@@ -12328,7 +12390,13 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyImport_AddModule", capi_PyImport_AddModule, METH_VARARGS, NULL},
     {"PyImport_AddModuleObject", capi_PyImport_AddModuleObject, METH_O, NULL},
-    {"PyImport_Cleanup", capi_PyImport_Cleanup, METH_NOARGS, NULL},
+
+    # if PY_VERSION_HEX < 0x030900F0
+
+        {"PyImport_Cleanup", capi_PyImport_Cleanup, METH_NOARGS, NULL},
+
+    # endif
+
     {"PyImport_ExecCodeModule", capi_PyImport_ExecCodeModule, METH_VARARGS, NULL},
     {"PyImport_ExecCodeModuleEx", capi_PyImport_ExecCodeModuleEx, METH_VARARGS, NULL},
     {"PyImport_ExecCodeModuleObject", capi_PyImport_ExecCodeModuleObject, METH_VARARGS, NULL},
@@ -12376,7 +12444,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyList_AsTuple", capi_PyList_AsTuple, METH_O, NULL},
     {"PyList_Check", capi_PyList_Check, METH_O, NULL},
     {"PyList_CheckExact", capi_PyList_CheckExact, METH_O, NULL},
-    {"PyList_ClearFreeList", capi_PyList_ClearFreeList, METH_NOARGS, NULL},
+
+    # if PY_VERSION_HEX < 0x030900F0
+
+        {"PyList_ClearFreeList", capi_PyList_ClearFreeList, METH_NOARGS, NULL},
+
+    # endif
+
     {"PyList_GET_ITEM", capi_PyList_GET_ITEM, METH_VARARGS, NULL},
     {"PyList_GET_SIZE", capi_PyList_GET_SIZE, METH_O, NULL},
     {"PyList_GetItem", capi_PyList_GetItem, METH_VARARGS, NULL},
@@ -12448,7 +12522,13 @@ static PyMethodDef CAPIMethods[] =  {
     /* PyMethod */
 
     {"PyMethod_Check", capi_PyMethod_Check, METH_O, NULL},
-    {"PyMethod_ClearFreeList", capi_PyMethod_ClearFreeList, METH_NOARGS, NULL},
+
+    # if PY_VERSION_HEX < 0x030900F0
+
+        {"PyMethod_ClearFreeList", capi_PyMethod_ClearFreeList, METH_NOARGS, NULL},
+
+    # endif
+
     {"PyMethod_Function", capi_PyMethod_Function, METH_O, NULL},
     {"PyMethod_GET_FUNCTION", capi_PyMethod_GET_FUNCTION, METH_O, NULL},
     {"PyMethod_GET_SELF", capi_PyMethod_GET_SELF, METH_O, NULL},
@@ -12634,7 +12714,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PySet_Add", capi_PySet_Add, METH_VARARGS, NULL},
     {"PySet_Check", capi_PySet_Check, METH_O, NULL},
     {"PySet_Clear", capi_PySet_Clear, METH_O, NULL},
-    {"PySet_ClearFreeList", capi_PySet_ClearFreeList, METH_NOARGS, NULL},
+
+    # if PY_VERSION_HEX < 0x030900F0
+
+        {"PySet_ClearFreeList", capi_PySet_ClearFreeList, METH_NOARGS, NULL},
+
+    # endif
+
     {"PySet_Contains", capi_PySet_Contains, METH_VARARGS, NULL},
     {"PySet_Discard", capi_PySet_Discard, METH_VARARGS, NULL},
     {"PySet_GET_SIZE", capi_PySet_GET_SIZE, METH_O, NULL},
@@ -12712,7 +12798,13 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyTuple_Check", capi_PyTuple_Check, METH_O, NULL},
     {"PyTuple_CheckExact", capi_PyTuple_CheckExact, METH_O, NULL},
-    {"PyTuple_ClearFreeList", capi_PyTuple_ClearFreeList, METH_NOARGS, NULL},
+
+    # if PY_VERSION_HEX < 0x030900F0
+
+        {"PyTuple_ClearFreeList", capi_PyTuple_ClearFreeList, METH_NOARGS, NULL},
+
+    # endif
+
     {"PyTuple_GET_ITEM", capi_PyTuple_GET_ITEM, METH_VARARGS, NULL},
     {"PyTuple_GET_SIZE", capi_PyTuple_GET_SIZE, METH_O, NULL},
     {"PyTuple_GetItem", capi_PyTuple_GetItem, METH_VARARGS, NULL},
@@ -12755,7 +12847,13 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicode_AsWideChar", capi_PyUnicode_AsWideChar, METH_VARARGS, NULL},
     {"PyUnicode_Check", capi_PyUnicode_Check, METH_O, NULL},
     {"PyUnicode_CheckExact", capi_PyUnicode_CheckExact, METH_O, NULL},
-    {"PyUnicode_ClearFreeList", capi_PyUnicode_ClearFreeList, METH_NOARGS, NULL},
+
+    # if PY_VERSION_HEX < 0x030900F0
+
+        {"PyUnicode_ClearFreeList", capi_PyUnicode_ClearFreeList, METH_NOARGS, NULL},
+
+    # endif
+
     {"PyUnicode_Compare", capi_PyUnicode_Compare, METH_VARARGS, NULL},
     {"PyUnicode_CompareWithASCIIString", capi_PyUnicode_CompareWithASCIIString, METH_VARARGS, NULL},
     {"PyUnicode_Concat", capi_PyUnicode_Concat, METH_VARARGS, NULL},
