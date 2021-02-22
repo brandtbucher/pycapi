@@ -1989,7 +1989,7 @@ static PyObject* capi_PyComplex_RealAsDouble(PyObject* Py_UNUSED(self), PyObject
 
 # endif
 
-# if 0x030700F0 <= PY_VERSION_HEX < 0x030900F0
+# if 0x030700F0 <= PY_VERSION_HEX && PY_VERSION_HEX < 0x030900F0
 
     static PyObject* capi_PyContext_ClearFreeList(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
@@ -3085,7 +3085,7 @@ static PyObject* capi_PyErr_Restore(PyObject* Py_UNUSED(self), PyObject* args) {
     Py_RETURN_NONE;
 }
 
-# ifdef MS_WINDOWS
+# if defined MS_WINDOWS
 
     static PyObject* capi_PyErr_SetExcFromWindowsErr(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -3306,7 +3306,7 @@ static PyObject* capi_PyErr_SetFromErrnoWithFilenameObjects(PyObject* Py_UNUSED(
     return result;
 }
 
-# ifdef MS_WINDOWS
+# if defined MS_WINDOWS
 
     static PyObject* capi_PyErr_SetFromWindowsErr(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -7373,8 +7373,7 @@ static PyObject* capi_PyOS_AfterFork(PyObject* Py_UNUSED(self), PyObject* Py_UNU
     Py_RETURN_NONE;
 }
 
-# if 0x030700F0 <= PY_VERSION_HEX
-# ifndef MS_WINDOWS
+# if 0x030700F0 <= PY_VERSION_HEX && !defined MS_WINDOWS
 
     static PyObject* capi_PyOS_AfterFork_Child(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
@@ -7410,9 +7409,8 @@ static PyObject* capi_PyOS_AfterFork(PyObject* Py_UNUSED(self), PyObject* Py_UNU
     }
 
 # endif
-# endif
 
-# ifdef USE_STACKCHECK
+# if defined USE_STACKCHECK
 
     static PyObject* capi_PyOS_CheckStack(PyObject* Py_UNUSED(self), PyObject* Py_UNUSED(null)) {
 
@@ -8937,7 +8935,7 @@ static PyObject* capi_PySet_Size(PyObject* Py_UNUSED(self), PyObject* arg) {
     return PyLong_FromSsize_t(result);
 }
 
-# ifndef MS_WINDOWS
+# if !defined MS_WINDOWS
 
     /* PySignal */
 
@@ -9846,7 +9844,7 @@ static PyObject* capi_PyUnicode_AsLatin1String(PyObject* Py_UNUSED(self), PyObje
     return result;
 }
 
-# ifdef MS_WINDOWS
+# if defined MS_WINDOWS
 
     static PyObject* capi_PyUnicode_AsMBCSString(PyObject* Py_UNUSED(self), PyObject* arg) {
 
@@ -10397,7 +10395,7 @@ static PyObject* capi_PyUnicode_DecodeLocaleAndSize(PyObject* Py_UNUSED(self), P
     return result;
 }
 
-# ifdef MS_WINDOWS
+# if defined MS_WINDOWS
 
     static PyObject* capi_PyUnicode_DecodeMBCS(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -10611,7 +10609,7 @@ static PyObject* capi_PyUnicode_EncodeCharmap(PyObject* Py_UNUSED(self), PyObjec
     return result;
 }
 
-# ifdef MS_WINDOWS
+# if defined MS_WINDOWS
 
     static PyObject* capi_PyUnicode_EncodeCodePage(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -10710,7 +10708,7 @@ static PyObject* capi_PyUnicode_EncodeLocale(PyObject* Py_UNUSED(self), PyObject
     return result;
 }
 
-# ifdef MS_WINDOWS
+# if defined MS_WINDOWS
 
     static PyObject* capi_PyUnicode_EncodeMBCS(PyObject* Py_UNUSED(self), PyObject* args) {
 
@@ -12146,7 +12144,7 @@ static PyMethodDef CAPIMethods[] =  {
 
     # endif
 
-    # if 0x030700F0 <= PY_VERSION_HEX < 0x030900F0
+    # if 0x030700F0 <= PY_VERSION_HEX && PY_VERSION_HEX < 0x030900F0
 
         {"PyContext_ClearFreeList", capi_PyContext_ClearFreeList, METH_NOARGS, NULL},
 
@@ -12252,7 +12250,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyErr_PrintEx", capi_PyErr_PrintEx, METH_VARARGS, NULL},
     {"PyErr_Restore", capi_PyErr_Restore, METH_VARARGS, NULL},
 
-    # ifdef MS_WINDOWS
+    # if defined MS_WINDOWS
 
         {"PyErr_SetExcFromWindowsErr", capi_PyErr_SetExcFromWindowsErr, METH_VARARGS, NULL},
         {"PyErr_SetExcFromWindowsErrWithFilename", capi_PyErr_SetExcFromWindowsErrWithFilename, METH_VARARGS, NULL},
@@ -12267,7 +12265,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyErr_SetFromErrnoWithFilenameObject", capi_PyErr_SetFromErrnoWithFilenameObject, METH_VARARGS, NULL},
     {"PyErr_SetFromErrnoWithFilenameObjects", capi_PyErr_SetFromErrnoWithFilenameObjects, METH_VARARGS, NULL},
 
-    # ifdef MS_WINDOWS
+    # if defined MS_WINDOWS
 
         {"PyErr_SetFromWindowsErr", capi_PyErr_SetFromWindowsErr, METH_VARARGS, NULL},
         {"PyErr_SetFromWindowsErrWithFilename", capi_PyErr_SetFromWindowsErrWithFilename, METH_VARARGS, NULL},
@@ -12607,17 +12605,15 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyOS_AfterFork", capi_PyOS_AfterFork, METH_NOARGS, NULL},
 
-    # if 0x030700F0 <= PY_VERSION_HEX
-    # ifndef MS_WINDOWS
+    # if 0x030700F0 <= PY_VERSION_HEX && !defined MS_WINDOWS
 
         {"PyOS_AfterFork_Child", capi_PyOS_AfterFork_Child, METH_NOARGS, NULL},
         {"PyOS_AfterFork_Parent", capi_PyOS_AfterFork_Parent, METH_NOARGS, NULL},
         {"PyOS_BeforeFork", capi_PyOS_BeforeFork, METH_NOARGS, NULL},
 
     # endif
-    # endif
 
-    # ifdef USE_STACKCHECK
+    # if defined USE_STACKCHECK
 
         {"PyOS_CheckStack", capi_PyOS_CheckStack, METH_NOARGS, NULL},
 
@@ -12728,7 +12724,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PySet_Pop", capi_PySet_Pop, METH_O, NULL},
     {"PySet_Size", capi_PySet_Size, METH_O, NULL},
 
-    # ifndef MS_WINDOWS
+    # if !defined MS_WINDOWS
 
         /* PySignal */
 
@@ -12830,7 +12826,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicode_AsEncodedString", capi_PyUnicode_AsEncodedString, METH_VARARGS, NULL},
     {"PyUnicode_AsLatin1String", capi_PyUnicode_AsLatin1String, METH_O, NULL},
 
-    # ifdef MS_WINDOWS
+    # if defined MS_WINDOWS
 
         {"PyUnicode_AsMBCSString", capi_PyUnicode_AsMBCSString, METH_O, NULL},
 
@@ -12869,7 +12865,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicode_DecodeLocale", capi_PyUnicode_DecodeLocale, METH_VARARGS, NULL},
     {"PyUnicode_DecodeLocaleAndSize", capi_PyUnicode_DecodeLocaleAndSize, METH_VARARGS, NULL},
 
-    # ifdef MS_WINDOWS
+    # if defined MS_WINDOWS
 
         {"PyUnicode_DecodeMBCS", capi_PyUnicode_DecodeMBCS, METH_VARARGS, NULL},
 
@@ -12883,7 +12879,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicode_EncodeASCII", capi_PyUnicode_EncodeASCII, METH_VARARGS, NULL},
     {"PyUnicode_EncodeCharmap", capi_PyUnicode_EncodeCharmap, METH_VARARGS, NULL},
 
-    # ifdef MS_WINDOWS
+    # if defined MS_WINDOWS
 
         {"PyUnicode_EncodeCodePage", capi_PyUnicode_EncodeCodePage, METH_VARARGS, NULL},
 
@@ -12893,7 +12889,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyUnicode_EncodeLatin1", capi_PyUnicode_EncodeLatin1, METH_VARARGS, NULL},
     {"PyUnicode_EncodeLocale", capi_PyUnicode_EncodeLocale, METH_VARARGS, NULL},
 
-    # ifdef MS_WINDOWS
+    # if defined MS_WINDOWS
 
         {"PyUnicode_EncodeMBCS", capi_PyUnicode_EncodeMBCS, METH_VARARGS, NULL},
 
