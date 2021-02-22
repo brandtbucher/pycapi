@@ -4,72 +4,43 @@ import sys
 
 ARTIFACTS = ["*.egg-info", "*.so", "MANIFEST", "build", "dist"]
 
+if (3, 6) <= sys.version_info:
+    ARTIFACTS.extend(("*.c", "*.pyi"))
+
 
 @invoke.task
 def clean(context):
-
-    print("\nCLEAN\n")
-
-    context.run("{} setup.py develop --uninstall".format(sys.executable))
-
+    context.run("{} setup.py develop --uninstall".format(sys.executable), echo=True)
     for artifact in sorted(ARTIFACTS):
-        context.run("rm -rf {artifact}".format(artifact=artifact))
+        context.run("rm -rf {artifact}".format(artifact=artifact), echo=True)
 
 
-pre_build = clean
+@invoke.task(clean)
+def generate(context):
+    if (3, 6) <= sys.version_info:
+        context.run("{} generate.py".format(sys.executable), echo=True)
+        context.run("black .", echo=True)
 
 
-if (3, 6) <= sys.version_info:
-
-    ARTIFACTS.extend(("*.c", "*.pyi"))
-
-    @invoke.task(clean)
-    def generate(context):
-
-        print("\nGENERATE\n")
-
-        context.run("{} generate.py".format(sys.executable))
-        context.run("black .")
-
-    pre_build = generate
-
-
-@invoke.task(pre_build)
+@invoke.task(generate)
 def build(context):
-
-    print("\nBUILD\n")
-
     context.run(
         "{} setup.py develop sdist bdist_wheel".format(sys.executable),
         env={"CFLAGS": "-Werror -Wno-deprecated-declarations"},
         replace_env=False,
+        echo=True,
     )
-
-    context.run("twine check dist/*")
+    context.run("twine check dist/*", echo=True)
 
 
 @invoke.task(build)
 def test(context):
-
-    print("\nTEST\n")
-
     if (3, 6) <= sys.version_info:
-
         context.run(
             "{} -c \"import generate, pycapi; print('APIs:', len([api for api in dir(pycapi) if not api.startswith('_')]), '/', len(generate.API + generate.MACROS))\"".format(
                 sys.executable
-            )
+            ),
+            echo=True,
         )
-
-    # context.run("mypy --strict .")
-    # context.run("pytest")
-
-    pass
-
-
-@invoke.task(test)
-def release(context):
-
-    print("\nRELEASE\n")
-
-    context.run("twine upload dist/*")
+    # context.run("mypy --strict .", echo=True)
+    # context.run("pytest", echo=True)
