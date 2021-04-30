@@ -23,6 +23,7 @@ jobs:
   whl:
     name: Build / ${{ matrix.os }} / Python 3.${{ matrix.minor }}
     strategy:
+      fail-fast: false
       matrix:
         os: [macOS, Ubuntu, Windows]
         minor: [6, 7, 8, 9]
