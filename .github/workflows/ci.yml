@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - uses: joerick/cibuildwheel@v1.9.0
+      - uses: pypa/cibuildwheel@v2.5.0
         with:
           output-dir: dist
         env:
