@@ -26,20 +26,16 @@ jobs:
       fail-fast: false
       matrix:
         os: [macOS, Ubuntu, Windows]
-        minor: [6, 7, 8, 9]
+        minor: [7, 8, 9, 10]
     runs-on: ${{ matrix.os }}-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - uses: docker/setup-qemu-action@v1
-        if: matrix.os == 'Ubuntu' && github.event_name == 'release' && github.event.action == 'published'
-        with:
-          platforms: all
       - uses: joerick/cibuildwheel@v1.9.0
         with:
           output-dir: dist
         env:
-          CIBW_ARCHS: "${{ github.event_name == 'release' && github.event.action == 'published' && 'all' || 'auto' }}"
+          CIBW_ARCHS_MACOS: all
           CIBW_ENVIRONMENT: "CFLAGS='-Werror -Wno-deprecated-declarations'"
           CIBW_BUILD: cp3${{ matrix.minor }}-*
           # CIBW_BEFORE_TEST: pip install -r {project}/requirements.txt

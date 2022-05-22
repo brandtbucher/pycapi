@@ -1,4 +1,4 @@
-black; '3.6' <= python_version
+black
 hypothesis
 invoke
 pytest

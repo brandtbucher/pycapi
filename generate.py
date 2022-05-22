@@ -20,13 +20,7 @@ API: typing.Tuple[
     ("Py_Exit", "i", "!"),
     ("Py_FatalError", "y", "!"),
     ("Py_Finalize", "", ""),
-    (
-        "Py_FinalizeEx",
-        "",
-        "i",
-        "0x030600F0 <= PY_VERSION_HEX",
-        '(3, 6, 0, "final", 0) <= sys.version_info',
-    ),
+    ("Py_FinalizeEx", "", "i"),
     ("Py_GetBuildInfo", "", "y"),
     ("Py_GetCompiler", "", "y"),
     ("Py_GetCopyright", "", "y"),
@@ -118,13 +112,7 @@ API: typing.Tuple[
     ("PyCodec_IncrementalEncoder", "yy", "N"),
     ("PyCodec_KnownEncoding", "y", "i"),
     ("PyCodec_LookupError", "y", "N"),
-    (
-        "PyCodec_NameReplaceErrors",
-        "O",
-        "N",
-        "0x030500F0 <= PY_VERSION_HEX",
-        '(3, 5, 0, "final", 0) <= sys.version_info',
-    ),
+    ("PyCodec_NameReplaceErrors", "O", "N"),
     ("PyCodec_Register", "O", "i"),
     ("PyCodec_RegisterError", "yO", "i"),
     ("PyCodec_ReplaceErrors", "O", "N"),
@@ -139,90 +127,16 @@ API: typing.Tuple[
     ("PyComplex_FromDoubles", "dd", "N"),
     ("PyComplex_ImagAsDouble", "O", "d"),
     ("PyComplex_RealAsDouble", "O", "d"),
-    (
-        "PyContext_CheckExact",
-        "O",
-        "i",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
+    ("PyContext_CheckExact", "O", "i"),
     (
         "PyContext_ClearFreeList",
         "",
         "i",
-        "0x030700F0 <= PY_VERSION_HEX && PY_VERSION_HEX < 0x030900F0",
-        '(3, 7, 0, "final", 0) <= sys.version_info < (3, 9, 0, "final", 0)',
+        "PY_VERSION_HEX < 0x030900F0",
+        'sys.version_info < (3, 9, 0, "final", 0)',
     ),
-    (
-        "PyContext_Copy",
-        "O",
-        "N",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyContext_CopyCurrent",
-        "",
-        "N",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyContext_Enter",
-        "O",
-        "i",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyContext_Exit",
-        "O",
-        "i",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyContext_New",
-        "",
-        "N",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyContextToken_CheckExact",
-        "O",
-        "i",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyContextVar_CheckExact",
-        "O",
-        "i",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyContextVar_New",
-        "yO",
-        "N",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyContextVar_Reset",
-        "OO",
-        "i",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyContextVar_Set",
-        "OO",
-        "N",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
+    ("PyContextToken_CheckExact", "O", "i"),
+    ("PyContextVar_CheckExact", "O", "i"),
     ("PyCoro_CheckExact", "O", "i"),
     ("PyDate_Check", "O", "i"),
     ("PyDate_CheckExact", "O", "i"),
@@ -326,13 +240,7 @@ API: typing.Tuple[
         'sys.platform == "win32"',
     ),
     ("PyErr_SetImportError", "OOO", "N"),
-    (
-        "PyErr_SetImportErrorSubclass",
-        "OOOO",
-        "N",
-        "0x030600F0 <= PY_VERSION_HEX",
-        '(3, 6, 0, "final", 0) <= sys.version_info',
-    ),
+    ("PyErr_SetImportErrorSubclass", "OOOO", "N"),
     ("PyErr_SetInterrupt", "", ""),
     ("PyErr_SetNone", "O", ""),
     ("PyErr_SetObject", "OO", ""),
@@ -347,13 +255,6 @@ API: typing.Tuple[
     ("PyEval_AcquireLock", "", ""),
     ("PyEval_EvalCode", "OOO", "N"),
     ("PyEval_GetBuiltins", "", "N"),
-    (
-        "PyEval_GetCallStats",
-        "O",
-        "N",
-        "PY_VERSION_HEX < 0x030700F0",
-        'sys.version_info < (3, 7, 0, "final", 0)',
-    ),
     ("PyEval_GetFuncDesc", "O", "y"),
     ("PyEval_GetFuncName", "O", "y"),
     ("PyEval_GetGlobals", "", "N"),
@@ -428,13 +329,7 @@ API: typing.Tuple[
     ("PyImport_GetImporter", "O", "N"),
     ("PyImport_GetMagicNumber", "", "l"),
     ("PyImport_GetMagicTag", "", "y"),
-    (
-        "PyImport_GetModule",
-        "O",
-        "N",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
+    ("PyImport_GetModule", "O", "N"),
     ("PyImport_GetModuleDict", "", "N"),
     ("PyImport_Import", "O", "N"),
     ("PyImport_ImportFrozenModule", "y", "i"),
@@ -489,7 +384,13 @@ API: typing.Tuple[
     ("PyLong_FromLong", "l", "N"),
     ("PyLong_FromLongLong", "L", "N"),
     ("PyLong_FromSsize_t", "n", "N"),
-    ("PyLong_FromUnicode", "uni", "N"),
+    (
+        "PyLong_FromUnicode",
+        "uni",
+        "N",
+        "PY_VERSION_HEX < 0x030A00F0",
+        'sys.version_info < (3, 10, 0, "final", 0)',
+    ),
     ("PyLong_FromUnicodeObject", "Oi", "N"),
     ("PyLong_FromUnsignedLong", "k", "N"),
     ("PyLong_FromUnsignedLongLong", "K", "N"),
@@ -553,13 +454,7 @@ API: typing.Tuple[
     ("PyNumber_InPlaceAnd", "OO", "N"),
     ("PyNumber_InPlaceFloorDivide", "OO", "N"),
     ("PyNumber_InPlaceLshift", "OO", "N"),
-    (
-        "PyNumber_InPlaceMatrixMultiply",
-        "OO",
-        "N",
-        "0x030500F0 <= PY_VERSION_HEX",
-        '(3, 5, 0, "final", 0) <= sys.version_info',
-    ),
+    ("PyNumber_InPlaceMatrixMultiply", "OO", "N"),
     ("PyNumber_InPlaceMultiply", "OO", "N"),
     ("PyNumber_InPlaceOr", "OO", "N"),
     ("PyNumber_InPlacePower", "OOO", "N"),
@@ -572,13 +467,7 @@ API: typing.Tuple[
     ("PyNumber_Invert", "O", "N"),
     ("PyNumber_Long", "O", "N"),
     ("PyNumber_Lshift", "OO", "N"),
-    (
-        "PyNumber_MatrixMultiply",
-        "OO",
-        "N",
-        "0x030500F0 <= PY_VERSION_HEX",
-        '(3, 5, 0, "final", 0) <= sys.version_info',
-    ),
+    ("PyNumber_MatrixMultiply", "OO", "N"),
     ("PyNumber_Multiply", "OO", "N"),
     ("PyNumber_Negative", "O", "N"),
     ("PyNumber_Or", "OO", "N"),
@@ -591,41 +480,17 @@ API: typing.Tuple[
     ("PyNumber_TrueDivide", "OO", "N"),
     ("PyNumber_Xor", "OO", "N"),
     ("PyOS_AfterFork", "", ""),
-    (
-        "PyOS_AfterFork_Child",
-        "",
-        "",
-        "0x030700F0 <= PY_VERSION_HEX && !defined MS_WINDOWS",
-        '(3, 7, 0, "final", 0) <= sys.version_info and sys.platform != "win32"',
-    ),
-    (
-        "PyOS_AfterFork_Parent",
-        "",
-        "",
-        "0x030700F0 <= PY_VERSION_HEX && !defined MS_WINDOWS",
-        '(3, 7, 0, "final", 0) <= sys.version_info and sys.platform != "win32"',
-    ),
-    (
-        "PyOS_BeforeFork",
-        "",
-        "",
-        "0x030700F0 <= PY_VERSION_HEX && !defined MS_WINDOWS",
-        '(3, 7, 0, "final", 0) <= sys.version_info and sys.platform != "win32"',
-    ),
+    ("PyOS_AfterFork_Child", "", "", "!defined MS_WINDOWS", 'sys.platform != "win32"'),
+    ("PyOS_AfterFork_Parent", "", "", "!defined MS_WINDOWS", 'sys.platform != "win32"'),
+    ("PyOS_BeforeFork", "", "", "!defined MS_WINDOWS", 'sys.platform != "win32"'),
     (
         "PyOS_CheckStack",
         "",
         "i",
         "defined USE_STACKCHECK",
-        'sys.platform == "win32"',  # TODO: thid should be more specific...
+        'sys.platform == "win32"',  # TODO: this should be more specific...
     ),
-    (
-        "PyOS_FSPath",
-        "O",
-        "N",
-        "0x030600F0 <= PY_VERSION_HEX",
-        '(3, 6, 0, "final", 0) <= sys.version_info',
-    ),
+    ("PyOS_FSPath", "O", "N"),
     ("PyOS_stricmp", "yy", "i"),
     ("PyOS_strnicmp", "yyn", "i"),
     ("PyObject_ASCII", "O", "N"),
@@ -709,13 +574,6 @@ API: typing.Tuple[
     ("PySet_New", "O", "N"),
     ("PySet_Pop", "O", "N"),
     ("PySet_Size", "O", "n"),
-    (
-        "PySignal_SetWakeupFd",
-        "i",
-        "i",
-        "!defined MS_WINDOWS",
-        'sys.platform != "win32"',
-    ),
     ("PySlice_Check", "O", "i"),
     ("PySlice_New", "OOO", "N"),
     ("PyStructSequence_GET_ITEM", "On", "N"),
@@ -731,53 +589,17 @@ API: typing.Tuple[
     ("PySys_SetPath", "u", ""),
     ("PyTZInfo_Check", "O", "i"),
     ("PyTZInfo_CheckExact", "O", "i"),
-    (
-        "PyThread_ReInitTLS",
-        "",
-        "",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyThread_create_key",
-        "",
-        "i",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyThread_delete_key",
-        "i",
-        "",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyThread_delete_key_value",
-        "i",
-        "",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
+    ("PyThread_ReInitTLS", "", ""),
+    ("PyThread_create_key", "", "i"),
+    ("PyThread_delete_key", "i", ""),
+    ("PyThread_delete_key_value", "i", ""),
     ("PyThreadState_GetDict", "", "N"),
     ("PyThreadState_SetAsyncExc", "kO", "i"),
     ("PyTime_Check", "O", "i"),
     ("PyTime_CheckExact", "O", "i"),
     ("PyTime_FromTime", "iiii", "N"),
-    (
-        "PyTimeZone_FromOffset",
-        "O",
-        "N",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
-    (
-        "PyTimeZone_FromOffsetAndName",
-        "OO",
-        "N",
-        "0x030700F0 <= PY_VERSION_HEX",
-        '(3, 7, 0, "final", 0) <= sys.version_info',
-    ),
+    ("PyTimeZone_FromOffset", "O", "N"),
+    ("PyTimeZone_FromOffsetAndName", "OO", "N"),
     ("PyTuple_Check", "O", "i"),
     ("PyTuple_CheckExact", "O", "i"),
     (
@@ -818,7 +640,13 @@ API: typing.Tuple[
     ("PyUnicode_AsUTF8", "O", "y"),
     ("PyUnicode_AsUTF8String", "O", "N"),
     ("PyUnicode_AsUnicode", "O", "u"),
-    ("PyUnicode_AsUnicodeCopy", "O", "u"),
+    (
+        "PyUnicode_AsUnicodeCopy",
+        "O",
+        "u",
+        "PY_VERSION_HEX < 0x030A00F0",
+        'sys.version_info < (3, 10, 0, "final", 0)',
+    ),
     ("PyUnicode_AsUnicodeEscapeString", "O", "N"),
     ("PyUnicode_AsWideChar", "Oun", "n"),
     ("PyUnicode_Check", "O", "i"),
@@ -1007,40 +835,40 @@ RETURN_TYPES_PYI = {
 }
 
 ARG_TYPES_C = {
-    "C": "unsigned int",
-    "c": "char",
-    "D": "Py_complex",
-    "d": "double",
-    "I": "unsigned int",
-    "i": "int",
-    "K": "unsigned long long int",
-    "k": "unsigned long int",
-    "L": "long long int",
-    "l": "long int",
-    "n": "Py_ssize_t",
-    "O": "PyObject*",
-    "u": "wchar_t*",
-    "y": "char*",
-    "y*": "Py_buffer*",
+    "C": "unsigned int ",
+    "c": "char ",
+    "D": "Py_complex ",
+    "d": "double ",
+    "I": "unsigned int ",
+    "i": "int ",
+    "K": "unsigned long long int ",
+    "k": "unsigned long int ",
+    "L": "long long int ",
+    "l": "long int ",
+    "n": "Py_ssize_t ",
+    "O": "PyObject *",
+    "u": "wchar_t *",
+    "y": "char *",
+    "y*": "Py_buffer *",
 }
 
 RETURN_TYPES_C = {
-    "": "void",
-    "!": "void",
-    "C": "int",
-    "D": "Py_complex",
-    "d": "double",
-    "I": "unsigned int",
-    "i": "int",
-    "K": "unsigned long long int",
-    "k": "unsigned long int",
-    "L": "long long int",
-    "l": "long int",
-    "N": "PyObject*",
-    "n": "Py_ssize_t",
-    "u": "const wchar_t*",
-    "y": "const char*",
-    "y*": "Py_buffer*",
+    "": "void ",
+    "!": "void ",
+    "C": "int ",
+    "D": "Py_complex ",
+    "d": "double ",
+    "I": "unsigned int ",
+    "i": "int ",
+    "K": "unsigned long long int ",
+    "k": "unsigned long int ",
+    "L": "long long int ",
+    "l": "long int ",
+    "N": "PyObject *",
+    "n": "Py_ssize_t ",
+    "u": "const wchar_t *",
+    "y": "const char *",
+    "y*": "Py_buffer *",
 }
 
 CONVERTERS = {
@@ -1066,18 +894,18 @@ EXTRAS = {"*"}
 SKIP = {"|"}
 
 FUNCTIONDEF = """\
-static PyObject* capi_{}(PyObject* Py_UNUSED(self), PyObject* {}) {{
+static PyObject *
+capi_{}(PyObject *Py_UNUSED(self), PyObject *{})
+{{
 {}
 }}
 """
 
 ERROR_CHECK_PYOBJECT = """\
 if (!result) {
-
     if (PyErr_Occurred()) {
         return NULL;
     }
-
     Py_RETURN_NONE;
 }
 """
@@ -1096,9 +924,9 @@ PYCAPI_C = """\
 /* This file is automatically generated by generate.py. */
 
 
-# include "Python.h"
-# include "datetime.h"
-# include "marshal.h"
+#include "Python.h"
+#include "datetime.h"
+#include "marshal.h"
 
 
 // static PyTypeObject NULLType;
@@ -1123,96 +951,6 @@ static PyMethodDef CAPIMethods[] =  {{
 }};
 
 
-/* NULL */
-
-
-// static int null_bool(PyObject *Py_UNUSED(null)) {{
-//     return 0;
-// }}
-
-// static PyObject* null_repr(PyObject *Py_UNUSED(null)) {{
-//     return PyUnicode_FromString("NULL");
-// }}
-
-// static PyNumberMethods null_as_number = {{
-//     0,         /* nb_add */
-//     0,         /* nb_subtract */
-//     0,         /* nb_multiply */
-//     0,         /* nb_remainder */
-//     0,         /* nb_divmod */
-//     0,         /* nb_power */
-//     0,         /* nb_negative */
-//     0,         /* nb_positive */
-//     0,         /* nb_absolute */
-//     null_bool, /* nb_bool */
-//     0,         /* nb_invert */
-//     0,         /* nb_lshift */
-//     0,         /* nb_rshift */
-//     0,         /* nb_and */
-//     0,         /* nb_xor */
-//     0,         /* nb_or */
-//     0,         /* nb_int */
-//     0,         /* nb_reserved */
-//     0,         /* nb_float */
-//     0,         /* nb_inplace_add */
-//     0,         /* nb_inplace_subtract */
-//     0,         /* nb_inplace_multiply */
-//     0,         /* nb_inplace_remainder */
-//     0,         /* nb_inplace_power */
-//     0,         /* nb_inplace_lshift */
-//     0,         /* nb_inplace_rshift */
-//     0,         /* nb_inplace_and */
-//     0,         /* nb_inplace_xor */
-//     0,         /* nb_inplace_or */
-//     0,         /* nb_floor_divide */
-//     0,         /* nb_true_divide */
-//     0,         /* nb_inplace_floor_divide */
-//     0,         /* nb_inplace_true_divide */
-//     0,         /* nb_index */
-// }};
-
-// static PyTypeObject NULLType = {{
-//     {{PyObject_HEAD_INIT(&PyType_Type)}},
-//     "void *",        /* tp_name */
-//     0,               /* tp_basicsize */
-//     0,               /* tp_itemsize */
-//     0,               /* tp_dealloc */
-//     0,               /* tp_print */
-//     0,               /* tp_getattr */
-//     0,               /* tp_setattr */
-//     0,               /* tp_reserved */
-//     null_repr,       /* tp_repr */
-//     &null_as_number, /* tp_as_number */
-//     0,               /* tp_as_sequence */
-//     0,               /* tp_as_mapping */
-//     0,               /* tp_hash */
-//     0,               /* tp_call */
-//     0,               /* tp_str */
-//     0,               /* tp_getattro */
-//     0,               /* tp_setattro */
-//     0,               /* tp_as_buffer */
-//     0,               /* tp_flags */
-//     0,               /* tp_doc */
-//     0,               /* tp_traverse */
-//     0,               /* tp_clear */
-//     0,               /* tp_richcompare */
-//     0,               /* tp_weaklistoffset */
-//     0,               /* tp_iter */
-//     0,               /* tp_iternext */
-//     0,               /* tp_methods */
-//     0,               /* tp_members */
-//     0,               /* tp_getset */
-//     0,               /* tp_base */
-//     0,               /* tp_dict */
-//     0,               /* tp_descr_get */
-//     0,               /* tp_descr_set */
-//     0,               /* tp_dictoffset */
-//     0,               /* tp_init */
-//     0,               /* tp_alloc */
-//     0,               /* tp_new */
-// }};
-
-
 /* Module initialization boilerplate: */
 
 
@@ -1221,30 +959,14 @@ static struct PyModuleDef CAPIModule = {{
 }};
 
 
-PyObject* PyInit_pycapi(void) {{
-
-    PyObject* capi;
-    //PyObject* capi_null;
-
+PyObject *PyInit_pycapi(void) {{
     PyDateTime_IMPORT;
-
-    capi = PyModule_Create(&CAPIModule);
-
+    PyObject *capi = PyModule_Create(&CAPIModule);
     if (
 {}
     ) {{
         return NULL;
     }}
-
-    /*
-    capi_null = PyObject_New(PyObject, &NULLType);
-
-    if (!capi_null) {{
-        return NULL;
-    }}
-
-    PyModule_AddObject(capi, "_NULL", capi_null);
-    */
     return capi;
 }}
 """
@@ -1285,17 +1007,14 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
             preprocessed_args.append(code)
 
     if arg_types and arg_types != "O":
-        body.append("")
         body.extend(
-            "{} arg{};".format(ARG_TYPES_C[annotation], arg)
+            "{}arg{};".format(ARG_TYPES_C[annotation], arg)
             for arg, annotation in enumerate(preprocessed_args)
         )
     if return_type and return_type != "!":
-        body.append("")
-        body.append(f"{RETURN_TYPES_C[return_type]} result;")
+        body.append(f"{RETURN_TYPES_C[return_type]}result;")
 
     if arg_types and arg_types != "O":
-        body.append("")
         if set(arg_types) == {"O"}:
             body.append(
                 'if (!PyArg_UnpackTuple(args, "{}", {}, {}{})) {{'.format(
@@ -1321,7 +1040,6 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
         body.append("}")
 
     if return_type and return_type != "!":
-        body.append("")
         body.append(
             "result = {}({});".format(
                 api,
@@ -1331,7 +1049,6 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
             )
         )
     else:
-        body.append("")
         body.append(
             "{}({});".format(
                 api,
@@ -1342,13 +1059,10 @@ def build_definition(api: str, arg_types: str, return_type: str) -> str:
         )
 
     if return_type == "N":
-        body.append("")
         body.extend(ERROR_CHECK_PYOBJECT.splitlines())
     elif return_type != "!":
-        body.append("")
         body.extend(ERROR_CHECK.splitlines())
 
-    body.append("")
     body.append(CONVERTERS[return_type])
 
     if not arg_types:
@@ -1389,8 +1103,8 @@ if __name__ == "__main__":
                 pycapi_c_1.append("")
                 pycapi_c_2.append("")
 
-                pycapi_c_1.append("# endif")
-                pycapi_c_2.append(INDENT + "# endif")
+                pycapi_c_1.append("#endif")
+                pycapi_c_2.append(INDENT + "#endif")
 
             pycapi_c_1.append("")
             pycapi_c_2.append("")
@@ -1398,8 +1112,8 @@ if __name__ == "__main__":
 
             if new_condition:
 
-                pycapi_c_1.append(f"# if {new_condition[0]}")
-                pycapi_c_2.append(INDENT + f"# if {new_condition[0]}")
+                pycapi_c_1.append(f"#if {new_condition[0]}")
+                pycapi_c_2.append(INDENT + f"#if {new_condition[0]}")
 
                 pycapi_pyi.append(f"if {new_condition[1]}:")
 
@@ -1453,8 +1167,8 @@ if __name__ == "__main__":
         pycapi_c_1.append("")
         pycapi_c_2.append("")
 
-        pycapi_c_1.append("# endif")
-        pycapi_c_2.append(INDENT + "# endif")
+        pycapi_c_1.append("#endif")
+        pycapi_c_2.append(INDENT + "#endif")
 
     indent = False
 
