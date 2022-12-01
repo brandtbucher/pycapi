@@ -8402,7 +8402,7 @@ capi_PyUnicode_EncodeLocale(PyObject *Py_UNUSED(self), PyObject *args)
     return result;
 }
 
-#if defined MS_WINDOWS
+#if defined MS_WINDOWS && PY_VERSION_HEX < 0x030B00F0
 
     static PyObject *
     capi_PyUnicode_EncodeMBCS(PyObject *Py_UNUSED(self), PyObject *args)
@@ -10275,7 +10275,7 @@ static PyMethodDef CAPIMethods[] =  {
 
     {"PyUnicode_EncodeLocale", capi_PyUnicode_EncodeLocale, METH_VARARGS, NULL},
 
-    #if defined MS_WINDOWS
+    #if defined MS_WINDOWS && PY_VERSION_HEX < 0x030B00F0
 
         {"PyUnicode_EncodeMBCS", capi_PyUnicode_EncodeMBCS, METH_VARARGS, NULL},
 

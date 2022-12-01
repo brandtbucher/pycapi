@@ -879,7 +879,7 @@ if sys.version_info < (3, 11, 0, "final", 0):
 
 def PyUnicode_EncodeLocale(__0: object, __1: bytes) -> typing.Any: ...
 
-if sys.platform == "win32":
+if sys.platform == "win32" and sys.version_info < (3, 11, 0, "final", 0):
 
     def PyUnicode_EncodeMBCS(__0: str, __1: int, __2: bytes) -> typing.Any: ...
 

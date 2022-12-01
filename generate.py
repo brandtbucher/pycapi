@@ -724,8 +724,8 @@ API: typing.Tuple[
         "PyUnicode_EncodeMBCS",
         "uny",
         "N",
-        "defined MS_WINDOWS",
-        'sys.platform == "win32"',
+        "defined MS_WINDOWS && PY_VERSION_HEX < 0x030B00F0",
+        'sys.platform == "win32" and sys.version_info < (3, 11, 0, "final", 0)',
     ),
     (
         "PyUnicode_EncodeRawUnicodeEscape",
