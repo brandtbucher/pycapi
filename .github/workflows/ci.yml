@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macOS, Ubuntu, Windows]
-        minor: [7, 8, 9, 10]
+        minor: [7, 8, 9, 10, 11]
     runs-on: ${{ matrix.os }}-latest
     steps:
       - uses: actions/checkout@v2
