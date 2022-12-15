@@ -5,7 +5,7 @@
 PyCAPI
 ======
 
-[![latest version](https://img.shields.io/github/release-pre/brandtbucher/pycapi.svg?style=for-the-badge&label=latest)![latest release date](https://img.shields.io/github/release-date-pre/brandtbucher/pycapi.svg?style=for-the-badge&label=released)](https://github.com/brandtbucher/pycapi/releases)[![build status](https://img.shields.io/github/workflow/status/brandtbucher/pycapi/CI/master.svg?style=for-the-badge)](https://github.com/brandtbucher/pycapi/actions)[![issues](https://img.shields.io/github/issues-raw/brandtbucher/pycapi.svg?label=issues&style=for-the-badge)](https://github.com/brandtbucher/pycapi/issues)
+[![latest version](https://img.shields.io/github/release-pre/brandtbucher/pycapi.svg?style=for-the-badge&label=latest)![latest release date](https://img.shields.io/github/release-date-pre/brandtbucher/pycapi.svg?style=for-the-badge&label=released)](https://github.com/brandtbucher/pycapi/releases)[![build status](https://img.shields.io/github/actions/workflow/status/brandtbucher/pycapi/ci.yml.svg?style=for-the-badge&branch=master)](https://github.com/brandtbucher/pycapi/actions)[![issues](https://img.shields.io/github/issues-raw/brandtbucher/pycapi.svg?label=issues&style=for-the-badge)](https://github.com/brandtbucher/pycapi/issues)
 
 <br>
 
