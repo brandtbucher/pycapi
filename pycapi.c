@@ -2080,6 +2080,32 @@ capi_PyDict_New(PyObject *Py_UNUSED(self), PyObject *Py_UNUSED(null))
 }
 
 static PyObject *
+capi_PyDict_Next(PyObject *Py_UNUSED(self), PyObject *args)
+{
+    PyObject *arg0;
+    Py_ssize_t arg1;
+
+    PyObject *tuple;
+    PyObject *key, *value;
+    int result;
+    if (!PyArg_ParseTuple(args, "On:PyDict_Next", &arg0, &arg1)) {
+        return NULL;
+    }
+    result = PyDict_Next(arg0, &arg1, &key, &value);
+    
+    if (!result) {
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+        Py_RETURN_NONE;
+    }
+    tuple = PyTuple_New(2);
+    PyTuple_SetItem(tuple, 0, key);
+    PyTuple_SetItem(tuple, 1, value);
+    return tuple;
+}
+
+static PyObject *
 capi_PyDict_SetDefault(PyObject *Py_UNUSED(self), PyObject *args)
 {
     PyObject *arg0;
@@ -9637,6 +9663,7 @@ static PyMethodDef CAPIMethods[] =  {
     {"PyDict_Keys", capi_PyDict_Keys, METH_O, NULL},
     {"PyDict_Merge", capi_PyDict_Merge, METH_VARARGS, NULL},
     {"PyDict_MergeFromSeq2", capi_PyDict_MergeFromSeq2, METH_VARARGS, NULL},
+    {"PyDict_Next", capi_PyDict_Next, METH_VARARGS, NULL},
     {"PyDict_New", capi_PyDict_New, METH_NOARGS, NULL},
     {"PyDict_SetDefault", capi_PyDict_SetDefault, METH_VARARGS, NULL},
     {"PyDict_SetItem", capi_PyDict_SetItem, METH_VARARGS, NULL},
