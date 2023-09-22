@@ -171,6 +171,7 @@ API: typing.Tuple[
     ("PyDict_Keys", "O", "N"),
     ("PyDict_Merge", "OOi", "i"),
     ("PyDict_MergeFromSeq2", "OOi", "i"),
+    ("PyDict_Next", "On", "N"),
     ("PyDict_New", "", "N"),
     ("PyDict_SetDefault", "OOO", "N"),
     ("PyDict_SetItem", "OOO", "i"),
